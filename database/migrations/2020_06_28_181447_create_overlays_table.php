@@ -21,7 +21,7 @@ class CreateOverlaysTable extends Migration
             $table->string('layout');
             $table->string('size');
 
-            $table->json('css')->default("[]");
+            $table->json('css')->nullable();
             $table->integer('sort')->default(0);
 
             $table->timestamps();
