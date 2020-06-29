@@ -2,7 +2,9 @@
 
 namespace App;
 
+use App\Parsing\Parser;
 use Illuminate\Database\Eloquent\Model;
+use ParsedownExtra;
 
 class Overlay extends Model
 {
@@ -19,7 +21,9 @@ class Overlay extends Model
 
     public function getFinalAttribute()
     {
-        return nl2br($this->content);
+        return nl2br(
+            (new Parser($this->stack->transformations))->text($this->content)
+        );
     }
 
     public function getCssClassesAttribute()

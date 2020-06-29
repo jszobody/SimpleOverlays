@@ -17,4 +17,9 @@ class Stack extends Model
     {
         return $this->hasMany(Overlay::class);
     }
+
+    public function transformations()
+    {
+        return $this->belongsToMany(Transformation::class);
+    }
 }

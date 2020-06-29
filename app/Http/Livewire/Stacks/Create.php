@@ -8,8 +8,8 @@ use Livewire\Component;
 class Create extends Component
 {
     public $title;
-
     public $theme;
+    public $transformations = [];
 
     public function mount()
     {
@@ -26,6 +26,8 @@ class Create extends Component
             'title' => $this->title,
             'theme_id' => $this->theme,
         ]);
+
+        $stack->transformations()->sync($this->transformations);
 
         return redirect()->to('/stacks/' . $stack->id);
     }

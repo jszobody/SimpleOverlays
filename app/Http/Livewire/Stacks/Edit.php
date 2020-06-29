@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Stacks;
 
 use App\Overlay;
 use App\Stack;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class Edit extends Component
@@ -23,6 +24,12 @@ class Edit extends Component
     /** @var string */
     public $size;
 
+    /** @var array */
+    public $data = [];
+
+    /** @var array  */
+    protected $flash = [];
+
     public function mount(Stack $stack)
     {
         $this->current = $stack->overlays()->first() ?? $stack->overlays()->create([
@@ -38,8 +45,8 @@ class Edit extends Component
     public function create()
     {
         $this->current = $this->stack->overlays()->create([
-            'layout' => $this->stack->theme->default_layout,
-            'size' => $this->stack->theme->default_size,
+            'layout' => $this->current->layout,
+            'size' => $this->current->size,
         ]);
 
         $this->updateProps();
@@ -65,6 +72,8 @@ class Edit extends Component
 
     public function render()
     {
+        $this->data = $this->flash;
+
         return view('livewire.stacks.edit');
     }
 
@@ -73,5 +82,34 @@ class Edit extends Component
         $this->content = $this->current->content;
         $this->layout = $this->current->layout;
         $this->size = $this->current->size;
+    }
+
+    public function wrapSelection($wrap, $editorState)
+    {
+        if($editorState['selectionStart'] == $editorState['selectionEnd']) {
+            return;
+        }
+
+        $selected = Str::substr($this->content, $editorState['selectionStart'], $editorState['selectionEnd'] - $editorState['selectionStart']);
+
+        if(Str::startsWith($selected, $wrap) && Str::endsWith($selected, $wrap)) {
+            $replacement = Str::substr($selected, Str::length($wrap), 0 - Str::length($wrap));
+        } else {
+            $replacement = $wrap . $selected . $wrap;
+        }
+
+        $this->current->update([
+           'content' => Str::substr($this->content, 0, $editorState['selectionStart']) . $replacement . Str::substr($this->content, $editorState['selectionEnd'])
+        ]);
+        $this->updateProps();
+
+        $this->flash['scrollTop'] = $editorState['scrollTop'];
+        $this->flash['selectionStart'] = $editorState['selectionStart'];
+        $this->flash['selectionEnd'] = $editorState['selectionStart'] + Str::length($replacement);
+    }
+
+    protected function flash($data)
+    {
+        $this->flash = array_merge_recursive($this->flash, $data);
     }
 }

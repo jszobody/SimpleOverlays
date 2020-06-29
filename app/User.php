@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return Theme::all();
     }
+
+    public function getTransformationsAttribute()
+    {
+        return Transformation::orderBy('name')->get();
+    }
 }
