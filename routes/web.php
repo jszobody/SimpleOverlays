@@ -20,6 +20,8 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
 
     Route::get('/stacks', [\App\Http\Controllers\StackController::class, 'list'])->name('stacks.list');
+
+    Route::livewire('/stacks/create', 'stacks.create');
     Route::livewire('/stacks/{stack}', 'stacks.edit');
 
     Route::get('/stacks/{stack}/preview/{overlay}', [\App\Http\Controllers\StackController::class, 'preview'])->name('stacks.preview');

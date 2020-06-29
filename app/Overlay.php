@@ -21,4 +21,11 @@ class Overlay extends Model
     {
         return nl2br($this->content);
     }
+
+    public function getCssClassesAttribute()
+    {
+        return $this->css
+            ? implode(" ", $this->css)
+            : "";
+    }
 }

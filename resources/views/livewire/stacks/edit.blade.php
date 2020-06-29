@@ -7,7 +7,7 @@
         <div class="w-64 flex flex-shrink-0 flex-col items-center overflow-y-auto p-2 border border-gray-300">
             @foreach($stack->overlays AS $overlay)
                 <div wire:click="select({{ $overlay->id }})"
-                     class="w-56 m-2 p-2 h-32 flex-shrink-0 overflow-hidden text-xs hover:shadow cursor-pointer select-none border {{ $current->id == $overlay->id ? 'border-blue-500' : 'border-gray-300' }}"
+                     class="w-56 m-2 p-2 h-32 flex-shrink-0 overflow-hidden text-xs hover:shadow cursor-pointer select-none leading-normal border {{ $current->id == $overlay->id ? 'border-blue-500' : 'border-gray-300' }}"
                 >
                     {{ $overlay->content }}
                 </div>

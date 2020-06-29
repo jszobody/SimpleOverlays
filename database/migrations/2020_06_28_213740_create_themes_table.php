@@ -17,12 +17,12 @@ class CreateThemesTable extends Migration
             $table->id();
             $table->string("name");
 
-            $table->json('layouts')->default('{}');
-            $table->json('sizes')->default('{"medium" : "Medium"}');
+            $table->json('layouts');
+            $table->json('sizes');
             $table->text("css");
 
-            $table->json('default_layout');
-            $table->json('default_size');
+            $table->string('default_layout');
+            $table->string('default_size');
 
             $table->timestamps();
         });

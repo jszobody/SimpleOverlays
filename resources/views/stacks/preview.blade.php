@@ -17,7 +17,7 @@
     </script>
 </head>
 <body class="bg-white overflow-hidden text-gray-100 text-2xl select-none">
-    <div class="slide {{ implode(" ", $overlay->css) }} {{ $overlay->layout }} {{ $overlay->size }}">
+    <div class="slide {{ $overlay->css_classes }} {{ $overlay->layout }} {{ $overlay->size }}">
         <div class="inner">{!! $overlay->final !!}</div>
     </div>
 </body>
