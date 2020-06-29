@@ -22,8 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/stacks', [\App\Http\Controllers\StackController::class, 'list'])->name('stacks.list');
     Route::livewire('/stacks/{stack}', 'stacks.edit');
 
-    Route::post('/overlays/previews', [\App\Http\Controllers\OverlayController::class, 'createPreview'])->name('overlays.create-preview');
-    Route::get('/overlays/previews/{hash}', [\App\Http\Controllers\OverlayController::class, 'preview'])->name('overlays.preview');
+    Route::get('/stacks/{stack}/preview/{overlay}', [\App\Http\Controllers\StackController::class, 'preview'])->name('stacks.preview');
 
 });
 

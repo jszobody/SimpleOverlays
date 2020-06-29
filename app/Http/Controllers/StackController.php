@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Overlay;
+use Cache;
 use App\Stack;
 
 class StackController
@@ -11,6 +13,14 @@ class StackController
         return view('stacks.list', [
             'stacks' => Stack::orderBy('id')
                 ->withCount('overlays')->get()
+        ]);
+    }
+
+    public function preview(Stack $stack, Overlay $overlay)
+    {
+        return view('stacks.preview', [
+            'overlay' => $overlay,
+            'stack' => $stack,
         ]);
     }
 }

@@ -11,6 +11,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UserSeeder::class);
+        \App\Theme::create([
+            'name' => 'Default',
+            'layouts' => '{"lower": "Lower third","half-right": "Half right", "full": "Full screen"}',
+            'sizes' => '{"small":"Small","medium":"Medium","large":"Large"}',
+            'css' => file_get_contents(base_path('default.css'))
+        ]);
     }
 }

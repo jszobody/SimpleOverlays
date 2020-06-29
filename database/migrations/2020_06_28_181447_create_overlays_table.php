@@ -17,7 +17,10 @@ class CreateOverlaysTable extends Migration
             $table->id();
             $table->unsignedBigInteger('stack_id');
 
-            $table->text('content');
+            $table->text('content')->nullable();
+            $table->string('layout');
+            $table->string('size');
+
             $table->json('css')->default("[]");
             $table->integer('sort')->default(0);
 

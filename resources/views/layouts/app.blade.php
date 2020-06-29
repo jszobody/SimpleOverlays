@@ -44,7 +44,7 @@
                 </div>
             </div>
 
-            <nav class="container mx-auto px-6 md:px-0 py-6">
+            <nav class="container mx-auto px-6 md:px-2 py-6">
                 <a href="/stacks" class="text-gray-500 hover:text-gray-100 font-semibold">Stacks</a>
             </nav>
         </header>
