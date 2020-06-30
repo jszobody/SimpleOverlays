@@ -49,7 +49,7 @@
             </nav>
         </header>
 
-        <main class="-mt-32">
+        <main class="-mt-32 mb-12">
             @yield('content')
         </main>
     </div>

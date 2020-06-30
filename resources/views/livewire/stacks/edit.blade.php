@@ -41,6 +41,19 @@
                 @this.call("moveToPosition", evt.item.dataset.id, evt.oldIndex > evt.newIndex ? evt.newIndex : evt.newIndex+1);
             }
         });
+
+        var textarea = document.getElementById('input');
+        textarea.onkeydown = function(event) {
+            if (event.keyCode == 9) { //tab was pressed
+                var newCaretPosition;
+                newCaretPosition = textarea.selectionStart + "\t".length;
+                textarea.value = textarea.value.substring(0, textarea.selectionStart) + "\t" + textarea.value.substring(textarea.selectionStart, textarea.value.length);
+                textarea.selectionStart = newCaretPosition;
+                textarea.selectionEnd = newCaretPosition;
+                textarea.focus();
+                return false;
+            }
+        }
     });
     window.addEventListener('resize', updateSidebarMaxHeight);
     document.addEventListener("livewire:load", function(event) {
@@ -101,22 +114,24 @@
 
 <div class="container mx-auto bg-white rounded-lg shadow-lg p-10">
     <div class="flex items-center justify-between border-b border-gray-300 pb-4 mb-8">
-        <h1 class="text-3xl font-semibold">{{ $stack->title }}</h1>
+        <div class="flex items-center">
+            <h1 class="text-3xl font-semibold">{{ $stack->title }} </h1>
+            <div class="text-gray-500 ml-4"><i class="fad fa-layer-group"></i> {{ $stack->overlays->count() }} {{ Str::plural('overlay', $stack->overlays->count()) }}</div>
+        </div>
     </div>
 
     <div class="flex items-start relative">
         <aside id="sidebar" class="w-64 flex flex-col">
             <div id="thumbs-toolbar" class="w-160 xl:w-224 flex justify-start pb-2 text-gray-700">
-                <a wire:click="create()" class="p-2 bg-blue-500 hover:bg-blue-700 text-gray-100 rounded h-6 flex items-center justify-center cursor-pointer text-sm"><i class="fas fa-layer-plus mr-1"></i> Add overlay</a>
+                <a wire:click="create()" class="p-2 bg-blue-500 hover:bg-blue-700 text-gray-100 rounded h-6 flex items-center justify-center cursor-pointer text-sm"><i class="fas fa-layer-plus mr-1"></i> New</a>
             </div>
 
-            <div id="thumbs" class="flex flex-grow-1 flex-col items-center overflow-y-auto p-2 border border-gray-300 ">
+            <div id="thumbs" class="flex flex-grow-1 flex-col items-center overflow-y-auto py-2 pr-2 border border-gray-300 ">
                 @foreach($stack->overlays AS $overlay)
     {{--                <div class="h-2 w-full flex-shrink-0 hover:bg-gray-300 cursor-pointer disable-drag"></div>--}}
-                    <div wire:click="select({{ $overlay->id }}, false)" id="thumb{{ $overlay->id }}" data-id="{{ $overlay->id }}"
-                         class="w-56 mx-2 my-1 p-2 h-32 flex-shrink-0 overflow-hidden text-xs hover:shadow cursor-pointer select-none leading-normal bg-white border {{ $current->id == $overlay->id ? 'border-blue-500' : 'border-gray-300' }}"
-                    >
-                        {{ $overlay->content }}
+                    <div wire:click="select({{ $overlay->id }}, false)" id="thumb{{ $overlay->id }}" data-id="{{ $overlay->id }}" class="w-56 my-1 h-32 flex-shrink-0 text-xs cursor-pointer relative select-none leading-normal bg-white">
+                        <div class="absolute inset-0 overflow-hidden ml-5 p-2 border {{ $current->id == $overlay->id ? 'border-blue-500' : 'border-gray-300' }} hover:shadow">{{ $overlay->content }}</div>
+                        <div class="absolute flex w-5 text-right items-center justify-center left-0 top-0 text-gray-400 text-xs rounded-full">{{ $loop->index + 1 }}</div>
                     </div>
                 @endforeach
             </div>

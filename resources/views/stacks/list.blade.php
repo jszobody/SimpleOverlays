@@ -18,9 +18,9 @@
             </div>
         @endif
 
-        <div class="sm:flex flex-wrap">
+        <div class="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             @foreach($stacks AS $stack)
-                <a href="/stacks/{{ $stack->id }}" class="text-center rounded shadow hover:shadow-lg px-4 py-8 sm:w-1/2 lg:w-1/3 xl:w-1/4 border border-gray-200 hover:border-blue-400">
+                <a href="/stacks/{{ $stack->id }}" class="text-center rounded shadow hover:shadow-lg px-4 py-8 border border-gray-200 hover:border-blue-400">
                     <i class="fad fa-layer-group text-gray-400 text-5xl"></i>
                     <h2 class="font-semibold text-gray-700 text-lg mt-4">{{ $stack->title }}</h2>
                     <div class="text-gray-600">{{ $stack->overlays_count }} {{ Str::plural('overlay', $stack->overlays_count) }}</div>
