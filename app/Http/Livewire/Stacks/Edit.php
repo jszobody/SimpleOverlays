@@ -27,15 +27,25 @@ class Edit extends Component
     /** @var array */
     public $data = [];
 
-    /** @var array  */
+    /** @var array */
     protected $flash = [];
 
-    public function mount(Stack $stack)
+    /** @var int */
+    public $selected = 0;
+
+    /** @var string[] */
+    protected $updatesQueryString = ['selected'];
+
+    public function mount( Stack $stack, $selected = null )
     {
-        $this->current = $stack->overlays()->first() ?? $stack->overlays()->create([
-            'layout' => $stack->theme->default_layout,
-            'size' => $stack->theme->default_size,
-        ]);
+        if (request('selected')) {
+            $this->current = $stack->overlays()->where('id', request('selected'))->first();
+        } else {
+            $this->current = $stack->overlays()->first() ?? $stack->overlays()->create([
+                'layout' => $stack->theme->default_layout,
+                'size'   => $stack->theme->default_size,
+            ]);
+        }
 
         $this->stack = $stack;
 
@@ -46,14 +56,14 @@ class Edit extends Component
     {
         $this->current = $this->stack->overlays()->create([
             'layout' => $this->current->layout,
-            'size' => $this->current->size,
+            'size'   => $this->current->size,
         ]);
 
         $this->updateProps();
         $this->stack->load('overlays');
     }
 
-    public function select($overlayId)
+    public function select( $overlayId )
     {
         $this->current = $this->stack->overlays->where('id', $overlayId)->first();
         $this->updateProps();
@@ -62,9 +72,9 @@ class Edit extends Component
     public function updated()
     {
         $this->current->update([
-            'content' => $this->content,
-            'layout' => $this->layout,
-            'size' => $this->size,
+            'content' => trim($this->content),
+            'layout'  => $this->layout,
+            'size'    => $this->size,
         ]);
 
         $this->stack->load('overlays');
@@ -82,24 +92,25 @@ class Edit extends Component
         $this->content = $this->current->content;
         $this->layout = $this->current->layout;
         $this->size = $this->current->size;
+        $this->selected = $this->current->id;
     }
 
-    public function wrapSelection($wrap, $editorState)
+    public function wrapSelection( $wrap, $editorState )
     {
-        if($editorState['selectionStart'] == $editorState['selectionEnd']) {
+        if ($editorState['selectionStart'] == $editorState['selectionEnd']) {
             return;
         }
 
         $selected = Str::substr($this->content, $editorState['selectionStart'], $editorState['selectionEnd'] - $editorState['selectionStart']);
 
-        if(Str::startsWith($selected, $wrap) && Str::endsWith($selected, $wrap)) {
+        if (Str::startsWith($selected, $wrap) && Str::endsWith($selected, $wrap)) {
             $replacement = Str::substr($selected, Str::length($wrap), 0 - Str::length($wrap));
         } else {
             $replacement = $wrap . $selected . $wrap;
         }
 
         $this->current->update([
-           'content' => Str::substr($this->content, 0, $editorState['selectionStart']) . $replacement . Str::substr($this->content, $editorState['selectionEnd'])
+            'content' => Str::substr($this->content, 0, $editorState['selectionStart']) . $replacement . Str::substr($this->content, $editorState['selectionEnd'])
         ]);
         $this->updateProps();
 
@@ -108,7 +119,7 @@ class Edit extends Component
         $this->flash['selectionEnd'] = $editorState['selectionStart'] + Str::length($replacement);
     }
 
-    protected function flash($data)
+    protected function flash( $data )
     {
         $this->flash = array_merge_recursive($this->flash, $data);
     }

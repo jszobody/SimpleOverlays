@@ -1,8 +1,19 @@
 @push('head')
+<script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
 <script>
     var thumbScrollPosition = 0;
 
-    document.addEventListener('DOMContentLoaded', updateThumbnailMaxHeight);
+    document.addEventListener('DOMContentLoaded', function() {
+        updateThumbnailMaxHeight();
+
+        mousetrap(document.getElementById('input')).bind(['command+b', 'ctrl+b'], function(e, combo) {
+            @this.call("wrapSelection", "**", editorInputState());
+        });
+
+        mousetrap(document.getElementById('input')).bind(['command+i', 'ctrl+i'], function(e, combo) {
+        @this.call("wrapSelection", "_", editorInputState());
+        });
+    });
     window.addEventListener('resize', updateThumbnailMaxHeight);
     document.addEventListener("livewire:load", function(event) {
         window.livewire.hook('beforeDomUpdate', function() {
@@ -10,8 +21,8 @@
         });
         window.livewire.hook('afterDomUpdate', function() {
             updateThumbnailMaxHeight();
-            updateEditorInput();
             document.getElementById("thumbs").scrollTop = thumbScrollPosition;
+            updateEditorInput();
         });
     });
 
@@ -43,6 +54,9 @@
             "scrollTop" : document.getElementById("input").scrollTop
         };
     }
+
+
+
 </script>
 @endpush
 
@@ -52,9 +66,9 @@
     </div>
 
     <div class="flex items-start relative">
-        <div id="thumbs" class="w-64 flex flex-shrink-0 flex-col items-center overflow-y-auto p-2 border border-gray-300">
+        <div id="thumbs" class="w-64 flex flex-shrink-0 flex-col items-center overflow-y-auto p-2 border border-gray-300 scroll-smooth">
             @foreach($stack->overlays AS $overlay)
-                <div wire:click="select({{ $overlay->id }})"
+                <div wire:click="select({{ $overlay->id }})" id="overlay{{ $overlay->id }}"
                      class="w-56 m-2 p-2 h-32 flex-shrink-0 overflow-hidden text-xs hover:shadow cursor-pointer select-none leading-normal border {{ $current->id == $overlay->id ? 'border-blue-500' : 'border-gray-300' }}"
                 >
                     {{ $overlay->content }}
