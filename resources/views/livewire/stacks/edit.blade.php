@@ -126,12 +126,12 @@
                 <a wire:click="create()" class="p-2 bg-blue-500 hover:bg-blue-700 text-gray-100 rounded h-6 flex items-center justify-center cursor-pointer text-sm"><i class="fas fa-layer-plus mr-1"></i> New</a>
             </div>
 
-            <div id="thumbs" class="flex flex-grow-1 flex-col items-center overflow-y-auto py-2 border border-gray-300 ">
+            <div id="thumbs" class="flex flex-grow-1 flex-col items-center overflow-y-auto border border-gray-300 ">
                 @foreach($stack->overlays AS $overlay)
     {{--                <div class="h-2 w-full flex-shrink-0 hover:bg-gray-300 cursor-pointer disable-drag"></div>--}}
-                    <div wire:click="select({{ $overlay->id }}, false)" id="thumb{{ $overlay->id }}" data-id="{{ $overlay->id }}" class="w-full my-1 pr-2 h-32 flex-shrink-0 text-xs cursor-pointer relative select-none leading-normal {{ $current->id == $overlay->id ? 'bg-gray-200' : 'bg-white' }}">
-                        <div class="absolute inset-0 overflow-hidden m-1 ml-6 mr-2 p-2 bg-white border {{ $current->id == $overlay->id ? 'border-blue-500' : 'border-gray-300' }} hover:shadow">{{ $overlay->content }}</div>
-                        <div class="absolute flex w-6 text-right items-center justify-center left-0 top-0 mt-1 text-xs rounded-full {{ $current->id == $overlay->id ? 'text-gray-500' : 'text-gray-400' }}">{{ $loop->index + 1 }}</div>
+                    <div wire:click="select({{ $overlay->id }}, false)" id="thumb{{ $overlay->id }}" data-id="{{ $overlay->id }}" class="w-full pr-2 h-32 flex-shrink-0 text-xs cursor-pointer relative select-none leading-normal {{ $current->id == $overlay->id ? 'bg-gray-300' : 'bg-white' }}">
+                        <div class="absolute inset-0 overflow-hidden m-2 ml-6 mr-2 p-2 bg-white border {{ $current->id == $overlay->id ? 'border-blue-500' : 'border-gray-300' }} hover:shadow">{{ $overlay->content }}</div>
+                        <div class="absolute flex w-6 text-right items-center justify-center left-0 top-0 mt-2 text-xs rounded-full {{ $current->id == $overlay->id ? 'text-gray-700' : 'text-gray-400' }}">{{ $loop->index + 1 }}</div>
                     </div>
                 @endforeach
             </div>
