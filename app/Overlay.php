@@ -4,14 +4,22 @@ namespace App;
 
 use App\Parsing\Parser;
 use Illuminate\Database\Eloquent\Model;
-use ParsedownExtra;
+use Spatie\EloquentSortable\Sortable;
+use Spatie\EloquentSortable\SortableTrait;
 
-class Overlay extends Model
+class Overlay extends Model implements Sortable
 {
+    use SortableTrait;
+
     protected $guarded = ['id'];
 
     protected $casts = [
         'css' => 'json'
+    ];
+
+    public $sortable = [
+        'order_column_name' => 'sort',
+        'sort_when_creating' => true,
     ];
 
     public function stack()
@@ -31,5 +39,22 @@ class Overlay extends Model
         return $this->css
             ? implode(" ", $this->css)
             : "";
+    }
+
+    public function moveBefore(Overlay $otherModel)
+    {
+        $this->sort = $otherModel->sort;
+        $this->stack->overlays()->where('sort', '>=', $otherModel->sort)->increment('sort');
+        $this->save();
+        return $this;
+    }
+
+    public function moveToPosition($position)
+    {
+        if($otherModel = $this->stack->overlays->get($position)) {
+            return $this->moveBefore($otherModel);
+        }
+
+        return $this->moveToEnd();
     }
 }

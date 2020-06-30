@@ -15,7 +15,7 @@ class Stack extends Model
 
     public function overlays()
     {
-        return $this->hasMany(Overlay::class);
+        return $this->hasMany(Overlay::class)->ordered();
     }
 
     public function transformations()

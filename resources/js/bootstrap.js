@@ -41,3 +41,4 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 // });
 
 window.mousetrap = require('mousetrap');
+window.sortable = require('sortablejs');

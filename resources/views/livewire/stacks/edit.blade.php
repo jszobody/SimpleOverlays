@@ -1,5 +1,4 @@
 @push('head')
-<script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
 <script>
     var thumbScrollPosition = 0;
 
@@ -11,7 +10,30 @@
         });
 
         mousetrap(document.getElementById('input')).bind(['command+i', 'ctrl+i'], function(e, combo) {
-        @this.call("wrapSelection", "_", editorInputState());
+            @this.call("wrapSelection", "_", editorInputState());
+        });
+
+        mousetrap.bind(['down'], function(e, combo) {
+            @this.call("selectNext");
+        });
+
+        mousetrap.bind(['up'], function(e, combo) {
+            @this.call("selectPrevious");
+        });
+
+        mousetrap.bind(['ctrl+m'], function(e, combo) {
+            @this.call("create");
+        });
+
+        new sortable.Sortable(document.getElementById("thumbs"), {
+            animation: 150,
+            filter: '.disable-drag',
+            ghostClass: 'bg-gray-300',
+            onSort: function (evt) {
+                var position = evt.oldIndex > evt.newIndex ? evt.newIndex : evt.newIndex+1;
+                console.log(evt.item.dataset.id, position);
+                @this.call("moveToPosition", evt.item.dataset.id, position);
+            }
         });
     });
     window.addEventListener('resize', updateThumbnailMaxHeight);
@@ -21,8 +43,11 @@
         });
         window.livewire.hook('afterDomUpdate', function() {
             updateThumbnailMaxHeight();
-            document.getElementById("thumbs").scrollTop = thumbScrollPosition;
             updateEditorInput();
+
+            document.getElementById("thumbs").classList.remove('scroll-smooth');
+            document.getElementById("thumbs").scrollTop = thumbScrollPosition;
+            document.getElementById("thumbs").classList.add('scroll-smooth');
         });
     });
 
@@ -34,6 +59,14 @@
         setTimeout(function() {
             var data = @this.data.data;
             console.log(data);
+
+            if(data.focus == true) {
+                document.getElementById("input").focus();
+            }
+
+            if(typeof data.scrollThumb != "undefined") {
+                document.getElementById("thumb" + data.scrollThumb).scrollIntoView({block:"center"});
+            }
 
             if(typeof data.selectionStart != "undefined") {
                 document.getElementById("input").focus();
@@ -54,9 +87,6 @@
             "scrollTop" : document.getElementById("input").scrollTop
         };
     }
-
-
-
 </script>
 @endpush
 
@@ -68,8 +98,9 @@
     <div class="flex items-start relative">
         <div id="thumbs" class="w-64 flex flex-shrink-0 flex-col items-center overflow-y-auto p-2 border border-gray-300 scroll-smooth">
             @foreach($stack->overlays AS $overlay)
-                <div wire:click="select({{ $overlay->id }})" id="overlay{{ $overlay->id }}"
-                     class="w-56 m-2 p-2 h-32 flex-shrink-0 overflow-hidden text-xs hover:shadow cursor-pointer select-none leading-normal border {{ $current->id == $overlay->id ? 'border-blue-500' : 'border-gray-300' }}"
+{{--                <div class="h-2 w-full flex-shrink-0 hover:bg-gray-300 cursor-pointer disable-drag"></div>--}}
+                <div wire:click="select({{ $overlay->id }})" id="thumb{{ $overlay->id }}" data-id="{{ $overlay->id }}"
+                     class="w-56 mx-2 my-1 p-2 h-32 flex-shrink-0 overflow-hidden text-xs hover:shadow cursor-pointer select-none leading-normal bg-white border {{ $current->id == $overlay->id ? 'border-blue-500' : 'border-gray-300' }}"
                 >
                     {{ $overlay->content }}
                 </div>
