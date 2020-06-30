@@ -36,15 +36,15 @@ class Edit extends Component
     /** @var string[] */
     protected $updatesQueryString = ['selected'];
 
-    public function mount( Stack $stack, $selected = null )
+    public function mount(Stack $stack, $selected = null)
     {
         if (request('selected')) {
             $this->setCurrent($stack->overlays()->where('id', request('selected'))->first());
         } else {
             $this->setCurrent($stack->overlays()->first() ?? $stack->overlays()->create([
-                'layout' => $stack->theme->default_layout,
-                'size'   => $stack->theme->default_size,
-            ]));
+                    'layout' => $stack->theme->default_layout,
+                    'size'   => $stack->theme->default_size,
+                ]));
         }
 
         $this->stack = $stack;
@@ -52,18 +52,16 @@ class Edit extends Component
 
     public function create()
     {
+        $old = $this->current;
+
         $this->setCurrent($this->stack->overlays()->create([
             'layout' => $this->current->layout,
             'size'   => $this->current->size,
         ]));
 
+        $this->current->moveAfter($old);
         $this->stack->load('overlays');
         $this->flash['focus'] = true;
-    }
-
-    public function select( $overlayId )
-    {
-        $this->setCurrent($this->stack->overlays->where('id', $overlayId)->first());
     }
 
     public function updated()
@@ -84,7 +82,7 @@ class Edit extends Component
         return view('livewire.stacks.edit');
     }
 
-    public function wrapSelection( $wrap, $editorState )
+    public function wrapSelection($wrap, $editorState)
     {
         if ($editorState['selectionStart'] == $editorState['selectionEnd']) {
             return;
@@ -108,11 +106,16 @@ class Edit extends Component
         $this->stack->load('overlays');
     }
 
+    public function select($overlayId, $scroll = true)
+    {
+        $this->setCurrent($this->stack->overlays->where('id', $overlayId)->first(), false);
+    }
+
     public function selectNext()
     {
         $iterator = $this->iterateToCurrent();
 
-        if($next = next($iterator)) {
+        if ($next = next($iterator)) {
             $this->setCurrent($next);
         }
     }
@@ -121,7 +124,7 @@ class Edit extends Component
     {
         $iterator = $this->iterateToCurrent();
 
-        if($prev = prev($iterator)) {
+        if ($prev = prev($iterator)) {
             $this->setCurrent($prev);
         }
     }
@@ -136,26 +139,29 @@ class Edit extends Component
     {
         $iterator = $this->stack->overlays->getIterator();
 
-        while(current($iterator)->id != $this->current->id) {
+        while (current($iterator)->id != $this->current->id) {
             next($iterator);
         }
 
         return $iterator;
     }
 
-    protected function flash( $data )
+    protected function flash($data)
     {
         $this->flash = array_merge_recursive($this->flash, $data);
     }
 
-    protected function setCurrent(Overlay $overlay)
+    protected function setCurrent(Overlay $overlay, $scroll = true)
     {
         $this->current = $overlay;
         $this->content = $this->current->content;
         $this->layout = $this->current->layout;
         $this->size = $this->current->size;
         $this->selected = $this->current->id;
-        $this->flash['scrollThumb'] = $this->current->id;
+
+        if ($scroll) {
+            $this->flash['scrollThumb'] = $this->current->id;
+        }
     }
 
     protected function updateContent($content)

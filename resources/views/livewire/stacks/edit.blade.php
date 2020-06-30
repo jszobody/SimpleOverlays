@@ -3,7 +3,12 @@
     var thumbScrollPosition = 0;
 
     document.addEventListener('DOMContentLoaded', function() {
-        updateThumbnailMaxHeight();
+        updateSidebarMaxHeight();
+
+        document.getElementById("thumb{{ $current->id }}").scrollIntoView({
+            block:"center",
+            behavior: "smooth"
+        });
 
         mousetrap(document.getElementById('input')).bind(['command+b', 'ctrl+b'], function(e, combo) {
             @this.call("wrapSelection", "**", editorInputState());
@@ -13,16 +18,19 @@
             @this.call("wrapSelection", "_", editorInputState());
         });
 
-        mousetrap.bind(['down'], function(e, combo) {
+        mousetrap.bind(['right','down'], function(e, combo) {
             @this.call("selectNext");
         });
 
-        mousetrap.bind(['up'], function(e, combo) {
+        mousetrap.bind(['up','left'], function(e, combo) {
             @this.call("selectPrevious");
         });
 
         mousetrap.bind(['ctrl+m'], function(e, combo) {
             @this.call("create");
+        });
+        mousetrap(document.getElementById('input')).bind(['ctrl+m'], function(e, combo) {
+        @this.call("create");
         });
 
         new sortable.Sortable(document.getElementById("thumbs"), {
@@ -30,29 +38,27 @@
             filter: '.disable-drag',
             ghostClass: 'bg-gray-300',
             onSort: function (evt) {
-                var position = evt.oldIndex > evt.newIndex ? evt.newIndex : evt.newIndex+1;
-                console.log(evt.item.dataset.id, position);
-                @this.call("moveToPosition", evt.item.dataset.id, position);
+                @this.call("moveToPosition", evt.item.dataset.id, evt.oldIndex > evt.newIndex ? evt.newIndex : evt.newIndex+1);
             }
         });
     });
-    window.addEventListener('resize', updateThumbnailMaxHeight);
+    window.addEventListener('resize', updateSidebarMaxHeight);
     document.addEventListener("livewire:load", function(event) {
         window.livewire.hook('beforeDomUpdate', function() {
             thumbScrollPosition = document.getElementById("thumbs").scrollTop;
         });
         window.livewire.hook('afterDomUpdate', function() {
-            updateThumbnailMaxHeight();
+            updateSidebarMaxHeight();
             updateEditorInput();
 
-            document.getElementById("thumbs").classList.remove('scroll-smooth');
+            //document.getElementById("thumbs").classList.remove('scroll-smooth');
             document.getElementById("thumbs").scrollTop = thumbScrollPosition;
-            document.getElementById("thumbs").classList.add('scroll-smooth');
+            //document.getElementById("thumbs").classList.add('scroll-smooth');
         });
     });
 
-    function updateThumbnailMaxHeight() {
-        document.getElementById("thumbs").style.maxHeight = document.getElementById("editor").clientHeight + "px";
+    function updateSidebarMaxHeight() {
+        document.getElementById("sidebar").style.maxHeight = document.getElementById("editor").clientHeight + "px";
     }
 
     function updateEditorInput() {
@@ -65,7 +71,10 @@
             }
 
             if(typeof data.scrollThumb != "undefined") {
-                document.getElementById("thumb" + data.scrollThumb).scrollIntoView({block:"center"});
+                document.getElementById("thumb" + data.scrollThumb).scrollIntoView({
+                    block:"center",
+                    behavior: "smooth"
+                });
             }
 
             if(typeof data.selectionStart != "undefined") {
@@ -96,22 +105,22 @@
     </div>
 
     <div class="flex items-start relative">
-        <div id="thumbs" class="w-64 flex flex-shrink-0 flex-col items-center overflow-y-auto p-2 border border-gray-300 scroll-smooth">
-            @foreach($stack->overlays AS $overlay)
-{{--                <div class="h-2 w-full flex-shrink-0 hover:bg-gray-300 cursor-pointer disable-drag"></div>--}}
-                <div wire:click="select({{ $overlay->id }})" id="thumb{{ $overlay->id }}" data-id="{{ $overlay->id }}"
-                     class="w-56 mx-2 my-1 p-2 h-32 flex-shrink-0 overflow-hidden text-xs hover:shadow cursor-pointer select-none leading-normal bg-white border {{ $current->id == $overlay->id ? 'border-blue-500' : 'border-gray-300' }}"
-                >
-                    {{ $overlay->content }}
-                </div>
-            @endforeach
+        <aside id="sidebar" class="w-64 flex flex-col">
+            <div id="thumbs-toolbar" class="w-160 xl:w-224 flex justify-start pb-2 text-gray-700">
+                <a wire:click="create()" class="p-2 bg-blue-500 hover:bg-blue-700 text-gray-100 rounded h-6 flex items-center justify-center cursor-pointer text-sm"><i class="fas fa-layer-plus mr-1"></i> Add overlay</a>
+            </div>
 
-                <div wire:click="create()"
-                     class="w-56 m-2 p-2 h-24 flex items-center justify-center flex-shrink-0 hover:shadow cursor-pointer select-none border-2 border-dashed border-gray-300 }}"
-                >
-                    <i class="fad fa-layer-plus text-2xl text-gray-500"></i>
-                </div>
-        </div>
+            <div id="thumbs" class="flex flex-grow-1 flex-col items-center overflow-y-auto p-2 border border-gray-300 ">
+                @foreach($stack->overlays AS $overlay)
+    {{--                <div class="h-2 w-full flex-shrink-0 hover:bg-gray-300 cursor-pointer disable-drag"></div>--}}
+                    <div wire:click="select({{ $overlay->id }}, false)" id="thumb{{ $overlay->id }}" data-id="{{ $overlay->id }}"
+                         class="w-56 mx-2 my-1 p-2 h-32 flex-shrink-0 overflow-hidden text-xs hover:shadow cursor-pointer select-none leading-normal bg-white border {{ $current->id == $overlay->id ? 'border-blue-500' : 'border-gray-300' }}"
+                    >
+                        {{ $overlay->content }}
+                    </div>
+                @endforeach
+            </div>
+        </aside>
 
         <div id="editor" class="ml-8 flex-grow flex flex-col justify-center items-end">
             <div id="editor-toolbar" class="w-160 xl:w-224 flex justify-start pb-2 text-gray-700">

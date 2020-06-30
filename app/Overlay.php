@@ -49,6 +49,14 @@ class Overlay extends Model implements Sortable
         return $this;
     }
 
+    public function moveAfter(Overlay $otherModel)
+    {
+        $this->sort = $otherModel->sort +1;
+        $this->stack->overlays()->where('sort', '>=', $otherModel->sort + 1)->increment('sort');
+        $this->save();
+        return $this;
+    }
+
     public function moveToPosition($position)
     {
         if($otherModel = $this->stack->overlays->get($position)) {
