@@ -24079,6 +24079,10 @@ module.exports = function(module) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+window.mousetrap = __webpack_require__(/*! mousetrap */ "./node_modules/mousetrap/mousetrap.js");
+window.sortable = __webpack_require__(/*! sortablejs */ "./node_modules/sortablejs/modular/sortable.esm.js");
+window.TextAreaExtended = __webpack_require__(/*! ./modules/TextAreaExtended */ "./resources/js/modules/TextAreaExtended.js")["default"];
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -24122,8 +24126,88 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     forceTLS: true
 // });
 
-window.mousetrap = __webpack_require__(/*! mousetrap */ "./node_modules/mousetrap/mousetrap.js");
-window.sortable = __webpack_require__(/*! sortablejs */ "./node_modules/sortablejs/modular/sortable.esm.js");
+/***/ }),
+
+/***/ "./resources/js/modules/TextAreaExtended.js":
+/*!**************************************************!*\
+  !*** ./resources/js/modules/TextAreaExtended.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TextAreaExtended; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var TextAreaExtended = /*#__PURE__*/function () {
+  function TextAreaExtended(element) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    _classCallCheck(this, TextAreaExtended);
+
+    this.element = element;
+
+    if (options.tabs == true) {
+      this.enableTabs();
+    }
+  }
+
+  _createClass(TextAreaExtended, [{
+    key: "getCaretPosition",
+    value: function getCaretPosition() {
+      return this.element.selectionStart;
+    }
+  }, {
+    key: "setCaretPosition",
+    value: function setCaretPosition(position) {
+      this.element.selectionStart = position;
+      this.element.selectionEnd = position;
+      this.element.focus();
+    }
+  }, {
+    key: "hasSelection",
+    value: function hasSelection() {
+      return this.element.selectionStart != this.element.selectionEnd;
+    }
+  }, {
+    key: "getSelectedText",
+    value: function getSelectedText() {
+      return this.element.value.substring(this.element.selectionStart, this.element.selectionEnd);
+    }
+  }, {
+    key: "setSelection",
+    value: function setSelection(start, end) {
+      this.element.selectionStart = start;
+      this.element.selectionEnd = end;
+      this.element.focus();
+    }
+  }, {
+    key: "enableTabs",
+    value: function enableTabs() {
+      var _this = this;
+
+      this.element.onkeydown = function (event) {
+        if (event.keyCode == 9) {
+          var newCaretPosition = _this.getCaretPosition() + "\t".length;
+          _this.element.value = _this.element.value.substring(0, _this.getCaretPosition()) + "\t" + _this.element.value.substring(_this.getCaretPosition(), _this.element.value.length);
+
+          _this.setCaretPosition(newCaretPosition);
+
+          return false;
+        }
+      };
+    }
+  }]);
+
+  return TextAreaExtended;
+}();
+
+
 
 /***/ }),
 

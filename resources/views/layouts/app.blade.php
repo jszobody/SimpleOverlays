@@ -10,7 +10,6 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://kit.fontawesome.com/affcbf7764.js" crossorigin="anonymous"></script>
 
     <!-- Styles -->
@@ -55,5 +54,7 @@
     </div>
 
 @livewireScripts
+<script src="{{ asset('js/app.js') }}"></script>
+@stack('app')
 </body>
 </html>

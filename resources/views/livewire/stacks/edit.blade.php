@@ -1,8 +1,11 @@
-@push('head')
+@push('app')
 <script>
+    let editor = new TextAreaExtended(document.getElementById('input'), {tabs: true});
+
     var thumbScrollPosition = 0;
 
     document.addEventListener('DOMContentLoaded', function() {
+
         updateSidebarMaxHeight();
 
         document.getElementById("thumb{{ $current->id }}").scrollIntoView({
@@ -41,19 +44,6 @@
                 @this.call("moveToPosition", evt.item.dataset.id, evt.oldIndex > evt.newIndex ? evt.newIndex : evt.newIndex+1);
             }
         });
-
-        var textarea = document.getElementById('input');
-        textarea.onkeydown = function(event) {
-            if (event.keyCode == 9) { //tab was pressed
-                var newCaretPosition;
-                newCaretPosition = textarea.selectionStart + "\t".length;
-                textarea.value = textarea.value.substring(0, textarea.selectionStart) + "\t" + textarea.value.substring(textarea.selectionStart, textarea.value.length);
-                textarea.selectionStart = newCaretPosition;
-                textarea.selectionEnd = newCaretPosition;
-                textarea.focus();
-                return false;
-            }
-        }
     });
     window.addEventListener('resize', updateSidebarMaxHeight);
     document.addEventListener("livewire:load", function(event) {
@@ -123,7 +113,7 @@
     <div class="flex items-start relative">
         <aside id="sidebar" class="w-64 flex flex-col">
             <div id="thumbs-toolbar" class="w-160 xl:w-224 flex justify-start pb-2 text-gray-700">
-                <a wire:click="create()" class="p-2 bg-blue-500 hover:bg-blue-700 text-gray-100 rounded h-6 flex items-center justify-center cursor-pointer text-sm"><i class="fas fa-layer-plus mr-1"></i> New</a>
+                <a wire:click="create()" class="p-2 bg-blue-500 hover:bg-blue-700 text-white rounded h-6 flex items-center justify-center cursor-pointer text-sm"><i class="fad fa-layer-plus mr-1"></i> New</a>
             </div>
 
             <div id="thumbs" class="flex flex-grow-1 flex-col items-center overflow-y-auto border border-gray-300 ">
@@ -143,7 +133,7 @@
                 <a wire:click="wrapSelection('_', editorInputState())" class="p-1 border border-white hover:border-blue-500 rounded w-6 h-6 flex items-center justify-center cursor-pointer text-sm"><i class="fas fa-italic"></i></a>
             </div>
 
-            <textarea id="input" wire:model.debounce.300ms="content" class="mb-2 w-160 h-40 xl:w-224 xl:h-56 border border-blue-500 p-6" placeholder="Enter your overlay content..."></textarea>
+            <textarea id="input" wire:model.debounce.300ms="content" class="mb-2 w-160 h-40 xl:w-224 xl:h-56 border border-blue-500 p-6 text-sm xl:text-base" placeholder="Enter your overlay content..."></textarea>
 
             <div id="preview-toolbar" class="w-160 xl:w-224 flex justify-start py-2 text-gray-700">
                 <div class="mr-4">
