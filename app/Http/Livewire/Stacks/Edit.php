@@ -113,19 +113,15 @@ class Edit extends Component
 
     public function selectNext()
     {
-        $iterator = $this->iterateToCurrent();
-
-        if ($next = next($iterator)) {
-            $this->setCurrent($next);
+        if($this->getCurrentIndex() < $this->stack->overlays->count()) {
+            $this->setCurrent($this->stack->overlays->get($this->getCurrentIndex() + 1));
         }
     }
 
     public function selectPrevious()
     {
-        $iterator = $this->iterateToCurrent();
-
-        if ($prev = prev($iterator)) {
-            $this->setCurrent($prev);
+        if($this->getCurrentIndex() > 0) {
+            $this->setCurrent($this->stack->overlays->get($this->getCurrentIndex() - 1));
         }
     }
 
@@ -135,15 +131,13 @@ class Edit extends Component
         $this->stack->load('overlays');
     }
 
-    protected function iterateToCurrent()
+    protected function getCurrentIndex()
     {
-        $iterator = $this->stack->overlays->getIterator();
-
-        while (current($iterator)->id != $this->current->id) {
-            next($iterator);
-        }
-
-        return $iterator;
+        foreach($this->stack->overlays AS $index => $overlay) {
+            if($overlay->id == $this->current->id) {
+                return $index;
+            }
+        };
     }
 
     protected function flash($data)
