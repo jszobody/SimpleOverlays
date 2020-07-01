@@ -19,7 +19,7 @@
 
     @stack('head')
 </head>
-<body class="bg-gray-100 h-screen antialiased leading-relaxed">
+<body class="bg-gray-100 h-screen antialiased leading-relaxed {{ isset($page) ? "page-$page" : "" }}">
     <div id="app">
         <header class="bg-gray-900 shadow pb-32">
             <div class="container mx-auto bg-gray-900 px-6 md:px-0 border-b-2 border-gray-800 py-6">
@@ -44,7 +44,7 @@
             </div>
 
             <nav class="container mx-auto px-6 md:px-2 py-6">
-                <a href="/stacks" class="text-gray-500 hover:text-gray-100 font-semibold">Stacks</a>
+                <a href="/stacks" class=" hover:text-gray-100 font-semibold {{ isset($page) && $page == "stacks" ? "text-gray-100" : "text-gray-500" }}">Stacks</a>
             </nav>
         </header>
 

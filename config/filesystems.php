@@ -48,6 +48,11 @@ return [
             'root' => storage_path('app'),
         ],
 
+        'cache' => [
+            'driver' => 'local',
+            'root' => sys_get_temp_dir(),
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

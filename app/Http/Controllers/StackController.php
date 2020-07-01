@@ -23,4 +23,9 @@ class StackController
             'stack' => $stack,
         ]);
     }
+
+    public function view(Stack $stack, Overlay $overlay)
+    {
+        return $overlay->png;
+    }
 }

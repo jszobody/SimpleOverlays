@@ -2,8 +2,11 @@
 
 namespace App;
 
+use Illuminate\Support\Str;
+use Storage;
 use App\Parsing\Parser;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Browsershot\Browsershot;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 
@@ -39,6 +42,37 @@ class Overlay extends Model implements Sortable
         return $this->css
             ? implode(" ", $this->css)
             : "";
+    }
+
+    public function getPngAttribute()
+    {
+        return Storage::disk('cache')->download($this->generate());
+    }
+
+    public function getUuidAttribute()
+    {
+        if(empty($this->attributes['uuid'])) {
+            $this->update(['uuid' => (string) Str::uuid()]);
+        }
+
+        return $this->attributes['uuid'];
+    }
+
+    public function generate()
+    {
+        if(!Storage::disk('cache')->has($this->cacheName)) {
+            Browsershot::url(route('public-preview-overlay', ['uuid' => $this->uuid]))
+                ->windowSize(1280, 720)
+                ->hideBackground()
+                ->save(Storage::disk('cache')->path($this->cacheName));
+        }
+
+        return $this->cache_name;
+    }
+
+    public function getCacheNameAttribute()
+    {
+        return $this->id . "_" . md5(serialize($this->attributes)) . ".png";
     }
 
     public function moveBefore(Overlay $otherModel)

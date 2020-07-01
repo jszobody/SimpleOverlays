@@ -16,7 +16,7 @@
         });
     </script>
 </head>
-<body class="bg-white overflow-hidden text-gray-100 text-2xl select-none">
+<body class="{{ request('bg') == "white" ? "bg-white" : "" }} overflow-hidden text-gray-100 text-2xl select-none">
     <div class="slide {{ $overlay->css_classes }} {{ $overlay->layout }} {{ $overlay->size }}">
         <div class="inner">{!! $overlay->final !!}</div>
     </div>

@@ -64,6 +64,26 @@ class Edit extends Component
         $this->flash['focus'] = true;
     }
 
+    public function delete()
+    {
+        $this->current->delete();
+
+        if ($this->getCurrentIndex() + 1 < $this->stack->overlays->count()) {
+            $this->setCurrent($this->stack->overlays->get($this->getCurrentIndex() + 1));
+        } else if ($this->getCurrentIndex() > 0) {
+            $this->setCurrent($this->stack->overlays->get($this->getCurrentIndex() - 1));
+        } else {
+            $this->setCurrent(
+                $this->stack->overlays()->create([
+                    'layout' => $this->stack->theme->default_layout,
+                    'size'   => $this->stack->theme->default_size,
+                ])
+            );
+        }
+
+        $this->stack->load('overlays');
+    }
+
     public function updated()
     {
         $this->current->update([
@@ -89,14 +109,14 @@ class Edit extends Component
 
     public function selectNext()
     {
-        if($this->getCurrentIndex() + 1 < $this->stack->overlays->count()) {
+        if ($this->getCurrentIndex() + 1 < $this->stack->overlays->count()) {
             $this->setCurrent($this->stack->overlays->get($this->getCurrentIndex() + 1));
         }
     }
 
     public function selectPrevious()
     {
-        if($this->getCurrentIndex() > 0) {
+        if ($this->getCurrentIndex() > 0) {
             $this->setCurrent($this->stack->overlays->get($this->getCurrentIndex() - 1));
         }
     }
@@ -109,8 +129,8 @@ class Edit extends Component
 
     protected function getCurrentIndex()
     {
-        foreach($this->stack->overlays AS $index => $overlay) {
-            if($overlay->id == $this->current->id) {
+        foreach ($this->stack->overlays AS $index => $overlay) {
+            if ($overlay->id == $this->current->id) {
                 return $index;
             }
         };

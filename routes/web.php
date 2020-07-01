@@ -19,13 +19,19 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/stacks', [\App\Http\Controllers\StackController::class, 'list'])->name('stacks.list');
+    Route::get('/stacks', [\App\Http\Controllers\StackController::class, 'list'])->name('list-stacks');
 
-    Route::livewire('/stacks/create', 'stacks.create');
-    Route::livewire('/stacks/{stack}', 'stacks.edit');
+    Route::livewire('/stacks/create', 'stacks.create')->name('create-stack');
+    Route::livewire('/stacks/{stack}/edit', 'stacks.edit')->name('edit-stack');
+    Route::livewire('/stacks/{stack}/preview', 'stacks.preview')->name('preview-stack');
+    Route::livewire('/stacks/{stack}/present', 'stacks.present')->name('present-stack');
 
-    Route::get('/stacks/{stack}/preview/{overlay}', [\App\Http\Controllers\StackController::class, 'preview'])->name('stacks.preview');
-
+    Route::get('/stacks/{stack}/preview/{overlay}.png', [\App\Http\Controllers\StackController::class, 'view'])->name('view-overlay');
+    Route::get('/stacks/{stack}/preview/{overlay}', [\App\Http\Controllers\StackController::class, 'preview'])->name('preview-overlay');
 });
+
+Route::get('/overlay/{uuid}', [\App\Http\Controllers\PresentController::class, 'preview'])->name('public-preview-overlay');
+Route::get('/{slug}/play', [\App\Http\Controllers\PresentController::class, 'play'])->name('public-play');
+Route::get('/{slug}/control', [\App\Http\Controllers\PresentController::class, 'control'])->name('public-control');
 
 Auth::routes();
