@@ -1,8 +1,11 @@
 @push('app')
 <script>
-    let editor = new TextAreaExtended(document.getElementById('input'), {tabs: true});
-
-    var thumbScrollPosition = 0;
+    const editor = new TextAreaExtended(document.getElementById('input'), {
+        tabs: true,
+        onChange: function() {
+            @this.set('content', document.getElementById('input').value);
+        }
+    });
 
     document.addEventListener('DOMContentLoaded', function() {
 
@@ -14,11 +17,11 @@
         });
 
         mousetrap(document.getElementById('input')).bind(['command+b', 'ctrl+b'], function(e, combo) {
-            @this.call("wrapSelection", "**", editorInputState());
+            editor.wrapSelection("**");
         });
 
         mousetrap(document.getElementById('input')).bind(['command+i', 'ctrl+i'], function(e, combo) {
-            @this.call("wrapSelection", "_", editorInputState());
+            editor.wrapSelection("_");
         });
 
         mousetrap.bind(['right','down'], function(e, combo) {
@@ -33,7 +36,7 @@
             @this.call("create");
         });
         mousetrap(document.getElementById('input')).bind(['ctrl+m'], function(e, combo) {
-        @this.call("create");
+            @this.call("create");
         });
 
         new sortable.Sortable(document.getElementById("thumbs"), {
@@ -45,7 +48,10 @@
             }
         });
     });
+
     window.addEventListener('resize', updateSidebarMaxHeight);
+
+    var thumbScrollPosition = 0;
     document.addEventListener("livewire:load", function(event) {
         window.livewire.hook('beforeDomUpdate', function() {
             thumbScrollPosition = document.getElementById("thumbs").scrollTop;
@@ -79,25 +85,7 @@
                     behavior: "smooth"
                 });
             }
-
-            if(typeof data.selectionStart != "undefined") {
-                document.getElementById("input").focus();
-                document.getElementById("input").setSelectionRange(data.selectionStart, data.selectionEnd);
-            };
-
-            if(typeof data.scrollTop != "undefined") {
-                document.getElementById("input").scrollTop = data.scrollTop;
-            }
         }, 100);
-    }
-
-    function editorInputState()
-    {
-        return {
-            "selectionStart" : document.getElementById('input').selectionStart,
-            "selectionEnd" : document.getElementById('input').selectionEnd,
-            "scrollTop" : document.getElementById("input").scrollTop
-        };
     }
 </script>
 @endpush
@@ -129,8 +117,11 @@
 
         <div id="editor" class="ml-8 flex-grow flex flex-col justify-center items-end">
             <div id="editor-toolbar" class="w-160 xl:w-224 flex justify-start pb-2 text-gray-700">
-                <a wire:click="wrapSelection('**', editorInputState())" class="p-1 border border-white hover:border-blue-500 rounded w-6 h-6 flex items-center justify-center cursor-pointer text-sm"><i class="fas fa-bold"></i></a>
-                <a wire:click="wrapSelection('_', editorInputState())" class="p-1 border border-white hover:border-blue-500 rounded w-6 h-6 flex items-center justify-center cursor-pointer text-sm"><i class="fas fa-italic"></i></a>
+                <a onclick="editor.wrapSelection('**')" class="p-1 text-gray-600 hover:text-gray-900 border border-white hover:border-blue-500 rounded w-6 h-6 flex items-center justify-center cursor-pointer text-sm"><i class="fas fa-bold"></i></a>
+                <a onclick="editor.wrapSelection('_')" class="p-1 text-gray-600 hover:text-gray-900 border border-white hover:border-blue-500 rounded w-6 h-6 flex items-center justify-center cursor-pointer text-sm"><i class="fas fa-italic"></i></a>
+                <div class="border-l border-gray-300 mx-2 my-1"></div>
+                <a onclick="editor.formatVerseNumbers()" class="p-1 text-gray-600 hover:text-gray-900 border border-white hover:border-blue-500 rounded w-6 h-6 flex items-center justify-center cursor-pointer text-sm"><i class="fas fa-bible"></i></a>
+                <a onclick="editor.removeWhitespace()" class="p-1 text-gray-600 hover:text-gray-900 border border-white hover:border-blue-500 rounded w-6 h-6 flex items-center justify-center cursor-pointer text-sm"><i class="fas fa-align-slash"></i></a>
             </div>
 
             <textarea id="input" wire:model.debounce.300ms="content" class="mb-2 w-160 h-40 xl:w-224 xl:h-56 border border-blue-500 p-6 text-sm xl:text-base" placeholder="Enter your overlay content..."></textarea>

@@ -82,31 +82,7 @@ class Edit extends Component
         return view('livewire.stacks.edit');
     }
 
-    public function wrapSelection($wrap, $editorState)
-    {
-        if ($editorState['selectionStart'] == $editorState['selectionEnd']) {
-            return;
-        }
-
-        $selected = Str::substr($this->content, $editorState['selectionStart'], $editorState['selectionEnd'] - $editorState['selectionStart']);
-
-        if (Str::startsWith($selected, $wrap) && Str::endsWith($selected, $wrap)) {
-            $replacement = Str::substr($selected, Str::length($wrap), 0 - Str::length($wrap));
-        } else {
-            $replacement = $wrap . $selected . $wrap;
-        }
-
-        $this->updateContent(
-            Str::substr($this->content, 0, $editorState['selectionStart']) . $replacement . Str::substr($this->content, $editorState['selectionEnd'])
-        );
-
-        $this->flash['scrollTop'] = $editorState['scrollTop'];
-        $this->flash['selectionStart'] = $editorState['selectionStart'];
-        $this->flash['selectionEnd'] = $editorState['selectionStart'] + Str::length($replacement);
-        $this->stack->load('overlays');
-    }
-
-    public function select($overlayId, $scroll = true)
+    public function select($overlayId)
     {
         $this->setCurrent($this->stack->overlays->where('id', $overlayId)->first(), false);
     }

@@ -24155,6 +24155,8 @@ var TextAreaExtended = /*#__PURE__*/function () {
     if (options.tabs == true) {
       this.enableTabs();
     }
+
+    this.onChange = options.onChange || function () {};
   }
 
   _createClass(TextAreaExtended, [{
@@ -24180,6 +24182,15 @@ var TextAreaExtended = /*#__PURE__*/function () {
       return this.element.value.substring(this.element.selectionStart, this.element.selectionEnd);
     }
   }, {
+    key: "replaceSelectedText",
+    value: function replaceSelectedText(replacement) {
+      if (!this.hasSelection()) return;
+      var selectionStart = this.element.selectionStart;
+      this.element.value = this.element.value.substring(0, this.element.selectionStart) + replacement + this.element.value.substring(this.element.selectionEnd, this.element.value.length);
+      this.setSelection(selectionStart, selectionStart + replacement.length);
+      this.onChange.call();
+    }
+  }, {
     key: "setSelection",
     value: function setSelection(start, end) {
       this.element.selectionStart = start;
@@ -24201,6 +24212,31 @@ var TextAreaExtended = /*#__PURE__*/function () {
           return false;
         }
       };
+    }
+  }, {
+    key: "wrapSelection",
+    value: function wrapSelection(wrap) {
+      var toggle = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+      var selection = this.getSelectedText();
+      var replacement = '';
+
+      if (toggle && _.startsWith(selection, wrap) && _.endsWith(selection, wrap)) {
+        replacement = selection.substr(wrap.length, selection.length - wrap.length * 2);
+      } else {
+        replacement = wrap + selection + wrap;
+      }
+
+      this.replaceSelectedText(replacement);
+    }
+  }, {
+    key: "formatVerseNumbers",
+    value: function formatVerseNumbers() {
+      this.replaceSelectedText(this.getSelectedText().replace(/(\d+)/g, '[$1] '));
+    }
+  }, {
+    key: "removeWhitespace",
+    value: function removeWhitespace() {
+      this.replaceSelectedText(this.getSelectedText().replace(/[\n\t]/g, ' '));
     }
   }]);
 

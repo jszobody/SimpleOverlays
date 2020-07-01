@@ -5,6 +5,8 @@ export default class TextAreaExtended {
         if(options.tabs == true) {
             this.enableTabs();
         }
+
+        this.onChange = options.onChange || function() {};
     }
 
     getCaretPosition() {
@@ -25,6 +27,20 @@ export default class TextAreaExtended {
         return this.element.value.substring(this.element.selectionStart, this.element.selectionEnd);
     }
 
+    replaceSelectedText(replacement) {
+        if(!this.hasSelection()) return;
+
+        let selectionStart = this.element.selectionStart;
+
+        this.element.value =
+            this.element.value.substring(0, this.element.selectionStart)
+            + replacement
+            + this.element.value.substring(this.element.selectionEnd, this.element.value.length);
+
+        this.setSelection(selectionStart, selectionStart + replacement.length);
+        this.onChange.call();
+    }
+
     setSelection(start, end) {
         this.element.selectionStart = start;
         this.element.selectionEnd = end;
@@ -40,5 +56,26 @@ export default class TextAreaExtended {
                 return false;
             }
         }
+    }
+
+    wrapSelection(wrap, toggle = true) {
+        let selection = this.getSelectedText();
+        let replacement = '';
+
+        if(toggle && _.startsWith(selection, wrap) && _.endsWith(selection, wrap)) {
+            replacement = selection.substr(wrap.length, selection.length - (wrap.length * 2));
+        } else {
+            replacement = wrap + selection + wrap;
+        }
+
+        this.replaceSelectedText(replacement);
+    }
+
+    formatVerseNumbers() {
+        this.replaceSelectedText(this.getSelectedText().replace(/(\d+)/g, '[$1] '));
+    }
+
+    removeWhitespace() {
+        this.replaceSelectedText(this.getSelectedText().replace(/[\n\t]/g,' '));
     }
 }
