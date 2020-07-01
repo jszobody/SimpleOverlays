@@ -113,7 +113,7 @@ class Edit extends Component
 
     public function selectNext()
     {
-        if($this->getCurrentIndex() < $this->stack->overlays->count()) {
+        if($this->getCurrentIndex() + 1 < $this->stack->overlays->count()) {
             $this->setCurrent($this->stack->overlays->get($this->getCurrentIndex() + 1));
         }
     }
