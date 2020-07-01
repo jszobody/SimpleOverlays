@@ -72,10 +72,10 @@ export default class TextAreaExtended {
     }
 
     formatVerseNumbers() {
-        this.replaceSelectedText(this.getSelectedText().replace(/(\d+)/g, '[$1] '));
+        this.replaceSelectedText(this.getSelectedText().replace(/(\d+)/g, ' [$1] '));
     }
 
     removeWhitespace() {
-        this.replaceSelectedText(this.getSelectedText().replace(/[\n\t]/g,' '));
+        this.replaceSelectedText(this.getSelectedText().replace(/[\n\t]/g, "\s"));
     }
 }
