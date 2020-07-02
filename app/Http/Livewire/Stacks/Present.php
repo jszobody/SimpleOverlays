@@ -15,6 +15,9 @@ class Present extends Component
     /** @var Session */
     public $session;
 
+    /** @var string */
+    public $sessionSlug;
+
     /** @var Overlay */
     public $current;
 
@@ -31,6 +34,7 @@ class Present extends Component
             $this->session = $stack->sessions()->first() ?? $stack->sessions()->create();
         }
 
+        $this->sessionSlug = $this->session->slug;
         $this->current = $this->session->overlay;
         $this->next = $this->stack->overlays->after($this->current);
     }
@@ -38,6 +42,19 @@ class Present extends Component
     public function render()
     {
         return view('livewire.stacks.present');
+    }
+
+    public function getListeners()
+    {
+        return [
+            "echo-private:session.{$this->sessionSlug},SessionUpdated" => 'update',
+        ];
+    }
+
+    public function update()
+    {
+        $this->current = $this->session->overlay;
+        $this->next = $this->stack->overlays->after($this->current);
     }
 
     public function toggle()

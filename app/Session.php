@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Events\SessionUpdated;
 use App\Support\RandomName;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,6 +12,10 @@ class Session extends Model
 
     protected $casts = [
         "visible" => "boolean"
+    ];
+
+    protected $dispatchesEvents = [
+        'updated' => SessionUpdated::class,
     ];
 
     protected static function booted()

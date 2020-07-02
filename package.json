@@ -24,7 +24,9 @@
     },
     "dependencies": {
         "@tailwindcss/ui": "^0.3.0",
+        "laravel-echo": "^1.8.0",
         "mousetrap": "^1.6.5",
+        "pusher-js": "^6.0.3",
         "sortablejs": "^1.10.2"
     }
 }
