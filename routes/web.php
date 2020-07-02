@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -31,7 +33,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/overlay/{uuid}', [\App\Http\Controllers\PresentController::class, 'preview'])->name('public-preview-overlay');
-Route::get('/{slug}', [\App\Http\Controllers\PresentController::class, 'play'])->name('public-play');
-Route::get('/{slug}/control', [\App\Http\Controllers\PresentController::class, 'control'])->name('public-control');
+Route::get('/view/{slug}', [\App\Http\Controllers\PresentController::class, 'play'])->name('public-play');
+Route::get('/control/{slug}/control', [\App\Http\Controllers\PresentController::class, 'control'])->name('public-control');
 
-Auth::routes();
+

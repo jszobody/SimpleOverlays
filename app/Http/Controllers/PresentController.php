@@ -16,4 +16,9 @@ class PresentController
             'stack' => $overlay->stack,
         ]);
     }
+
+    public function play($slug)
+    {
+
+    }
 }
