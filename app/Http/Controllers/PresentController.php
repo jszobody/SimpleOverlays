@@ -7,18 +7,8 @@ use App\Stack;
 
 class PresentController
 {
-    public function preview($uuid)
+    public function overlay($uuid)
     {
-        $overlay = Overlay::whereUuid($uuid)->firstOrFail();
-
-        return view('stacks.preview', [
-            'overlay' => $overlay,
-            'stack' => $overlay->stack,
-        ]);
-    }
-
-    public function play($slug)
-    {
-
+        return Overlay::whereUuid($uuid)->firstOrFail()->png;
     }
 }

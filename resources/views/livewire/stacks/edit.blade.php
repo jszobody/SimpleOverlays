@@ -65,7 +65,7 @@
                 setTimeout(function () {
                     document.getElementById("selectedThumb").scrollIntoView({ block: 'center'});
 
-                    if (@this.data.data.focus == true) {
+                    if (@this.data.temp.focus == true) {
                         document.getElementById("input").focus();
                     }
 

@@ -1,5 +1,11 @@
 @push('app')
     <script>
+        let pusher = Echo.join('session.{{ $session->slug }}');
+
+        pusher.listenForWhisper('update', (e) => {
+            @this.call('sync');
+        });
+
         mousetrap.bind(['right', 'down', 'space'], function (e, combo) {
             @this.call('next');
         });
@@ -9,7 +15,7 @@
         });
 
         mousetrap.bind(['b'], function (e, combo) {
-        @this.call('toggle');
+            @this.call('toggle');
         });
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -19,8 +25,14 @@
         document.addEventListener("livewire:load", function (event) {
             window.livewire.hook('afterDomUpdate', function () {
                 document.getElementById("selectedThumb").scrollIntoView({inline: "center"});
+
+                if(typeof @this.data.temp.sync == 'undefined') {
+                    pusher.whisper('update', {});
+                }
             });
         });
+
+
     </script>
 @endpush
 <div class="container mx-auto bg-white rounded-lg shadow-lg p-10">
@@ -40,7 +52,7 @@
         <div class="text-xl font-bold mb-2">{{ $session->slug }}</div>
         <div class="flex items-center">
             <i class="fad fa-camera-movie mr-2 text-gray-600"></i>
-            <a class="text-blue-500 hover:underline text-sm" href="{{ route('public-play', ['slug' => $session->slug]) }}" target="_blank">{{ route('public-play', ['slug' => $session->slug]) }}</a>
+            <a class="text-blue-500 hover:underline text-sm" href="{{ route('public-view', ['slug' => $session->slug]) }}" target="_blank">{{ route('public-view', ['slug' => $session->slug]) }}</a>
         </div>
 
         <div class="flex items-center my-8">

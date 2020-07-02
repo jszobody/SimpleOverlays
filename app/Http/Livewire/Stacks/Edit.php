@@ -25,7 +25,7 @@ class Edit extends Component
     public $size;
 
     /** @var array */
-    public $data = [];
+    public $temp = [];
 
     /** @var array */
     protected $flash = [];
@@ -97,7 +97,7 @@ class Edit extends Component
 
     public function render()
     {
-        $this->data = $this->flash;
+        $this->temp = $this->flash;
 
         return view('livewire.stacks.edit');
     }
@@ -134,11 +134,6 @@ class Edit extends Component
                 return $index;
             }
         };
-    }
-
-    protected function flash($data)
-    {
-        $this->flash = array_merge_recursive($this->flash, $data);
     }
 
     protected function setCurrent(Overlay $overlay, $scroll = true)

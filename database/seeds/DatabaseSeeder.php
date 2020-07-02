@@ -12,6 +12,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        \App\User::create([
+            'name' => 'Visitor',
+            'email' => 'visitor'
+        ]);
+
         \App\Theme::create([
             'name' => 'Default',
             'layouts' => ["lower" => "Lower third", "half-right" => "Half right", "full" => "Full screen"],

@@ -32,8 +32,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/stacks/{stack}/preview/{overlay}', [\App\Http\Controllers\StackController::class, 'preview'])->name('preview-overlay');
 });
 
-Route::get('/overlay/{uuid}', [\App\Http\Controllers\PresentController::class, 'preview'])->name('public-preview-overlay');
-Route::get('/view/{slug}', [\App\Http\Controllers\PresentController::class, 'play'])->name('public-play');
-Route::get('/control/{slug}/control', [\App\Http\Controllers\PresentController::class, 'control'])->name('public-control');
+Route::middleware('visitor')->group(function () {
+    Route::livewire('/view/{slug}', 'session.view')->name('public-view')->layout('layouts.session');
+
+    Route::get('/overlay/{uuid}', [\App\Http\Controllers\PresentController::class, 'overlay'])->name('public-overlay');
+    Route::get('/control/{slug}/control', [\App\Http\Controllers\PresentController::class, 'control'])->name('public-control');
+});
 
 

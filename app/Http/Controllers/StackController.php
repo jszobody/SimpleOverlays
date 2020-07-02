@@ -18,7 +18,7 @@ class StackController
 
     public function preview(Stack $stack, Overlay $overlay)
     {
-        return view('stacks.preview', [
+        return view('stacks.overlay', [
             'overlay' => $overlay,
             'stack' => $stack,
         ]);

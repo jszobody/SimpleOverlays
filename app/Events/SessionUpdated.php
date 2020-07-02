@@ -7,7 +7,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
 
-class SessionUpdated implements ShouldBroadcast
+class SessionUpdated
 {
     use SerializesModels;
 
@@ -18,9 +18,9 @@ class SessionUpdated implements ShouldBroadcast
     {
         $this->session = $session;
     }
-
-    public function broadcastOn()
-    {
-        return new PrivateChannel('session.'.$this->session->slug);
-    }
+//
+//    public function broadcastOn()
+//    {
+//        return new PrivateChannel('session.'.$this->session->slug);
+//    }
 }

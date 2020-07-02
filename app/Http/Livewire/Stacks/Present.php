@@ -24,6 +24,12 @@ class Present extends Component
     /** @var Overlay */
     public $next;
 
+    /** @var array  */
+    protected $flash = [];
+
+    /** @var array  */
+    public $temp = [];
+
     public function mount(Stack $stack)
     {
         $this->stack = $stack;
@@ -41,14 +47,15 @@ class Present extends Component
 
     public function render()
     {
+        $this->temp = $this->flash;
+
         return view('livewire.stacks.present');
     }
 
-    public function getListeners()
+    public function sync()
     {
-        return [
-            "echo-private:session.{$this->sessionSlug},SessionUpdated" => 'update',
-        ];
+        $this->update();
+        $this->flash['sync'] = true;
     }
 
     public function update()
@@ -75,6 +82,7 @@ class Present extends Component
             return;
         }
 
+        $this->session->update(['overlay_id' => $this->stack->overlays->after($this->current)->id]);
         $this->current = $this->stack->overlays->after($this->current);
         $this->next = $this->stack->overlays->after($this->current);
     }
@@ -85,6 +93,7 @@ class Present extends Component
             return;
         }
 
+        $this->session->update(['overlay_id' => $this->stack->overlays->before($this->current)->id]);
         $this->current = $this->stack->overlays->before($this->current);
         $this->next = $this->stack->overlays->after($this->current);
     }
