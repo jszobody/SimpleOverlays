@@ -17,7 +17,7 @@
                 <div style="background-image: url(/images/transparent-pattern.png)">
                     <img wire:click="edit({{ $overlay->id }})" class="shadow border border-gray-100 cursor-pointer" src="{{ route('view-overlay', ['stack' => $stack, 'overlay' => $overlay]) }}"/>
                 </div>
-                <div class="text-center text-gray-700">{{ $loop->index }}</div>
+                <div class="text-center text-gray-700">{{ $loop->index + 1 }}</div>
             </div>
         @endforeach
     </div>

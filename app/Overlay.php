@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Collections\OverlayCollection;
 use Illuminate\Support\Str;
 use Storage;
 use App\Parsing\Parser;
@@ -98,5 +99,10 @@ class Overlay extends Model implements Sortable
         }
 
         return $this->moveToEnd();
+    }
+
+    public function newCollection(array $models = [])
+    {
+        return new OverlayCollection($models);
     }
 }

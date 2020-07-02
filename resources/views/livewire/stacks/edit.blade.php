@@ -46,9 +46,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', function () {
-            document.getElementById("thumb{{ $current->id }}").scrollIntoView({
-                block: "center"
-            });
+            document.getElementById("selectedThumb").scrollIntoView({ block: 'center'});
         });
 
         var thumbScrollPosition = 0;
@@ -65,19 +63,14 @@
                 document.getElementById("thumbs").classList.add('scroll-smooth');
 
                 setTimeout(function () {
-                    var data = @this.data.data;
-                    console.log(data);
+                    document.getElementById("selectedThumb").scrollIntoView({ block: 'center'});
 
-                    if (data.focus == true) {
+                    if (@this.data.data.focus == true) {
                         document.getElementById("input").focus();
                     }
 
-                    if (typeof data.scrollThumb != "undefined") {
-                        document.getElementById("thumb" + data.scrollThumb).scrollIntoView({
-                            block: "center"
-                        });
-                    }
-                }, 100);
+
+                }, 200);
             });
         });
     </script>
@@ -110,7 +103,7 @@
             <div id="thumbs"
                  class="flex flex-grow-1 flex-col items-center overflow-y-auto border border-gray-300 scroll-smooth">
                 @foreach($stack->overlays AS $overlay)
-                    <div wire:click="select({{ $overlay->id }}, false)" id="thumb{{ $overlay->id }}"
+                    <div wire:click="select({{ $overlay->id }}, false)" id="{{ $current->id == $overlay->id ? "selectedThumb" : "" }}"
                          data-id="{{ $overlay->id }}"
                          class="w-full pr-2 h-32 flex-shrink-0 text-xs cursor-pointer relative select-none leading-normal {{ $current->id == $overlay->id ? 'bg-gray-300' : 'bg-white' }}">
                         <div

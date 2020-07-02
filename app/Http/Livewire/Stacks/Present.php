@@ -18,6 +18,9 @@ class Present extends Component
     /** @var Overlay */
     public $current;
 
+    /** @var Overlay */
+    public $next;
+
     public function mount(Stack $stack)
     {
         $this->stack = $stack;
@@ -29,6 +32,7 @@ class Present extends Component
         }
 
         $this->current = $this->session->overlay;
+        $this->next = $this->stack->overlays->after($this->current);
     }
 
     public function render()
@@ -45,5 +49,26 @@ class Present extends Component
     {
         $this->session->update(['overlay_id' => $overlayId]);
         $this->current = $this->stack->overlays->where('id', $overlayId)->first();
+        $this->next = $this->stack->overlays->after($this->current);
+    }
+
+    public function next()
+    {
+        if(!$this->stack->overlays->after($this->current)) {
+            return;
+        }
+
+        $this->current = $this->stack->overlays->after($this->current);
+        $this->next = $this->stack->overlays->after($this->current);
+    }
+
+    public function previous()
+    {
+        if(!$this->stack->overlays->before($this->current)) {
+            return;
+        }
+
+        $this->current = $this->stack->overlays->before($this->current);
+        $this->next = $this->stack->overlays->after($this->current);
     }
 }
