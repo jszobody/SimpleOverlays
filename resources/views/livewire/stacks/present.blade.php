@@ -13,12 +13,12 @@
         });
 
         document.addEventListener('DOMContentLoaded', function () {
-            document.getElementById("selectedThumb").scrollIntoView();
+            document.getElementById("selectedThumb").scrollIntoView({inline: "center"});
         });
 
         document.addEventListener("livewire:load", function (event) {
             window.livewire.hook('afterDomUpdate', function () {
-                document.getElementById("selectedThumb").scrollIntoView();
+                document.getElementById("selectedThumb").scrollIntoView({inline: "center"});
             });
         });
     </script>
