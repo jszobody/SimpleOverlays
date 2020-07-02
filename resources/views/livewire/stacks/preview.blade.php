@@ -15,7 +15,7 @@
         @foreach($stack->overlays AS $overlay)
             <div class="">
                 <div style="background-image: url(/images/transparent-pattern.png)">
-                    <img wire:click="edit({{ $overlay->id }})" class="shadow border border-gray-100 cursor-pointer" src="{{ route('view-overlay', ['stack' => $stack, 'overlay' => $overlay]) }}"/>
+                    <img wire:click="edit({{ $overlay->id }})" class="shadow border border-gray-100 cursor-pointer" src="{{ route('overlay-png', ['uuid' => $overlay->uuid]) }}"/>
                 </div>
                 <div class="text-center text-gray-700">{{ $loop->index + 1 }}</div>
             </div>

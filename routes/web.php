@@ -33,9 +33,10 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('visitor')->group(function () {
-    Route::livewire('/view/{slug}', 'session.view')->name('public-view')->layout('layouts.session');
+    Route::livewire('/view/{slug}.png', 'session.view')->name('public-view')->layout('layouts.session');
 
-    Route::get('/overlay/{uuid}', [\App\Http\Controllers\PresentController::class, 'overlay'])->name('public-overlay');
+    Route::get('/overlay/{uuid}.html', [\App\Http\Controllers\OverlayController::class, 'preview'])->name('overlay-preview');
+    Route::get('/overlay/{uuid}.png', [\App\Http\Controllers\OverlayController::class, 'png'])->name('overlay-png');
     Route::get('/control/{slug}/control', [\App\Http\Controllers\PresentController::class, 'control'])->name('public-control');
 });
 

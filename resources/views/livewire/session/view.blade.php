@@ -29,6 +29,6 @@
 @endpush
 <div>
     @foreach($session->stack->overlays AS $overlay)
-        <img class="{{ $current->id == $overlay->id && $session->visible ? "w-full" : "hidden" }}" src="{{ route('public-overlay', ['uuid' => $overlay->uuid]) }}"/>
+        <img class="{{ $current->id == $overlay->id && $session->visible ? "w-full" : "hidden" }}" src="{{ route('overlay-png', ['uuid' => $overlay->uuid]) }}"/>
     @endforeach
 </div>

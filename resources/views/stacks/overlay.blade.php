@@ -7,7 +7,7 @@
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 
     <style>
-        {!! $stack->theme->css !!}
+        {!! $overlay->stack->theme->css !!}
     </style>
 
     <script>

@@ -156,7 +156,7 @@
             </div>
             <div class="w-160 h-88 xl:w-224 xl:h-124 border border-gray-300 relative flex items-center justify-center">
                 <i class="fad fa-sync-alt fa-spin text-4xl text-gray-500 block"></i>
-                <iframe src="/stacks/{{ $stack->id }}/preview/{{ $current->id }}?cachebust={{ microtime() }}&bg=white"
+                <iframe src="{{ route('overlay-preview', ['uuid' => $current->uuid, 'cachebust' => microtime(), "bg" => "white"]) }}"
                         class="absolute inset-0 w-full h-full" border="0" allowTransparency="true"
                         background="transparent"></iframe>
             </div>
