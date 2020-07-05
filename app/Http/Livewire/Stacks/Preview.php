@@ -10,9 +10,18 @@ class Preview extends Component
     /** @var Stack */
     public $stack;
 
+    /** @var string */
+    public $format;
+
     public function mount(Stack $stack)
     {
         $this->stack = $stack;
+        $this->format = "html";
+    }
+
+    public function format($format)
+    {
+        $this->format = $format;
     }
 
     public function render()

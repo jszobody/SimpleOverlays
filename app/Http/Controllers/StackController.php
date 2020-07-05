@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Overlay;
 use Cache;
+use Zip;
 use App\Stack;
 
 class StackController
@@ -27,5 +28,15 @@ class StackController
     public function view(Stack $stack, Overlay $overlay)
     {
         return $overlay->png;
+    }
+
+    public function zip(Stack $stack)
+    {
+        return Zip::create(
+            $stack->title . ".zip",
+            $stack->overlays->mapWithKeys(function(Overlay $overlay, $index) {
+                return [$overlay->file_path => "overlay_" . ($index + 1) . ".png"];
+            })->toArray()
+        );
     }
 }

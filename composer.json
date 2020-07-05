@@ -18,7 +18,8 @@
         "livewire/livewire": "^1.2",
         "pusher/pusher-php-server": "~4.0",
         "spatie/browsershot": "^3.37",
-        "spatie/eloquent-sortable": "^3.8"
+        "spatie/eloquent-sortable": "^3.8",
+        "stechstudio/laravel-zipstream": "^2.4"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

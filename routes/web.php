@@ -27,6 +27,9 @@ Route::middleware('auth')->group(function () {
     Route::livewire('/stacks/{stack}/edit', 'stacks.edit')->name('edit-stack');
     Route::livewire('/stacks/{stack}/preview', 'stacks.preview')->name('preview-stack');
     Route::livewire('/stacks/{stack}/present', 'stacks.present')->name('present-stack');
+    Route::livewire('/stacks/{stack}/download', 'stacks.download')->name('download-stack');
+
+    Route::get('/stacks/{stack}.zip', [\App\Http\Controllers\StackController::class, 'zip'])->name('zip-stack');
 
     Route::get('/stacks/{stack}/preview/{overlay}.png', [\App\Http\Controllers\StackController::class, 'view'])->name('view-overlay');
     Route::get('/stacks/{stack}/preview/{overlay}', [\App\Http\Controllers\StackController::class, 'preview'])->name('preview-overlay');

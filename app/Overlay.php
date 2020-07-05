@@ -45,6 +45,11 @@ class Overlay extends Model implements Sortable
             : "";
     }
 
+    public function getFilePathAttribute()
+    {
+        return Storage::disk('cache')->path($this->generate());
+    }
+
     public function getPngAttribute()
     {
         return Storage::disk('cache')->download($this->generate());
