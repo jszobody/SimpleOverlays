@@ -68,7 +68,7 @@ class Overlay extends Model implements Sortable
     {
         if(!Storage::disk('cache')->has($this->cacheName)) {
             Browsershot::url(route('overlay-preview', ['uuid' => $this->uuid]))
-                ->windowSize(1280, 720)
+                ->windowSize(1920, 1080)
                 ->hideBackground()
                 ->save(Storage::disk('cache')->path($this->cacheName));
         }

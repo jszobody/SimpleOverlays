@@ -29,7 +29,7 @@ class Create extends Component
 
         $stack->transformations()->sync($this->transformations);
 
-        return redirect()->to('/stacks/' . $stack->id);
+        return redirect()->to(route('edit-stack', ['stack' => $stack]));
     }
 
     public function render()

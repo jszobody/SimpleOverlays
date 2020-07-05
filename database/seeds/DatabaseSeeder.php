@@ -14,7 +14,8 @@ class DatabaseSeeder extends Seeder
     {
         \App\User::create([
             'name' => 'Visitor',
-            'email' => 'visitor'
+            'email' => 'visitor',
+            'password' => '',
         ]);
 
         \App\Theme::create([

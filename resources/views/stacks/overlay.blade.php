@@ -12,11 +12,11 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            document.body.style.zoom = window.innerWidth / 1280;
+            document.body.style.zoom = window.innerWidth / 1920;
         });
     </script>
 </head>
-<body class="{{ request('bg') == "white" ? "bg-white" : "" }} overflow-hidden text-gray-100 text-2xl ">
+<body class="{{ request('bg') == "white" ? "bg-white" : "" }} overflow-hidden text-gray-100">
     <div class="slide {{ $overlay->css_classes }} {{ $overlay->layout }} {{ $overlay->size }}">
         <div class="inner">{!! $overlay->final !!}</div>
     </div>
