@@ -49,7 +49,6 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             scroller.scrollIntoView(document.getElementById("selectedThumb"));
-            //document.getElementById("selectedThumb").scrollIntoView({ block: 'center'});
         });
 
         var thumbScrollPosition = 0;
@@ -80,24 +79,19 @@
 @endpush
 
 <div class="container mx-auto bg-white rounded-lg shadow-lg p-10">
-    <div class="border-b border-gray-300 mb-8">
-        <div class="flex items-center justify-between">
-            <div class="flex items-center">
-                <h1 class="text-3xl font-semibold">{{ $stack->title }} </h1>
-                <div class="text-gray-500 ml-4"><i
-                        class="fad fa-layer-group"></i> {{ $stack->overlays->count() }} {{ Str::plural('overlay', $stack->overlays->count()) }}
-                </div>
-            </div>
-        </div>
-        @include("stacks._nav", ['selected' => "edit"])
-    </div>
+    @include("stacks._header", ['selected' => "edit"])
 
     <div class="flex items-start relative">
         <aside id="sidebar" class="w-64 flex flex-col">
             <div id="thumbs-toolbar" class="flex justify-between pb-2 text-gray-700">
-                <a wire:click="create()"
-                   class="p-2 bg-blue-500 hover:bg-blue-700 text-white rounded h-6 flex items-center justify-center cursor-pointer text-sm"><i
-                        class="fad fa-layer-plus mr-1"></i> New</a>
+                <div class="flex">
+                    <a wire:click="create()"
+                       class="p-2 mr-2 bg-blue-500 hover:bg-blue-700 text-white rounded h-6 flex items-center justify-center cursor-pointer text-sm"><i
+                            class="fad fa-layer-plus mr-1"></i> New</a>
+                    <a wire:click="insert()"
+                       class="p-2 bg-white border border-gray-300 hover:border-blue-700 text-blue-500 rounded h-6 flex items-center justify-center cursor-pointer text-sm"><i
+                            class="fad fa-download mr-1"></i> Insert</a>
+                </div>
                 <a wire:click="delete()"
                    class="p-1 text-gray-500 hover:text-gray-900 border border-white hover:border-red-500 rounded w-6 h-6 flex items-center justify-center cursor-pointer text-sm"><i
                         class="fad fa-trash"></i></a>
