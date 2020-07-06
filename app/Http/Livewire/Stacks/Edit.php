@@ -154,4 +154,9 @@ class Edit extends Component
         $this->current->update(['content' => $content]);
         $this->content = $this->current->content;
     }
+
+    public function showInsertDialog()
+    {
+        $this->flash['showInsertDialog'] = true;
+    }
 }

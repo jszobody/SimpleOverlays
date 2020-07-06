@@ -31,6 +31,9 @@
         mousetrap(document.getElementById('input')).bind(['ctrl+m'], function (e, combo) {
         @this.call("create");
         });
+        mousetrap.bind('esc', function() {
+           @this.call('render');
+        });
 
         new sortable.Sortable(document.getElementById("thumbs"), {
             animation: 150,
@@ -86,21 +89,22 @@
             <div id="thumbs-toolbar" class="flex justify-between pb-2 text-gray-700">
                 <div class="flex">
                     <a wire:click="create()"
-                       class="p-2 mr-2 bg-blue-500 hover:bg-blue-700 text-white rounded h-6 flex items-center justify-center cursor-pointer text-sm"><i
+                       class="p-2 mr-1 bg-blue-500 hover:bg-blue-700 text-white rounded h-6 flex items-center justify-center cursor-pointer text-sm"><i
                             class="fad fa-layer-plus mr-1"></i> New</a>
-                    <a wire:click="insert()"
-                       class="p-2 bg-white border border-gray-300 hover:border-blue-700 text-blue-500 rounded h-6 flex items-center justify-center cursor-pointer text-sm"><i
+                    <a wire:click="showInsertDialog()"
+                       class="p-2 bg-white border border-gray-300 hover:border-blue-700 text-gray-700 hover:text-blue-500 rounded h-6 flex items-center justify-center cursor-pointer text-sm"><i
                             class="fad fa-download mr-1"></i> Insert</a>
                 </div>
                 <a wire:click="delete()"
-                   class="p-1 text-gray-500 hover:text-gray-900 border border-white hover:border-red-500 rounded w-6 h-6 flex items-center justify-center cursor-pointer text-sm"><i
+                   class="p-1 text-gray-500 hover:text-red-500 border border-white hover:border-red-500 rounded w-6 h-6 flex items-center justify-center cursor-pointer text-sm"><i
                         class="fad fa-trash"></i></a>
             </div>
 
             <div id="thumbs"
                  class="relative flex flex-grow-1 flex-col items-center overflow-y-auto border border-gray-300 scroll-smooth">
                 @foreach($stack->overlays AS $overlay)
-                    <div wire:click="select({{ $overlay->id }}, false)" id="{{ $current->id == $overlay->id ? "selectedThumb" : "" }}"
+                    <div wire:click="select({{ $overlay->id }}, false)"
+                         id="{{ $current->id == $overlay->id ? "selectedThumb" : "" }}"
                          data-id="{{ $overlay->id }}"
                          class="w-full pr-2 h-32 flex-shrink-0 text-xs cursor-pointer relative select-none leading-normal {{ $current->id == $overlay->id ? 'bg-gray-300' : 'bg-white' }}">
                         <div
@@ -153,10 +157,15 @@
             </div>
             <div class="w-160 h-88 xl:w-224 xl:h-124 border border-gray-300 relative flex items-center justify-center">
                 <i class="fad fa-sync-alt fa-spin text-4xl text-gray-500 block"></i>
-                <iframe src="{{ route('overlay-preview', ['uuid' => $current->uuid, 'cachebust' => microtime(), "bg" => "white"]) }}"
-                        class="absolute inset-0 w-full h-full" border="0" allowTransparency="true"
-                        background="transparent"></iframe>
+                <iframe
+                    src="{{ route('overlay-preview', ['uuid' => $current->uuid, 'cachebust' => microtime(), "bg" => "white"]) }}"
+                    class="absolute inset-0 w-full h-full" border="0" allowTransparency="true"
+                    background="transparent"></iframe>
             </div>
         </div>
     </div>
+
+    @if(isset($temp['showInsertDialog']))
+        <livewire:stacks.insert :stack="$stack"/>
+    @endif
 </div>
