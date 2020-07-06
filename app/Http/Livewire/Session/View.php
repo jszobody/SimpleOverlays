@@ -9,8 +9,9 @@ use Livewire\Component;
 
 class View extends Present
 {
-    public function mount($slug)
+    public function mount($slug, $format = 'html')
     {
+        $this->format = $format;
         $this->session = Session::whereSlug($slug)->first();
         $this->stack = $this->session->stack;
         $this->sessionSlug = $this->session->slug;

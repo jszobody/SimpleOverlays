@@ -6,6 +6,8 @@
             @this.call('sync');
         });
 
+        const scroller = new Scroller(document.getElementById('thumbs'), {direction: "horizontal"});
+
         mousetrap.bind(['right', 'down', 'space'], function (e, combo) {
             @this.call('next');
         });
@@ -19,12 +21,12 @@
         });
 
         document.addEventListener('DOMContentLoaded', function () {
-            document.getElementById("selectedThumb").scrollIntoView({inline: "center"});
+            scroller.scrollIntoView(document.getElementById("selectedThumb"));
         });
 
         document.addEventListener("livewire:load", function (event) {
             window.livewire.hook('afterDomUpdate', function () {
-                document.getElementById("selectedThumb").scrollIntoView({inline: "center"});
+                scroller.scrollIntoView(document.getElementById("selectedThumb"));
 
                 if(typeof @this.data.temp.sync == 'undefined') {
                     pusher.whisper('update', {});
@@ -51,8 +53,12 @@
     <div>
         <div class="text-xl font-bold mb-2">{{ $session->slug }}</div>
         <div class="flex items-center">
-            <i class="fad fa-camera-movie mr-2 text-gray-600"></i>
-            <a class="text-blue-500 hover:underline text-sm" href="{{ route('public-view', ['slug' => $session->slug]) }}" target="_blank">{{ route('public-view', ['slug' => $session->slug]) }}</a>
+            <i class="fad fa-images mr-2 text-gray-600"></i>
+            <a class="text-blue-500 hover:underline text-sm" href="{{ route('public-view', ['slug' => $session->slug, 'format' => 'png']) }}" target="_blank">{{ route('public-view', ['slug' => $session->slug, 'format' => 'png']) }}</a>
+        </div>
+        <div class="flex items-center">
+            <i class="fad fa-presentation mr-2 text-gray-600"></i>
+            <a class="text-blue-500 hover:underline text-sm" href="{{ route('public-view', ['slug' => $session->slug, 'format' => 'html']) }}" target="_blank">{{ route('public-view', ['slug' => $session->slug, 'format' => 'html']) }}</a>
         </div>
 
         <div class="flex items-center my-8">
@@ -81,11 +87,11 @@
             </div>
         </div>
 
-        <div class="flex my-8 overflow-x-auto border border-gray-300 px-2 scroll-smooth">
+        <div id="thumbs" class="relative flex my-8 overflow-x-auto border border-gray-300 px-2 scroll-smooth">
             @foreach($stack->overlays AS $overlay)
                 <div id="{{ $current->id == $overlay->id ? "selectedThumb" : "" }}"
                      class="{{ $current->id == $overlay->id ? 'bg-gray-300' : 'bg-white' }}">
-                    <div wire:click="jump({{ $overlay->id }})" class="w-56 h-32 border m-2 mb-0 flex-shrink-0 overflow-hidden text-xs p-2 cursor-pointer select-none bg-white {{ $current->id == $overlay->id ? 'border-blue-500' : 'border-gray-300' }}">
+                    <div wire:click="jump({{ $overlay->id }})" class="w-56 h-32 border m-2 mb-0 flex-shrink-0 overflow-hidden text-xs p-2 cursor-pointer select-none leading-normal bg-white {{ $current->id == $overlay->id ? 'border-blue-500' : 'border-gray-300' }}">
                         {{ $overlay->content }}
                     </div>
                     <div class="text-xs ml-2 my-1 {{ $current->id == $overlay->id ? 'text-gray-700' : 'text-gray-400' }}">{{ $loop->index + 1 }}</div>

@@ -7,6 +7,8 @@
             }
         });
 
+        const scroller = new Scroller(document.getElementById('thumbs'));
+
         mousetrap(document.getElementById('input')).bind(['command+b', 'ctrl+b'], function (e, combo) {
             editor.wrapSelection("**");
         });
@@ -46,7 +48,8 @@
         }
 
         document.addEventListener('DOMContentLoaded', function () {
-            document.getElementById("selectedThumb").scrollIntoView({ block: 'center'});
+            scroller.scrollIntoView(document.getElementById("selectedThumb"));
+            //document.getElementById("selectedThumb").scrollIntoView({ block: 'center'});
         });
 
         var thumbScrollPosition = 0;
@@ -63,7 +66,7 @@
                 document.getElementById("thumbs").classList.add('scroll-smooth');
 
                 setTimeout(function () {
-                    document.getElementById("selectedThumb").scrollIntoView({ block: 'center'});
+                    scroller.scrollIntoView(document.getElementById("selectedThumb"));
 
                     if (@this.data.temp.focus == true) {
                         document.getElementById("input").focus();
@@ -101,7 +104,7 @@
             </div>
 
             <div id="thumbs"
-                 class="flex flex-grow-1 flex-col items-center overflow-y-auto border border-gray-300 scroll-smooth">
+                 class="relative flex flex-grow-1 flex-col items-center overflow-y-auto border border-gray-300 scroll-smooth">
                 @foreach($stack->overlays AS $overlay)
                     <div wire:click="select({{ $overlay->id }}, false)" id="{{ $current->id == $overlay->id ? "selectedThumb" : "" }}"
                          data-id="{{ $overlay->id }}"

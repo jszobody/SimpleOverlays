@@ -31880,6 +31880,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 window.mousetrap = __webpack_require__(/*! mousetrap */ "./node_modules/mousetrap/mousetrap.js");
 window.sortable = __webpack_require__(/*! sortablejs */ "./node_modules/sortablejs/modular/sortable.esm.js");
 window.TextAreaExtended = __webpack_require__(/*! ./modules/TextAreaExtended */ "./resources/js/modules/TextAreaExtended.js")["default"];
+window.Scroller = __webpack_require__(/*! ./modules/Scroller */ "./resources/js/modules/Scroller.js")["default"];
 
 /***/ }),
 
@@ -31929,6 +31930,95 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   cluster: "us2",
   forceTLS: true
 });
+
+
+/***/ }),
+
+/***/ "./resources/js/modules/Scroller.js":
+/*!******************************************!*\
+  !*** ./resources/js/modules/Scroller.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Scroller; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Scroller = /*#__PURE__*/function () {
+  function Scroller(container) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    _classCallCheck(this, Scroller);
+
+    this.container = container;
+    this.direction = options.direction || "vertical";
+  }
+
+  _createClass(Scroller, [{
+    key: "scrollIntoView",
+    value: function scrollIntoView(element) {
+      if (this.elementStartPosition(element) >= this.containerStartPosition() && this.elementEndPosition(element) <= this.containerEndPosition()) {
+        // Target is already in view
+        return;
+      } else {
+        this.scrollContainerTo(this.getNewPosition(element));
+      }
+    }
+  }, {
+    key: "containerStartPosition",
+    value: function containerStartPosition() {
+      return this.direction == "vertical" ? this.container.scrollTop : this.container.scrollLeft;
+    }
+  }, {
+    key: "containerEndPosition",
+    value: function containerEndPosition() {
+      return this.containerStartPosition() + this.containerSize();
+    }
+  }, {
+    key: "containerSize",
+    value: function containerSize() {
+      return this.direction == "vertical" ? this.container.offsetHeight : this.container.offsetWidth;
+    }
+  }, {
+    key: "elementStartPosition",
+    value: function elementStartPosition(element) {
+      return this.direction == "vertical" ? element.offsetTop : element.offsetLeft;
+    }
+  }, {
+    key: "elementEndPosition",
+    value: function elementEndPosition(element) {
+      return this.elementStartPosition(element) + this.elementSize(element);
+    }
+  }, {
+    key: "elementSize",
+    value: function elementSize(element) {
+      return this.direction == "vertical" ? element.offsetHeight : element.offsetWidth;
+    }
+  }, {
+    key: "getNewPosition",
+    value: function getNewPosition(element) {
+      return this.elementStartPosition(element) < this.containerStartPosition() ? this.elementStartPosition(element) : this.elementStartPosition(element) - this.containerSize() + this.elementSize(element);
+    }
+  }, {
+    key: "scrollContainerTo",
+    value: function scrollContainerTo(position) {
+      if (this.direction == "vertical") {
+        this.container.scrollTop = position;
+      } else {
+        this.container.scrollLeft = position;
+      }
+    }
+  }]);
+
+  return Scroller;
+}();
+
 
 
 /***/ }),

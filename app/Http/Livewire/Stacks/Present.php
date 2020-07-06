@@ -30,9 +30,13 @@ class Present extends Component
     /** @var array  */
     public $temp = [];
 
-    public function mount(Stack $stack)
+    /** @var string */
+    public $format;
+
+    public function mount(Stack $stack, $format = 'html')
     {
         $this->stack = $stack;
+        $this->format = $format;
 
         if (request('session')) {
             $this->session = $stack->sessions()->where('id', request('session'))->first();

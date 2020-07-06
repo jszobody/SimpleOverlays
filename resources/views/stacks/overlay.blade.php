@@ -7,12 +7,19 @@
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 
     <style>
+        html {
+            font-size: 36px;
+        }
+
         {!! $overlay->stack->theme->css !!}
     </style>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            document.body.style.zoom = window.innerWidth / 1920;
+            document.documentElement.style.zoom = window.innerWidth / 1920;
+        });
+        window.addEventListener('resize', function () {
+            document.documentElement.style.zoom = window.innerWidth / 1920;
         });
     </script>
 </head>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="font-size: 36px;">
 <head>
     <meta charset="utf-8">
     <title>Present</title>
@@ -10,9 +10,10 @@
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 
     @livewireStyles
+
     @stack('head')
 </head>
-<body class="overflow-hidden text-gray-100 text-2xl select-none">
+<body class="overflow-hidden text-gray-100">
 @yield('content')
 
 @livewireScripts
