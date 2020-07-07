@@ -13,7 +13,7 @@ class Create extends Component
 
     public function mount()
     {
-        $this->theme = user()->themes->first()->id;
+        $this->theme = team()->themes->first()->id;
     }
 
     public function submit()

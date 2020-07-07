@@ -20,6 +20,8 @@ class CreateTransformationsTable extends Migration
 
             $table->timestamps();
         });
+
+
     }
 
     /**

@@ -5,7 +5,7 @@ namespace App\Http\Livewire\Stacks;
 use App\Stack;
 use Livewire\Component;
 
-class Download extends Component
+class Configure extends Component
 {
     /** @var Stack */
     public $stack;
@@ -17,11 +17,6 @@ class Download extends Component
 
     public function render()
     {
-        return view('livewire.stacks.download');
-    }
-
-    public function zip()
-    {
-        return redirect()->to(route('zip-stack', ['stack' => $this->stack]));
+        return view('livewire.stacks.configure');
     }
 }

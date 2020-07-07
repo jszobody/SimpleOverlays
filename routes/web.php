@@ -21,13 +21,13 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/stacks', [\App\Http\Controllers\StackController::class, 'list'])->name('list-stacks');
-
+    Route::livewire('/stacks', 'stacks.index')->name('list-stack');
     Route::livewire('/stacks/create', 'stacks.create')->name('create-stack');
     Route::livewire('/stacks/{stack}/edit', 'stacks.edit')->name('edit-stack');
     Route::livewire('/stacks/{stack}/preview', 'stacks.preview')->name('preview-stack');
     Route::livewire('/stacks/{stack}/present', 'stacks.present')->name('present-stack');
     Route::livewire('/stacks/{stack}/download', 'stacks.download')->name('download-stack');
+    Route::livewire('/stacks/{stack}/settings', 'stacks.configure')->name('configure-stack');
 
     Route::get('/stacks/{stack}.zip', [\App\Http\Controllers\StackController::class, 'zip'])->name('zip-stack');
 

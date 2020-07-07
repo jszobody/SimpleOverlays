@@ -10,6 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
+    <script src="https://kit.fontawesome.com/affcbf7764.js" crossorigin="anonymous"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Styles -->
@@ -21,8 +22,8 @@
             <div class="container mx-auto px-6 md:px-0">
                 <div class="flex items-center justify-center">
                     <div class="mr-6">
-                        <a href="{{ url('/') }}" class="text-lg font-semibold text-gray-100 no-underline">
-                            Simple Overlays
+                        <a href="{{ url('/') }}" class="text-lg font-semibold text-gray-200 no-underline">
+                            <i class="fad fa-layer-group mr-1 opacity-50"></i> Impose
                         </a>
                     </div>
                     <div class="flex-1 text-right">

@@ -1,10 +1,10 @@
-<div x-data="{show: false}" x-init="setTimeout(() => show = true, 100)" x-show="show"
+<div x-data="{show: false}" x-init="$nextTick(() => show = true)" x-show="show"
      class="hidden fixed bottom-0 inset-x-0 px-4 pb-6 sm:inset-0 sm:p-0 sm:flex sm:items-center sm:justify-center">
     <div x-show="show" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0"
          x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200"
          x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
          class="fixed inset-0 transition-opacity">
-        <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+        <div class="absolute inset-0 bg-gray-500 opacity-75" @click="show = false" wire:click="$emitUp('hideModal', 'insertStack')"></div>
     </div>
 
     <div x-show="show" x-transition:enter="ease-out duration-300"
@@ -14,8 +14,10 @@
          x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
          class="bg-white rounded-lg px-4 pt-5 pb-4 overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full sm:p-6"
          role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+
+        <div class="absolute right-0 top-0 text-gray-500 p-4 cursor-pointer" @click="show = false" wire:click="$emitUp('hideModal', 'insertStack')"><i class="fas fa-times"></i></div>
+
         <div>
-            <div class="absolute right-0 top-0 text-gray-500 p-4 cursor-pointer" @click="show = false" wire:click="$emitUp('hideModal', 'insertStack')"><i class="fas fa-times"></i></div>
             <div class="">
                 <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
                     Insert another stack

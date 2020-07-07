@@ -12,10 +12,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\User::create([
+        $team = \App\Team::create([
+            'Visiting'
+        ]);
+
+        $visitor = \App\User::create([
             'name' => 'Visitor',
             'email' => 'visitor',
             'password' => '',
+            'team_id' => $team->id
         ]);
 
         \App\Theme::create([

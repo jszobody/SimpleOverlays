@@ -18,7 +18,7 @@
             <label for="theme" class="text-lg leading-6 font-medium text-gray-900">Theme</label>
             <select id="theme" wire:model="theme"
                     class="mt-2 block form-select w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
-                @foreach(user()->themes AS $theme)
+                @foreach(team()->themes AS $theme)
                     <option value="{{ $theme->id }}">{{ $theme->name }}</option>
                 @endforeach
             </select>
@@ -27,7 +27,7 @@
         <div class="my-8">
             <div class="text-lg leading-6 font-medium text-gray-900">Transformations</div>
             <div class="mt-2 text-gray-700">
-                @foreach(user()->transformations AS $transformation)
+                @foreach(team()->transformations AS $transformation)
                     <label class="flex items-center">
                         <input wire:model="transformations" id="transformation{{ $transformation->id }}" type="checkbox" value="{{ $transformation->id }}"
                                class="form-checkbox h-4 w-4 text-gray-600 transition duration-150 ease-in-out mr-3"> {{ $transformation->name }}

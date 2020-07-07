@@ -180,4 +180,11 @@ class Edit extends Component
     public function hideModal($name) {
         $this->modals[$name] = false;
     }
+
+    public function hideAllModals()
+    {
+        foreach($this->modals AS $name => $state) {
+            $this->modals[$name] = false;
+        }
+    }
 }

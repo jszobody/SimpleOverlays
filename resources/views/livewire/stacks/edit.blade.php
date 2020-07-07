@@ -28,11 +28,13 @@
         mousetrap.bind(['ctrl+m'], function (e, combo) {
         @this.call("create");
         });
+
         mousetrap(document.getElementById('input')).bind(['ctrl+m'], function (e, combo) {
         @this.call("create");
         });
-        mousetrap.bind('esc', function() {
-           @this.call('render');
+
+        mousetrap.bind(['esc'], function (e, combo) {
+        @this.call("hideAllModals");
         });
 
         new sortable.Sortable(document.getElementById("thumbs"), {
@@ -166,6 +168,6 @@
     </div>
 
     @if($modals['insertStack'])
-        <livewire:stacks.insert :stack="$stack" />
+        <livewire:stacks.insert :stack="$stack"/>
     @endif
 </div>

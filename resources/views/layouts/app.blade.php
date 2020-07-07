@@ -25,8 +25,8 @@
             <div class="container mx-auto bg-gray-900 px-6 md:px-0 border-b-2 border-gray-800 py-6">
                 <div class="flex items-center justify-center">
                     <div class="mr-6">
-                        <a href="{{ url('/') }}" class="text-xl font-semibold text-gray-100 no-underline">
-                            {{ user()->name }}'s team
+                        <a href="{{ url('/') }}" class="text-xl font-semibold text-gray-200 no-underline">
+                            <i class="fad fa-layer-group mr-1 opacity-50"></i> {{ team()->name }}
                         </a>
                     </div>
                     <div class="flex-1 text-right">
@@ -44,7 +44,7 @@
             </div>
 
             <nav class="container mx-auto px-6 md:px-2 py-6">
-                <a href="/stacks" class=" hover:text-gray-100 font-semibold {{ isset($page) && $page == "stacks" ? "text-gray-100" : "text-gray-500" }}">Stacks</a>
+                <a href="/stacks" class=" hover:text-gray-100 font-semibold {{ isset($page) && $page == "stacks" ? "text-gray-100" : "text-gray-400" }}">Stacks</a>
             </nav>
         </header>
 
