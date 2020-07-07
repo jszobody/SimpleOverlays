@@ -81,7 +81,7 @@
     </script>
 @endpush
 
-<div class="container mx-auto bg-white rounded-lg shadow-lg p-10">
+<div class="container mx-auto bg-white rounded-lg shadow-lg p-10" x-data="{ showInsertDialog: false }">
     @include("stacks._header", ['selected' => "edit"])
 
     <div class="flex items-start relative">
@@ -91,7 +91,7 @@
                     <a wire:click="create()"
                        class="p-2 mr-1 bg-blue-500 hover:bg-blue-700 text-white rounded h-6 flex items-center justify-center cursor-pointer text-sm"><i
                             class="fad fa-layer-plus mr-1"></i> New</a>
-                    <a wire:click="showInsertDialog()"
+                    <a @click="showInsertDialog = true"
                        class="p-2 bg-white border border-gray-300 hover:border-blue-700 text-gray-700 hover:text-blue-500 rounded h-6 flex items-center justify-center cursor-pointer text-sm"><i
                             class="fad fa-download mr-1"></i> Insert</a>
                 </div>
@@ -165,7 +165,5 @@
         </div>
     </div>
 
-    @if(isset($temp['showInsertDialog']))
-        <livewire:stacks.insert :stack="$stack"/>
-    @endif
+    <livewire:stacks.insert :stack="$stack" :current="$current" />
 </div>

@@ -36,6 +36,8 @@ class Edit extends Component
     /** @var string[] */
     protected $updatesQueryString = ['selected'];
 
+    protected $listeners = ['updated' => 'refresh'];
+
     public function mount(Stack $stack, $selected = null)
     {
         if (request('selected')) {
@@ -92,6 +94,11 @@ class Edit extends Component
             'size'    => $this->size,
         ]);
 
+        $this->stack->load('overlays');
+    }
+
+    public function refresh()
+    {
         $this->stack->load('overlays');
     }
 

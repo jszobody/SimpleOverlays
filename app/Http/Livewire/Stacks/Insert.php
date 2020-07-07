@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Stacks;
 
+use App\Overlay;
 use App\Stack;
 use Livewire\Component;
 
@@ -16,14 +17,25 @@ class Insert extends Component
     /** @var Stack */
     public $selected;
 
-    public function mount(Stack $stack)
+    /** @var Overlay */
+    public $current;
+
+    public function mount(Stack $stack, Overlay $current)
     {
         $this->stack = $stack;
+        $this->current = $current;
     }
 
     public function select($id)
     {
         $this->selected = $this->stacks()->where('id', $id)->first();
+    }
+
+    public function insert()
+    {
+        $this->stack->insertFrom($this->selected, $this->current);
+
+        $this->emitUp('updated');
     }
 
     public function render()
