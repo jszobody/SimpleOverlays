@@ -26,6 +26,9 @@
 
         <div class="my-8">
             <div class="text-lg leading-6 font-medium text-gray-900">Transformations</div>
+            <p class="mt-1 text-sm leading-5 text-gray-500">
+                Selected transformations will be applied to all overlays automatically.
+            </p>
             <div class="mt-2 text-gray-700">
                 @foreach(team()->transformations AS $transformation)
                     <label class="flex items-center">
