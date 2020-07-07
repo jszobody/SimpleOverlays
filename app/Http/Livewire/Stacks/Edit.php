@@ -33,10 +33,15 @@ class Edit extends Component
     /** @var int */
     public $selected = 0;
 
+    /** @var array  */
+    public $modals = [
+        'insertStack' => false
+    ];
+
     /** @var string[] */
     protected $updatesQueryString = ['selected'];
 
-    protected $listeners = ['updated' => 'refresh'];
+    protected $listeners = ['insertFrom', 'hideModal'];
 
     public function mount(Stack $stack, $selected = null)
     {
@@ -162,8 +167,17 @@ class Edit extends Component
         $this->content = $this->current->content;
     }
 
-    public function showInsertDialog()
+    public function insertFrom($stackId)
     {
-        $this->flash['showInsertDialog'] = true;
+        $this->stack->insertFrom(Stack::find($stackId), $this->current);
+        $this->hideModal('insertStack');
+    }
+
+    public function showModal($name) {
+        $this->modals[$name] = true;
+    }
+
+    public function hideModal($name) {
+        $this->modals[$name] = false;
     }
 }

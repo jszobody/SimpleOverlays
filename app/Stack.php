@@ -40,7 +40,7 @@ class Stack extends Model
                 $new->sortable['sort_when_creating'] = false;
                 $new->sort = $sort;
             });
-            dd($selected, $new);
+
             $this->overlays()->save(
                 tap($overlay->replicate(), function(Overlay $new) use($sort) {
                     $new->sortable['sort_when_creating'] = false;
@@ -49,5 +49,7 @@ class Stack extends Model
             );
             $sort++;
         }
+
+        $this->unsetRelation('overlays');
     }
 }

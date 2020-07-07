@@ -91,7 +91,7 @@
                     <a wire:click="create()"
                        class="p-2 mr-1 bg-blue-500 hover:bg-blue-700 text-white rounded h-6 flex items-center justify-center cursor-pointer text-sm"><i
                             class="fad fa-layer-plus mr-1"></i> New</a>
-                    <a @click="showInsertDialog = true"
+                    <a wire:click="showModal('insertStack')"
                        class="p-2 bg-white border border-gray-300 hover:border-blue-700 text-gray-700 hover:text-blue-500 rounded h-6 flex items-center justify-center cursor-pointer text-sm"><i
                             class="fad fa-download mr-1"></i> Insert</a>
                 </div>
@@ -165,5 +165,7 @@
         </div>
     </div>
 
-    <livewire:stacks.insert :stack="$stack" :current="$current" />
+    @if($modals['insertStack'])
+        <livewire:stacks.insert :stack="$stack" />
+    @endif
 </div>

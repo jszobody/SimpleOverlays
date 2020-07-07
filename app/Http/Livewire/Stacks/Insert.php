@@ -17,13 +17,9 @@ class Insert extends Component
     /** @var Stack */
     public $selected;
 
-    /** @var Overlay */
-    public $current;
-
-    public function mount(Stack $stack, Overlay $current)
+    public function mount(Stack $stack)
     {
         $this->stack = $stack;
-        $this->current = $current;
     }
 
     public function select($id)
@@ -33,9 +29,7 @@ class Insert extends Component
 
     public function insert()
     {
-        $this->stack->insertFrom($this->selected, $this->current);
-
-        $this->emitUp('updated');
+        $this->emitUp('insertFrom', $this->selected->id);
     }
 
     public function render()
