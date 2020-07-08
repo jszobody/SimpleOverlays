@@ -18,9 +18,12 @@
     <div class="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         @foreach($stacks AS $stack)
             <a href="{{ route('edit-stack', ['stack' => $stack]) }}" class="text-center rounded shadow hover:shadow-lg px-4 py-8 border border-gray-200 hover:border-blue-400">
-                <i class="fad fa-layer-group text-gray-400 text-5xl"></i>
+                <i class="fad {{ $stack->occurs_at ? 'fa-calendar-alt' : 'fa-layer-group' }} text-gray-400 text-5xl"></i>
                 <h2 class="font-semibold text-gray-700 text-lg mt-4">{{ $stack->title }}</h2>
-                <div class="text-gray-600">{{ $stack->overlays_count }} {{ Str::plural('overlay', $stack->overlays_count) }}</div>
+                @if($stack->occurs_at)
+                    <div class="text-gray-600">{{ $stack->occurs_at->format('F j, Y') }}</div>
+                @endif
+                <div class="text-gray-400 font-bold text-sm">{{ $stack->overlays_count }} {{ Str::plural('overlay', $stack->overlays_count) }}</div>
             </a>
         @endforeach
     </div>

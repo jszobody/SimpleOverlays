@@ -3,6 +3,11 @@
     <div class="flex items-center justify-between">
         <div class="flex items-center">
             <h1 class="text-3xl font-semibold">{{ $stack->title }} </h1>
+            @if($stack->occurs_at)
+                <div class="text-gray-500 ml-4"><i
+                        class="fad fa-calendar"></i> {{ $stack->occurs_at->format('F j, Y') }}
+                </div>
+            @endif
             <div class="text-gray-500 ml-4"><i
                     class="fad fa-layer-group"></i> {{ $stack->overlays->count() }} {{ Str::plural('overlay', $stack->overlays->count()) }}
             </div>

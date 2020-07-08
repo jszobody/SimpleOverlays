@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Stacks;
 
 use App\Stack;
+use Carbon\Carbon;
 use Livewire\Component;
 
 class Configure extends Component
@@ -14,6 +15,7 @@ class Configure extends Component
     public $editDetails = false;
 
     public $title;
+    public $occurs;
     public $theme;
     public $transformations = [];
 
@@ -21,6 +23,7 @@ class Configure extends Component
     {
         $this->stack = $stack;
         $this->title = $this->stack->title;
+        $this->occurs = $this->stack->occurs_at ? $this->stack->occurs_at->format('F j, Y') : null;
         $this->theme = $this->stack->theme_id;
         $this->transformations = $this->stack->transformations->pluck('id')->map(function($id) { return (string) $id; })->toArray();
     }
@@ -34,6 +37,7 @@ class Configure extends Component
         $this->stack->update([
             'title' => $this->title,
             'theme_id' => $this->theme,
+            'occurs_at' => $this->occurs ? Carbon::parse($this->occurs) : null,
         ]);
 
         $this->stack->transformations()->sync($this->transformations);

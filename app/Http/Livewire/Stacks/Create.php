@@ -3,12 +3,14 @@
 namespace App\Http\Livewire\Stacks;
 
 use App\Stack;
+use Carbon\Carbon;
 use Livewire\Component;
 
 class Create extends Component
 {
     public $title;
     public $theme;
+    public $occurs;
     public $transformations = [];
 
     public function mount()
@@ -22,9 +24,10 @@ class Create extends Component
             'title' => 'required',
         ]);
 
-        $stack = Stack::create([
+        $stack = team()->stacks()->create([
             'title' => $this->title,
             'theme_id' => $this->theme,
+            'occurs_at' => $this->occurs ? Carbon::parse($this->occurs) : null,
         ]);
 
         $stack->transformations()->sync($this->transformations);

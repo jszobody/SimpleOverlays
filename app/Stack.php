@@ -8,6 +8,8 @@ class Stack extends Model
 {
     protected $guarded = ['id'];
 
+    protected $casts = ['occurs_at' => 'datetime'];
+
     public function theme()
     {
         return $this->belongsTo(Theme::class);

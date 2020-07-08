@@ -1,3 +1,8 @@
+@push('app')
+    <script>
+        const fp = flatpickr(document.getElementById("occurs"), {dateFormat: 'F j, Y'});
+    </script>
+@endpush
 <div class="container mx-auto bg-white rounded-lg shadow-lg p-10">
     <div class="flex items-center justify-between border-b border-gray-300 pb-4 mb-8">
         <h1 class="text-3xl font-semibold">Create a new stack</h1>
@@ -11,6 +16,16 @@
             </p>
             <div class="mt-2 rounded-md shadow-sm">
                 <input id="title" wire:model.lazy="title" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('title') border-red-500 @enderror" />
+            </div>
+        </div>
+
+        <div class="my-8">
+            <label for="title" class="text-lg leading-6 font-medium text-gray-900">Date <span class="font-base text-gray-500">(optional)</span></label>
+            <p class="mt-1 text-sm leading-5 text-gray-500">
+                Helps organize the stack if it is for an event.
+            </p>
+            <div class="mt-2 rounded-md shadow-sm">
+                <input id="occurs" wire:model.lazy="occurs" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('occurs') border-red-500 @enderror" />
             </div>
         </div>
 

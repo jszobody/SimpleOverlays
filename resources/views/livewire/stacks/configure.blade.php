@@ -13,6 +13,19 @@
                 </div>
             </div>
 
+            @if($stack->occurs_at)
+                <div class="my-8 flex items-center">
+                    <label for="occurs" class="text-lg leading-6 font-medium text-gray-900 w-56 flex-shrink-0">Date</label>
+                    <div class="rounded-md shadow-sm flex-grow">
+                        <input id="occurs" wire:model.lazy="occurs"
+                               class="form-input w-full block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"/>
+                    </div>
+                </div>
+                <script>
+                    const fp = flatpickr(document.getElementById("occurs"), {dateFormat: 'F j, Y'});
+                </script>
+            @endif
+
             <div class="my-8 flex items-center">
                 <label for="theme" class="text-lg leading-6 font-medium text-gray-900 w-56 flex-shrink-0">Theme</label>
                 <select id="theme" wire:model="theme"
@@ -47,17 +60,24 @@
         <div class="max-w-4xl mx-auto my-10 bg-gray-100 rounded p-10">
             <div class="text-xl font-bold mb-2">Stack details</div>
 
-            <div class="my-8 flex items-center">
+            <div class="my-6 flex items-center">
                 <label for="title" class="text-lg leading-6 text-gray-900 w-56 flex-shrink-0">Name</label>
                 <div class="flex-grow font-medium">{{ $title }}</div>
             </div>
 
-            <div class="my-8 flex items-center">
+            @if($stack->occurs_at)
+                <div class="my-6 flex items-center">
+                    <label for="theme" class="text-lg leading-6  text-gray-900 w-56 flex-shrink-0">Date</label>
+                    <div class="flex-grow font-medium">{{ $stack->occurs_at->format('F j, Y') }}</div>
+                </div>
+            @endif
+
+            <div class="my-6 flex items-center">
                 <label for="theme" class="text-lg leading-6  text-gray-900 w-56 flex-shrink-0">Theme</label>
                 <div class="flex-grow font-medium">{{ $stack->theme->name }}</div>
             </div>
 
-            <div class="my-8 flex">
+            <div class="my-6 flex">
                 <div class="text-lg leading-6  text-gray-900 w-56 flex-shrink-0">Transformations</div>
                 <div class="flex-grow font-medium">
                     @foreach($stack->transformations AS $transformation)

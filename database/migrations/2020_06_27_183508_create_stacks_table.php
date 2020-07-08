@@ -17,6 +17,7 @@ class CreateStacksTable extends Migration
             $table->id();
 
             $table->string('title');
+            $table->timestamp('occurs_at')->nullable();
 
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
