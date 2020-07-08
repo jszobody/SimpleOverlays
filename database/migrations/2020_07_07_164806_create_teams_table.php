@@ -26,6 +26,10 @@ class CreateTeamsTable extends Migration
             $table->unsignedBigInteger('team_id')->nullable()->after('remember_token');
         });
 
+        Schema::table('stacks', function (Blueprint $table) {
+            $table->unsignedBigInteger('team_id')->nullable()->after('title');
+        });
+
         Schema::create('teams_transformation', function (Blueprint $table) {
             $table->unsignedBigInteger('team_id');
             $table->unsignedBigInteger('transformation_id');

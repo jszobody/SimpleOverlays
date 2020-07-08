@@ -20,12 +20,17 @@ class Stack extends Model
 
     public function transformations()
     {
-        return $this->belongsToMany(Transformation::class);
+        return $this->belongsToMany(Transformation::class)->orderBy('name');
     }
 
     public function sessions()
     {
         return $this->hasMany(Session::class);
+    }
+
+    public function scopeActive($query)
+    {
+        $query->whereNull('archived_at');
     }
 
     public function insertFrom(Stack $stack, Overlay $selected)
@@ -51,5 +56,10 @@ class Stack extends Model
         }
 
         $this->unsetRelation('overlays');
+    }
+
+    public function archive()
+    {
+        $this->update(['archived_at' => now()]);
     }
 }

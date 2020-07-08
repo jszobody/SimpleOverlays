@@ -37,8 +37,16 @@ class Configure extends Component
         ]);
 
         $this->stack->transformations()->sync($this->transformations);
+        $this->stack->unsetRelations();
 
         $this->editDetails = false;
+    }
+
+    public function archive()
+    {
+        $this->stack->archive();
+
+        return $this->redirectRoute('list-stacks');
     }
 
     public function render()

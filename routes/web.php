@@ -21,7 +21,7 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function () {
 
-    Route::livewire('/stacks', 'stacks.index')->name('list-stack');
+    Route::livewire('/stacks', 'stacks.index')->name('list-stacks');
     Route::livewire('/stacks/create', 'stacks.create')->name('create-stack');
     Route::livewire('/stacks/{stack}/edit', 'stacks.edit')->name('edit-stack');
     Route::livewire('/stacks/{stack}/preview', 'stacks.preview')->name('preview-stack');

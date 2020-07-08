@@ -30,7 +30,10 @@ class Team extends Model
 
     public function stacks()
     {
-        return $this->hasMany(Stack::class);
+        return $this->hasMany(Stack::class)
+            ->active()
+            ->withCount('overlays')
+            ->orderBy('id', 'DESC');
     }
 
     public function transformations()
