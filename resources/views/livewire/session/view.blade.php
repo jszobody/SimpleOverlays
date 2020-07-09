@@ -8,19 +8,19 @@
         let pusher = Echo.join('session.{{ $session->slug }}')
 
         pusher.listenForWhisper('update', (e) => {
-        @this.call('sync');
+            @this.call('sync');
         })
 
         mousetrap.bind(['right', 'down', 'space'], function (e, combo) {
-        @this.call('next');
+            @this.call('next');
         })
 
         mousetrap.bind(['left', 'up'], function (e, combo) {
-        @this.call('previous');
+            @this.call('previous');
         })
 
         mousetrap.bind(['b'], function (e, combo) {
-        @this.call('toggle');
+            @this.call('toggle');
         })
 
         document.addEventListener('livewire:load', function (event) {
@@ -39,10 +39,10 @@
         });
     </script>
 @endpush
-<div>
+<div class="transition-all duration-300 {{ $session->visible || request('neverhide') ? "block" : "hidden" }}">
     @if($format == 'png')
         @foreach($session->stack->overlays AS $overlay)
-            <img class="{{ $current->id == $overlay->id && $session->visible ? "w-full" : "hidden" }}"
+            <img class="{{ $current->id == $overlay->id ? "w-full" : "hidden" }}"
                  src="{{ route('overlay-png', ['uuid' => $overlay->uuid]) }}"/>
         @endforeach
     @else

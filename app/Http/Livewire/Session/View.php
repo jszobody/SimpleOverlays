@@ -15,12 +15,16 @@ class View extends Present
         $this->session = Session::whereSlug($slug)->first();
         $this->stack = $this->session->stack;
         $this->sessionSlug = $this->session->slug;
-        $this->current = $this->session->overlay;
+        $this->setCurrent($this->session->overlay);
     }
 
     public function render()
     {
         $this->temp = $this->flash;
+
+        if(request('preview')) {
+            $this->current = $this->next;
+        }
 
         return view('livewire.session.view');
     }

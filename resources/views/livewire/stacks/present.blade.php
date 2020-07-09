@@ -42,23 +42,27 @@
 
     <div>
         <div class="text-xl font-bold mb-2">{{ $session->slug }}</div>
-        <div class="flex items-center">
-            <i class="fad fa-images mr-2 text-gray-600"></i>
-            <a class="text-blue-500 hover:underline text-sm" href="{{ route('public-view', ['slug' => $session->slug, 'format' => 'png']) }}" target="_blank">{{ route('public-view', ['slug' => $session->slug, 'format' => 'png']) }}</a>
-        </div>
+{{--        <div class="flex items-center">--}}
+{{--            <i class="fad fa-images mr-2 text-gray-600"></i>--}}
+{{--            <a class="text-blue-500 hover:underline text-sm" href="{{ route('public-view', ['slug' => $session->slug, 'format' => 'png']) }}" target="_blank">{{ route('public-view', ['slug' => $session->slug, 'format' => 'png']) }}</a>--}}
+{{--        </div>--}}
         <div class="flex items-center">
             <i class="fad fa-presentation mr-2 text-gray-600"></i>
             <a class="text-blue-500 hover:underline text-sm" href="{{ route('public-view', ['slug' => $session->slug, 'format' => 'html']) }}" target="_blank">{{ route('public-view', ['slug' => $session->slug, 'format' => 'html']) }}</a>
         </div>
 
-        <div class="flex items-center my-8">
-            <div class="w-2/3 pr-4">
+        <div class="flex my-8">
+            <div class="w-3/5 pr-4">
                 <div class="font-bold text-gray-500 mb-4">{{ $stack->overlays->getIndex($current) + 1 }} of {{ $stack->overlays->count() }}</div>
-                <div style="background-image: url(/images/transparent-pattern.png)">
-                    <img wire:click="next()" class="shadow border border-gray-100 cursor-pointer" src="{{ route('view-overlay', ['stack' => $stack, 'overlay' => $current]) }}">
+                <div style="background-image: url(/images/transparent-pattern.png)" class="relative">
+                    <img class="w-full" src="/images/shim-1920x1080.png"/>
+                    <iframe wire:ignore src="{{ route('public-view', ['slug' => $session->slug, 'format' => 'html', 'neverhide' => 1]) }}"
+                            class="absolute inset-0 w-full h-full shadow border border-gray-100" border="0" allowTransparency="true"
+                            background="transparent"></iframe>
+                    <img class="absolute inset-0 cursor-pointer" src="/images/shim-1920x1080.png" wire:click="next()" />
                 </div>
             </div>
-            <div class="w-1/3 pl-4">
+            <div class="w-2/5 pl-4 flex flex-col">
                 @if(is_null($next))
                     <div class="font-bold text-gray-500">End</div>
                     <div class="my-4 shadow border border-gray-100">
@@ -67,11 +71,15 @@
 
                 @else
                     <div class="font-bold text-gray-500">Next up...</div>
-                    <div class="my-4" style="background-image: url(/images/transparent-pattern.png)">
-                        <img wire:click="next()" class="shadow border border-gray-100 cursor-pointer" src="{{ route('view-overlay', ['stack' => $stack, 'overlay' => $next]) }}">
+                    <div class="my-4 relative" style="background-image: url(/images/transparent-pattern.png)">
+                        <img class="w-full" src="/images/shim-1920x1080.png"/>
+                        <iframe wire:ignore src="{{ route('public-view', ['slug' => $session->slug, 'format' => 'html', 'neverhide' => 1, 'preview' => 1]) }}"
+                                class="absolute inset-0 w-full h-full shadow border border-gray-100" border="0" allowTransparency="true"
+                                background="transparent"></iframe>
+                        <img class="absolute inset-0 cursor-pointer" src="/images/shim-1920x1080.png" wire:click="next()" />
                     </div>
                 @endif
-                <div wire:click="toggle()" class="mt-8 flex items-center justify-center text-xl py-10 cursor-pointer {{ $session->visible ? "border-2 border-gray-500 text-gray-500" : "border-2 border-red-700 bg-red-700 text-white" }}">
+                <div wire:click="toggle()" class="mt-4 mb-px flex-grow flex items-center justify-center text-xl cursor-pointer {{ $session->visible ? "border-2 border-gray-500 text-gray-500" : "border-2 border-red-700 bg-red-700 text-white" }}">
                     {{ $session->visible ? "Hide overlays" : "Overlays hidden" }}
                 </div>
             </div>

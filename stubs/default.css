@@ -3,6 +3,8 @@
     src: url('/fonts/LSBSymbol.ttf') format('truetype');
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
+
 .slide {
     background-color: rgba(0,0,0,0.9);
     position: absolute;
@@ -57,10 +59,21 @@
     left: 0;
 }
 
+.blank {
+    background-color: transparent;
+    color: #000;
+    position: relative;
+    display: block;
+}
+
 strong {
-    font-weight: 800;
+    font-weight: 700;
 }
 
 sup {
     opacity: 0.5;
+}
+
+.slide img {
+    width: 100%;
 }

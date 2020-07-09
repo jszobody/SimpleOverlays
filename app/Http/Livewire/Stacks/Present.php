@@ -45,8 +45,7 @@ class Present extends Component
         }
 
         $this->sessionSlug = $this->session->slug;
-        $this->current = $this->session->overlay;
-        $this->next = $this->stack->overlays->after($this->current);
+        $this->setCurrent($this->session->overlay);
     }
 
     public function render()
@@ -64,8 +63,7 @@ class Present extends Component
 
     public function update()
     {
-        $this->current = $this->session->overlay;
-        $this->next = $this->stack->overlays->after($this->current);
+        $this->setCurrent($this->session->overlay);
     }
 
     public function toggle()
@@ -76,8 +74,7 @@ class Present extends Component
     public function jump($overlayId)
     {
         $this->session->update(['overlay_id' => $overlayId]);
-        $this->current = $this->stack->overlays->where('id', $overlayId)->first();
-        $this->next = $this->stack->overlays->after($this->current);
+        $this->setCurrent($this->stack->overlays->where('id', $overlayId)->first());
     }
 
     public function next()
@@ -87,8 +84,7 @@ class Present extends Component
         }
 
         $this->session->update(['overlay_id' => $this->stack->overlays->after($this->current)->id]);
-        $this->current = $this->stack->overlays->after($this->current);
-        $this->next = $this->stack->overlays->after($this->current);
+        $this->setCurrent($this->stack->overlays->after($this->current));
     }
 
     public function previous()
@@ -98,7 +94,12 @@ class Present extends Component
         }
 
         $this->session->update(['overlay_id' => $this->stack->overlays->before($this->current)->id]);
-        $this->current = $this->stack->overlays->before($this->current);
+        $this->setCurrent($this->stack->overlays->before($this->current));
+    }
+
+    protected function setCurrent(Overlay $overlay)
+    {
+        $this->current = $overlay;
         $this->next = $this->stack->overlays->after($this->current);
     }
 }
