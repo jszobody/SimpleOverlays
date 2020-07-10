@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('list-stacks');
 });
 
 Route::middleware('auth')->group(function () {

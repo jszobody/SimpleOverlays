@@ -18,9 +18,9 @@
         @foreach($stack->overlays AS $overlay)
             <div class="">
 
-                <div class="relative" style="background-image: url(/images/transparent-pattern.png)">
+                <div class="relative" style="background-image: url({{ asset('images/transparent-pattern.png') }})">
                     @if($format == 'html')
-                        <img class="invisible w-full" src="/images/shim-1920x1080.png"/>
+                        <img class="invisible w-full" src="{{ asset('images/shim-1920x1080.png') }}"/>
                         <iframe src="{{ route('overlay-preview', ['uuid' => $overlay->uuid, 'cachebust' => microtime()]) }}"
                                 class="absolute inset-0 w-full h-full shadow border border-gray-100" border="0" allowTransparency="true"
                                 background="transparent"></iframe>

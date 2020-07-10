@@ -33,7 +33,9 @@
         <div class="mt-5 overflow-y-auto h-64 px-4">
             @foreach($stacks AS $stack)
                 <div wire:click="select({{ $stack->id }})" class="rounded shadow-sm hover:shadow px-4 py-2 my-2 border flex items-center justify-between cursor-pointer {{ $selected && $selected->id == $stack->id ? 'border-blue-400' : 'border-gray-200 hover:border-blue-400' }}">
-                    <div class="text-gray-700 {{ $selected && $selected->id == $stack->id ? 'font-semibold' : '' }}">{{ $stack->title }}</div>
+                    <div class="text-gray-700 {{ $selected && $selected->id == $stack->id ? 'font-semibold' : '' }}">{{ $stack->title }}
+                        <span class="text-sm text-gray-400 inline-block ml-1">{{ optional($stack->occurs_at)->format('F j') }}</span>
+                    </div>
                     <div class="text-gray-500 text-sm">{{ $stack->overlays_count }} <i class="fad fa-layer-group text-gray-400 ml-1"></i></div>
                 </div>
             @endforeach

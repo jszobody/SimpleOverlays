@@ -33,7 +33,8 @@ class Team extends Model
         return $this->hasMany(Stack::class)
             ->active()
             ->withCount('overlays')
-            ->orderBy('id', 'DESC');
+            ->orderBy('id', 'DESC')
+            ->orderBy('occurs_at', 'DESC');
     }
 
     public function transformations()

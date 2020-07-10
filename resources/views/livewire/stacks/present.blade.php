@@ -54,12 +54,12 @@
         <div class="flex my-8">
             <div class="w-3/5 pr-4">
                 <div class="font-bold text-gray-500 mb-4">{{ $stack->overlays->getIndex($current) + 1 }} of {{ $stack->overlays->count() }}</div>
-                <div style="background-image: url(/images/transparent-pattern.png)" class="relative">
-                    <img class="w-full" src="/images/shim-1920x1080.png"/>
+                <div style="background-image: url({{ asset('images/transparent-pattern.png') }})" class="relative">
+                    <img class="w-full" src="{{ asset('images/shim-1920x1080.png') }}"/>
                     <iframe wire:ignore src="{{ route('public-view', ['slug' => $session->slug, 'format' => 'html', 'neverhide' => 1]) }}"
                             class="absolute inset-0 w-full h-full shadow border border-gray-100" border="0" allowTransparency="true"
                             background="transparent"></iframe>
-                    <img class="absolute inset-0 cursor-pointer" src="/images/shim-1920x1080.png" wire:click="next()" />
+                    <img class="absolute inset-0 cursor-pointer" src="{{ asset('images/shim-1920x1080.png') }}" wire:click="next()" />
                 </div>
             </div>
             <div class="w-2/5 pl-4 flex flex-col">
@@ -72,11 +72,11 @@
                 @else
                     <div class="font-bold text-gray-500">Next up...</div>
                     <div class="my-4 relative" style="background-image: url(/images/transparent-pattern.png)">
-                        <img class="w-full" src="/images/shim-1920x1080.png"/>
+                        <img class="w-full" src="{{ asset('images/shim-1920x1080.png') }}"/>
                         <iframe wire:ignore src="{{ route('public-view', ['slug' => $session->slug, 'format' => 'html', 'neverhide' => 1, 'preview' => 1]) }}"
                                 class="absolute inset-0 w-full h-full shadow border border-gray-100" border="0" allowTransparency="true"
                                 background="transparent"></iframe>
-                        <img class="absolute inset-0 cursor-pointer" src="/images/shim-1920x1080.png" wire:click="next()" />
+                        <img class="absolute inset-0 cursor-pointer" src="{{ asset('images/shim-1920x1080.png') }}" wire:click="next()" />
                     </div>
                 @endif
                 <div wire:click="toggle()" class="mt-4 mb-px flex-grow flex items-center justify-center text-xl cursor-pointer {{ $session->visible ? "border-2 border-gray-500 text-gray-500" : "border-2 border-red-700 bg-red-700 text-white" }}">

@@ -11,20 +11,18 @@
                 <p class="my-4">Create a stack for an event, a project, or even just a collection that you may want to re-use later in other stacks.</p>
                 <p class="my-8"><a href="{{ route('create-stack') }}" class="text-blue-500 font-bold">Create your first stack...</a></p>
             </div>
-            <img src="/images/undraw_taking_notes_tjaf.svg" class="w-1/2"/>
+            <img src="{{ asset('images/undraw_taking_notes_tjaf.svg') }}" class="w-1/2"/>
         </div>
     @endif
 
-    <div class="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        @foreach($stacks AS $stack)
-            <a href="{{ route('edit-stack', ['stack' => $stack]) }}" class="text-center rounded shadow hover:shadow-lg px-4 py-8 border border-gray-200 hover:border-blue-400">
-                <i class="fad {{ $stack->occurs_at ? 'fa-calendar-alt' : 'fa-layer-group' }} text-gray-400 text-5xl"></i>
-                <h2 class="font-semibold text-gray-700 text-lg mt-4">{{ $stack->title }}</h2>
-                @if($stack->occurs_at)
-                    <div class="text-gray-600">{{ $stack->occurs_at->format('F j, Y') }}</div>
-                @endif
-                <div class="text-gray-400 font-bold text-sm">{{ $stack->overlays_count }} {{ Str::plural('overlay', $stack->overlays_count) }}</div>
-            </a>
+    <div class="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 my-4">
+        @foreach($stacks->whereNotNull('occurs_at') AS $stack)
+            @include('stacks._tile')
+        @endforeach
+    </div>
+    <div class="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 my-4">
+        @foreach($stacks->whereNull('occurs_at') AS $stack)
+            @include('stacks._tile')
         @endforeach
     </div>
 </div>

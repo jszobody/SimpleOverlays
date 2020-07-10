@@ -24,8 +24,11 @@
             <p class="mt-1 text-sm leading-5 text-gray-500">
                 Helps organize the stack if it is for an event.
             </p>
-            <div class="mt-2 rounded-md shadow-sm">
+            <div class="mt-2 rounded-md shadow-sm relative">
                 <input id="occurs" wire:model.lazy="occurs" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('occurs') border-red-500 @enderror" />
+                <div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-gray-400" wire:click="$set('occurs', null)">
+                    <i class="fas fa-times-circle"></i>
+                </div>
             </div>
         </div>
 

@@ -13,18 +13,19 @@
                 </div>
             </div>
 
-            @if($stack->occurs_at)
-                <div class="my-8 flex items-center">
-                    <label for="occurs" class="text-lg leading-6 font-medium text-gray-900 w-56 flex-shrink-0">Date</label>
-                    <div class="rounded-md shadow-sm flex-grow">
-                        <input id="occurs" wire:model.lazy="occurs"
-                               class="form-input w-full block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"/>
+            <div class="my-8 flex items-center">
+                <label for="occurs" class="text-lg leading-6 font-medium text-gray-900 w-56 flex-shrink-0">Date</label>
+                <div class="rounded-md shadow-sm flex-grow relative">
+                    <input id="occurs" wire:model.lazy="occurs"
+                           class="form-input w-full block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5 pr-10"/>
+                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-gray-400" wire:click="$set('occurs', null)">
+                        <i class="fas fa-times-circle"></i>
                     </div>
                 </div>
-                <script>
-                    const fp = flatpickr(document.getElementById("occurs"), {dateFormat: 'F j, Y'});
-                </script>
-            @endif
+            </div>
+            <script>
+                const fp = flatpickr(document.getElementById("occurs"), {dateFormat: 'F j, Y'});
+            </script>
 
             <div class="my-8 flex items-center">
                 <label for="theme" class="text-lg leading-6 font-medium text-gray-900 w-56 flex-shrink-0">Theme</label>

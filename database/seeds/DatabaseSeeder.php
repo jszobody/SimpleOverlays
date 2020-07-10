@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $team = \App\Team::create([
-            'Visiting'
+            'name' => 'Visiting'
         ]);
 
         $visitor = \App\User::create([
