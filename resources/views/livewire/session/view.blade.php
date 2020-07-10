@@ -39,7 +39,7 @@
         });
     </script>
 @endpush
-<div class="transition-all duration-300 {{ $session->visible || request('neverhide') ? "block" : "hidden" }}">
+<div class="transition-all duration-300 {{ $session->visible || request('neverhide') ? "opacity-100" : "opacity-0" }}">
     @if($format == 'png')
         @foreach($session->stack->overlays AS $overlay)
             <img class="{{ $current->id == $overlay->id ? "w-full" : "hidden" }}"
@@ -47,6 +47,7 @@
         @endforeach
     @else
         <div class="slide {{ $current->css_classes }} {{ $current->layout }} {{ $current->size }}">
+            @php(info($current->final))
             <div class="inner">{!! $current->final !!}</div>
         </div>
     @endif

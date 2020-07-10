@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
 
         $transformation->regexes()->saveMany(
             [
-                new Regex(["find" => "/P\t/", "replace" => "<span style='font-family: LSBSymbol'>P\t</span>"]),
+                new Regex(["find" => "/P\t(.*)/", "replace" => "<span style='font-family: LSBSymbol'>P\t</span><span>$1</span>"]),
                 new Regex(["find" => "/C\t(.*)/", "replace" => "<span style='font-family: LSBSymbol'>C\t</span><strong>$1</strong>"]),
                 new Regex(["find" => "/\sT\s/", "replace" => "<span style='font-family: LSBSymbol'> T </span>"]),
             ]
