@@ -76,6 +76,6 @@ export default class TextAreaExtended {
     }
 
     removeWhitespace() {
-        this.replaceSelectedText(this.getSelectedText().replace(/[\n\t]/g, "\s"));
+        this.replaceSelectedText(this.getSelectedText().replace(/[\n\t]/g, " "));
     }
 }

@@ -71,7 +71,7 @@
 
                 @else
                     <div class="font-bold text-gray-500">Next up...</div>
-                    <div class="my-4 relative" style="background-image: url(/images/transparent-pattern.png)">
+                    <div class="my-4 relative" style="background-image: url({{ asset('images/transparent-pattern.png') }})">
                         <img class="w-full" src="{{ asset('images/shim-1920x1080.png') }}"/>
                         <iframe wire:ignore src="{{ route('public-view', ['slug' => $session->slug, 'format' => 'html', 'neverhide' => 1, 'preview' => 1]) }}"
                                 class="absolute inset-0 w-full h-full shadow border border-gray-100" border="0" allowTransparency="true"
