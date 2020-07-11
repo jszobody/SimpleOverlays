@@ -32,7 +32,7 @@ class Create extends Component
 
         $stack->transformations()->sync($this->transformations);
 
-        return redirect()->to(route('edit-stack', ['stack' => $stack]));
+        return $this->redirectRoute('edit-stack', ['stack' => $stack]);
     }
 
     public function render()

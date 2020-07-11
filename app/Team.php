@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -26,6 +27,11 @@ class Team extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
+    }
+
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function stacks()
@@ -52,9 +58,13 @@ class Team extends Model
         return Transformation::orderBy('name')->get();
     }
 
-    public static function newFor(User $user)
+    public static function newFor(User $user, $name = null)
     {
-        $team = static::create(['name' => $user->name . "'s team"]);
+        $team = static::create([
+            'name' => $name ?? $user->name . "'s team",
+            'owner_id' => $user->id
+        ]);
+
         $user->join($team);
 
         return $team;

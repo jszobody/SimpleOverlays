@@ -23,14 +23,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function teams(): BelongsToMany
+    public function memberTeams(): BelongsToMany
     {
         return $this->belongsToMany(Team::class);
     }
 
-    public function team(): BelongsTo
+    public function owningTeams(): HasMany
     {
-        return $this->belongsTo(Team::class);
+        return $this->hasMany(Team::class, 'owner_id');
+    }
+
+    public function primaryTeam(): BelongsTo
+    {
+        return $this->belongsTo(Team::class, 'team_id');
     }
 
     public function getCurrentTeamAttribute()
@@ -43,13 +48,18 @@ class User extends Authenticatable
             $this->update(['team_id' => Team::newFor($this)->id]);
         }
 
-        session(['current_team' => $this->team->id]);
+        return $this->selectTeam($this->primaryTeam);
+    }
 
-        return $this->team;
+    public function selectTeam(Team $team)
+    {
+        session(['current_team' => $team->id]);
+
+        return $this;
     }
 
     public function join(Team $team)
     {
-        $this->teams()->attach($this);
+        $this->memberTeams()->attach($team);
     }
 }
