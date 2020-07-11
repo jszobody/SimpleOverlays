@@ -39,6 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::livewire('/teams', 'teams.index')->name('list-teams');
     Route::livewire('/teams/create', 'teams.create')->name('create-team');
     Route::livewire('/teams/{team}/edit', 'teams.edit')->name('edit-team');
+    Route::livewire('/teams/{team}/settings', 'teams.configure')->name('configure-team');
     Route::get('/teams/{team}', [\App\Http\Controllers\TeamController::class, 'select'])->name('select-team');
 
 });

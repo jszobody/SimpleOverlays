@@ -76,7 +76,6 @@
                         document.getElementById("input").focus();
                     }
 
-
                 }, 200);
             });
         });
