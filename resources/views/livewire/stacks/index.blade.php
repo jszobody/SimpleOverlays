@@ -4,6 +4,7 @@
         <a href="{{ route('create-stack') }}" class="bg-blue-500 hover:bg-blue-700 text-gray-100 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Create Stack</a>
     </div>
 
+
     @if(!count($stacks))
         <div class="p-12 flex">
             <div class="w-1/2 text-xl pr-8">

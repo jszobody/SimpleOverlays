@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Impose Live</title>
 
     <!-- Scripts -->
     <script src="https://kit.fontawesome.com/affcbf7764.js" crossorigin="anonymous"></script>

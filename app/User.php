@@ -48,7 +48,9 @@ class User extends Authenticatable
             $this->update(['team_id' => Team::newFor($this)->id]);
         }
 
-        return $this->selectTeam($this->primaryTeam);
+        $this->selectTeam($this->primaryTeam);
+
+        return $this->primaryTeam;
     }
 
     public function selectTeam(Team $team)

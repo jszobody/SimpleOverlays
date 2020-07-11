@@ -66,7 +66,7 @@
                 @if(is_null($next))
                     <div class="font-bold text-gray-500">End</div>
                     <div class="my-4 shadow border border-gray-100">
-                        <img class="invisible" src="{{ route('view-overlay', ['stack' => $stack, 'overlay' => $current]) }}">
+                        <img class="w-full" src="{{ asset('images/shim-1920x1080.png') }}"/>
                     </div>
 
                 @else

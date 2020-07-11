@@ -43,7 +43,7 @@ class Stack extends Model
 
         // Now replicate each overlay, set the new sort, and save on our own stack
         foreach($stack->overlays AS $overlay) {
-            $new = tap($overlay->replicate(), function(Overlay $new) use($sort) {
+            $new = tap($overlay->replicate(['uuid']), function(Overlay $new) use($sort) {
                 $new->sortable['sort_when_creating'] = false;
                 $new->sort = $sort;
             });
