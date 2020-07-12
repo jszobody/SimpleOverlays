@@ -14,7 +14,7 @@
 
     @stack('head')
 </head>
-<body class="overflow-hidden text-gray-100">
+<body class="overflow-hidden text-gray-100 antialiased">
 @yield('content')
 
 @livewireScripts

@@ -1,3 +1,8 @@
+@push('head')
+    <style>
+        {!! $stack->theme->css !!}
+    </style>
+@endpush
 @push('app')
     <script>
         let pusher = Echo.join('session.{{ $session->slug }}');
@@ -26,6 +31,7 @@
 
         document.addEventListener("livewire:load", function (event) {
             window.livewire.hook('afterDomUpdate', function () {
+                updatePreviewZoom();
                 scroller.scrollIntoView(document.getElementById("selectedThumb"));
 
                 if(typeof @this.data.temp.sync == 'undefined') {
@@ -34,7 +40,14 @@
             });
         });
 
-
+        document.addEventListener('DOMContentLoaded', updatePreviewZoom);
+        window.addEventListener('resize', updatePreviewZoom);
+        function updatePreviewZoom() {
+            document.getElementById('current').style.zoom = document.getElementById('current-shim').offsetWidth / 1920;
+            if(document.getElementById('next')) {
+                document.getElementById('next').style.zoom = document.getElementById('next-shim').offsetWidth / 1920;
+            }
+        }
     </script>
 @endpush
 <div class="container mx-auto bg-white rounded-lg shadow-lg p-10">
@@ -55,10 +68,14 @@
             <div class="w-3/5 pr-4">
                 <div class="font-bold text-gray-500 mb-4">{{ $stack->overlays->getIndex($current) + 1 }} of {{ $stack->overlays->count() }}</div>
                 <div style="background-image: url({{ asset('images/transparent-pattern.png') }})" class="relative">
-                    <img class="w-full" src="{{ asset('images/shim-1920x1080.png') }}"/>
-                    <iframe wire:ignore src="{{ route('public-view', ['slug' => $session->slug, 'format' => 'html', 'neverhide' => 1]) }}"
-                            class="absolute inset-0 w-full h-full shadow border border-gray-100" border="0" allowTransparency="true"
-                            background="transparent"></iframe>
+                    <div class="preview-container border border-gray-300 relative overflow-hidden text-gray-100 leading-normal" style="background-image: url({{ asset('images/transparent-pattern.png') }})">
+                        <img id="current-shim" class="w-full" src="{{ asset('images/shim-1920x1080.png') }}"/>
+                        <div id="current" class="absolute inset-0" style="font-size: 36px;">
+                            <div class="slide {{ $current->css_classes }} {{ $current->layout }} {{ $current->size }}">
+                                <div class="inner">{!! $current->final !!}</div>
+                            </div>
+                        </div>
+                    </div>
                     <img class="absolute inset-0 cursor-pointer" src="{{ asset('images/shim-1920x1080.png') }}" wire:click="next()" />
                 </div>
             </div>
@@ -72,10 +89,14 @@
                 @else
                     <div class="font-bold text-gray-500">Next up...</div>
                     <div class="my-4 relative" style="background-image: url({{ asset('images/transparent-pattern.png') }})">
-                        <img class="w-full" src="{{ asset('images/shim-1920x1080.png') }}"/>
-                        <iframe wire:ignore src="{{ route('public-view', ['slug' => $session->slug, 'format' => 'html', 'neverhide' => 1, 'preview' => 1]) }}"
-                                class="absolute inset-0 w-full h-full shadow border border-gray-100" border="0" allowTransparency="true"
-                                background="transparent"></iframe>
+                        <div class="border border-gray-300 relative overflow-hidden text-gray-100 leading-normal" style="background-image: url({{ asset('images/transparent-pattern.png') }})">
+                            <img id="next-shim" class="w-full" src="{{ asset('images/shim-1920x1080.png') }}"/>
+                            <div id="next" class="absolute inset-0" style="font-size: 36px;">
+                                <div class="slide {{ $next->css_classes }} {{ $next->layout }} {{ $next->size }}">
+                                    <div class="inner">{!! $next->final !!}</div>
+                                </div>
+                            </div>
+                        </div>
                         <img class="absolute inset-0 cursor-pointer" src="{{ asset('images/shim-1920x1080.png') }}" wire:click="next()" />
                     </div>
                 @endif
