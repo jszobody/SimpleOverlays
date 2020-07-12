@@ -47,7 +47,6 @@
         @endforeach
     @else
         <div class="slide {{ $current->css_classes }} {{ $current->layout }} {{ $current->size }}">
-            @php(info($current->final))
             <div class="inner">{!! $current->final !!}</div>
         </div>
     @endif

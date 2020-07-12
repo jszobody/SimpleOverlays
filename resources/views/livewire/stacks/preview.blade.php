@@ -1,3 +1,18 @@
+@push('head')
+    <style>
+        {!! $stack->theme->css !!}
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', updatePreviewZoom);
+        window.addEventListener('resize', updatePreviewZoom);
+        function updatePreviewZoom() {
+            let zoom = document.getElementsByClassName('preview-shim')[0].offsetWidth / 1920;
+            for (let preview of document.getElementsByClassName('preview')) {
+                preview.style.zoom = zoom;
+            }
+        }
+    </script>
+@endpush
 <div class="container mx-auto bg-white rounded-lg shadow-lg p-10">
     @include("stacks._header", ['selected' => "preview"])
 
@@ -17,17 +32,13 @@
     <div class="lg:grid lg:grid-cols-2 gap-4">
         @foreach($stack->overlays AS $overlay)
             <div class="">
-
-                <div class="relative" style="background-image: url({{ asset('images/transparent-pattern.png') }})">
-                    @if($format == 'html')
-                        <img class="invisible w-full" src="{{ asset('images/shim-1920x1080.png') }}"/>
-                        <iframe src="{{ route('overlay-preview', ['uuid' => $overlay->uuid, 'cachebust' => microtime()]) }}"
-                                class="absolute inset-0 w-full h-full shadow border border-gray-100" border="0" allowTransparency="true"
-                                background="transparent"></iframe>
-                    @else
-                        <img wire:click="edit({{ $overlay->id }})" class="shadow border border-gray-100 cursor-pointer {{ $format == 'html' ? 'invisible' : '' }}"
-                             src="{{ route('overlay-png', ['uuid' => $overlay->uuid]) }}"/>
-                    @endif
+                <div class="preview-container border border-gray-300 relative overflow-hidden text-gray-100 leading-normal" style="background-image: url({{ asset('images/transparent-pattern.png') }})">
+                    <img class="preview-shim w-full" src="{{ asset('images/shim-1920x1080.png') }}"/>
+                    <div class="preview absolute inset-0" style="font-size: 36px;">
+                        <div class="slide {{ $overlay->css_classes }} {{ $overlay->layout }} {{ $overlay->size }}">
+                            <div class="inner">{!! $overlay->final !!}</div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="text-center text-gray-700">{{ $loop->index + 1 }}</div>

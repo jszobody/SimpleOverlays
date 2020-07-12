@@ -16,14 +16,21 @@
         </div>
     @endif
 
-    <div class="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 my-4">
-        @foreach($stacks->whereNotNull('occurs_at') AS $stack)
-            @include('stacks._tile')
-        @endforeach
-    </div>
-    <div class="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 my-4">
-        @foreach($stacks->whereNull('occurs_at') AS $stack)
-            @include('stacks._tile')
-        @endforeach
-    </div>
+    @if($stacks->whereNotNull('occurs_at')->count())
+        <div class="font-semibold">Events</div>
+        <div class="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 my-4">
+            @foreach($stacks->whereNotNull('occurs_at') AS $stack)
+                @include('stacks._tile')
+            @endforeach
+        </div>
+    @endif
+
+    @if($stacks->whereNull('occurs_at')->count())
+        <div class="font-semibold">Collections</div>
+        <div class="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 my-4">
+            @foreach($stacks->whereNull('occurs_at') AS $stack)
+                @include('stacks._tile')
+            @endforeach
+        </div>
+    @endif
 </div>

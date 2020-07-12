@@ -1,3 +1,8 @@
+@push('head')
+    <style>
+        {!! $stack->theme->css !!}
+    </style>
+@endpush
 @push('app')
     <script>
         const editor = new TextAreaExtended(document.getElementById('input'), {
@@ -47,10 +52,16 @@
 
         updateSidebarMaxHeight();
         window.addEventListener('resize', updateSidebarMaxHeight);
+        updatePreviewZoom();
+        window.addEventListener('resize', updatePreviewZoom);
 
         function updateSidebarMaxHeight() {
             document.getElementById("sidebar").style.maxHeight = document.getElementById("editor").clientHeight + "px";
         }
+        function updatePreviewZoom() {
+            document.getElementById('preview').style.zoom = document.getElementById('preview').offsetWidth / 1920;
+        }
+
 
         document.addEventListener('DOMContentLoaded', function () {
             scroller.scrollIntoView(document.getElementById("selectedThumb"));
@@ -64,6 +75,7 @@
 
             window.livewire.hook('afterDomUpdate', function () {
                 updateSidebarMaxHeight();
+                updatePreviewZoom();
 
                 document.getElementById("thumbs").classList.remove('scroll-smooth');
                 document.getElementById("thumbs").scrollTop = thumbScrollPosition;
@@ -86,7 +98,7 @@
     @include("stacks._header", ['selected' => "edit"])
 
     <div class="flex items-start relative">
-        <aside id="sidebar" class="w-64 flex flex-col">
+        <aside id="sidebar" class="w-64 flex flex-col flex-shrink-0">
             <div id="thumbs-toolbar" class="flex justify-between pb-2 text-gray-700">
                 <div class="flex">
                     <a wire:click="create()"
@@ -135,7 +147,7 @@
             </div>
 
             <textarea id="input" wire:model.debounce.300ms="content"
-                      class="mb-2 w-160 h-40 xl:w-224 xl:h-56 border border-blue-500 p-6 text-sm xl:text-base"
+                      class="mb-2 w-full h-40 xl:h-56 border border-blue-500 p-6 text-sm xl:text-base"
                       placeholder="Enter your overlay content..."></textarea>
 
             <div id="preview-toolbar" class="w-160 xl:w-224 flex justify-start py-2 text-gray-700">
@@ -156,12 +168,13 @@
                     </select>
                 </div>
             </div>
-            <div class="w-160 h-88 xl:w-224 xl:h-124 border border-gray-300 relative flex items-center justify-center">
-                <i class="fad fa-sync-alt fa-spin text-4xl text-gray-500 block"></i>
-                <iframe
-                    src="{{ route('overlay-preview', ['uuid' => $current->uuid, 'cachebust' => microtime(), "bg" => "white"]) }}"
-                    class="absolute inset-0 w-full h-full" border="0" allowTransparency="true"
-                    background="transparent"></iframe>
+            <div class="border border-gray-300 relative overflow-hidden text-gray-100 leading-normal">
+                <img class="w-full" src="{{ asset('images/shim-1920x1080.png') }}"/>
+                <div id="preview" class="absolute inset-0" style="font-size: 36px;">
+                    <div class="slide {{ $current->css_classes }} {{ $current->layout }} {{ $current->size }}">
+                        <div class="inner">{!! $current->final !!}</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
