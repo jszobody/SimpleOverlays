@@ -6,6 +6,8 @@ environments:
         database: shared
         memory: 1024
         cli-memory: 512
+#        layers:
+#            - arn:aws:lambda:us-east-1:623947341307:layer:chrome-aws-lambda:1
         build:
             - 'composer install --no-dev --classmap-authoritative'
             - 'php artisan event:cache'

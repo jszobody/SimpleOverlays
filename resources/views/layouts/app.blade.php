@@ -67,9 +67,11 @@
 
             <nav class="container mx-auto px-6 md:px-2 py-6">
                 <a href="{{ route('list-stacks') }}" class="mx-4 hover:text-gray-100 font-semibold {{ Route::currentRouteName() == "list-stacks" ? "text-gray-100" : "text-gray-400" }}">Stacks</a>
+{{--                <a href="{{ route('list-sessions') }}" class="mx-4 hover:text-gray-100 font-semibold {{ Route::currentRouteName() == "list-sessions" ? "text-gray-100" : "text-gray-400" }}">Sessions</a>--}}
 {{--                <a href="{{ route('list-teams') }}" class="mx-4 hover:text-gray-100 font-semibold {{ Route::currentRouteName() == "list-themes" ? "text-gray-100" : "text-gray-400" }}">Themes</a>--}}
 {{--                <a href="{{ route('list-teams') }}" class="mx-4 hover:text-gray-100 font-semibold {{ Route::currentRouteName() == "list-transformations" ? "text-gray-100" : "text-gray-400" }}">Transformations</a>--}}
                 <a href="{{ route('list-teams') }}" class="mx-4 hover:text-gray-100 font-semibold {{ Route::currentRouteName() == "list-teams" ? "text-gray-100" : "text-gray-400" }}">Teams</a>
+
             </nav>
         </header>
 

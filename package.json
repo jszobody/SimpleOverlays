@@ -25,9 +25,11 @@
     "dependencies": {
         "@tailwindcss/ui": "^0.3.0",
         "alpinejs": "^2.4.1",
+        "chrome-aws-lambda": "^3.1.1",
         "flatpickr": "^4.6.3",
         "laravel-echo": "^1.8.0",
         "mousetrap": "^1.6.5",
+        "puppeteer-core": "^5.0.0",
         "pusher-js": "^6.0.3",
         "sortablejs": "^1.10.2"
     }

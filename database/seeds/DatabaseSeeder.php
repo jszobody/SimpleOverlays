@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Theme::create([
-            'name' => 'Default',
+            'name' => 'Partial Eclipse',
             'layouts' => ["blank" => "Blank", "lower" => "Lower third", "half-right" => "Half right", "full" => "Full screen"],
             'sizes' => ["small" => "Small","medium" => "Medium","large"=>"Large"],
             'default_layout' => 'lower',

@@ -36,6 +36,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/stacks/{stack}/preview/{overlay}.png', [\App\Http\Controllers\StackController::class, 'view'])->name('view-overlay');
     Route::get('/stacks/{stack}/preview/{overlay}', [\App\Http\Controllers\StackController::class, 'preview'])->name('preview-overlay');
 
+    Route::livewire('/sessions', 'sessions.index')->name('list-sessions');
+
+
     Route::livewire('/teams', 'teams.index')->name('list-teams');
     Route::livewire('/teams/create', 'teams.create')->name('create-team');
     Route::livewire('/teams/{team}/edit', 'teams.edit')->name('edit-team');
