@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Collections\OverlayCollection;
+use Illuminate\Http\File;
 use Illuminate\Support\Str;
 use Storage;
 use App\Parsing\Parser;
@@ -47,12 +48,17 @@ class Overlay extends Model implements Sortable
 
     public function getFilePathAttribute()
     {
-        return Storage::disk('cache')->path($this->generate());
+        return Storage::disk('s3')->path($this->generate());
     }
 
     public function getPngAttribute()
     {
-        return Storage::disk('cache')->download($this->generate());
+        return Storage::disk('s3')->url($this->generate());
+//        return Storage::disk('s3')->download(
+//            $this->generate(),
+//            $this->uuid . ".png",
+//            ['X-Vapor-Base64-Encode' => 'True']
+//        );
     }
 
     public function getUuidAttribute()
@@ -66,11 +72,16 @@ class Overlay extends Model implements Sortable
 
     public function generate()
     {
-        if(!Storage::disk('cache')->has($this->cacheName)) {
+        if(!Storage::disk('s3')->has($this->cache_name)) {
             Browsershot::url(route('overlay-preview', ['uuid' => $this->uuid]))
+                ->setNodeBinary('/opt/bin/node')
+                ->setNodeModulePath('/opt/nodejs/node_modules')
+                ->setBinPath(base_path('resources/browser.js'))
                 ->windowSize(1920, 1080)
                 ->hideBackground()
-                ->save(Storage::disk('cache')->path($this->cacheName));
+                ->save(sys_get_temp_dir() . "/tmp.png");
+
+            Storage::disk('s3')->putFileAs('', new File(sys_get_temp_dir() . "/tmp.png"), $this->cache_name, 'public');
         }
 
         return $this->cache_name;

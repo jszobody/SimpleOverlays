@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="font-size: 36px">
 <head>
     <meta charset="utf-8">
     <title>Preview</title>
@@ -7,10 +7,6 @@
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 
     <style>
-        html {
-            font-size: 36px;
-        }
-
         {!! $overlay->stack->theme->css !!}
     </style>
 

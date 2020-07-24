@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Overlay;
 use App\Stack;
+use Response;
+use Storage;
 
 class OverlayController
 {
@@ -16,6 +18,8 @@ class OverlayController
 
     public function png($uuid)
     {
-        return Overlay::whereUuid($uuid)->firstOrFail()->png;
+        return redirect(
+            Overlay::whereUuid($uuid)->firstOrFail()->png
+        );
     }
 }
