@@ -39,7 +39,7 @@
         });
     </script>
 @endpush
-<div class="transition-all duration-300 {{ $session->visible || request('neverhide') ? "opacity-100" : "opacity-0" }}">
+<div class="transition-all duration-300 {{ $session->visible || request('neverhide') ? "opacity-100" : "opacity-0" }}" data-uuid="{{ $current->uuid }}">
     @if($format == 'png')
         @foreach($session->stack->overlays AS $overlay)
             <img class="{{ $current->id == $overlay->id ? "w-full" : "hidden" }}"
