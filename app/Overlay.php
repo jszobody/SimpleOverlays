@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Collections\OverlayCollection;
+use App\Jobs\CacheOverlay;
 use Illuminate\Http\File;
 use Illuminate\Support\Str;
 use Storage;
@@ -26,6 +27,13 @@ class Overlay extends Model implements Sortable
         'order_column_name' => 'sort',
         'sort_when_creating' => true,
     ];
+
+    protected static function booted()
+    {
+        static::updating(function ($overlay) {
+            $overlay->updateCacheName();
+        });
+    }
 
     public function stack()
     {
@@ -70,9 +78,30 @@ class Overlay extends Model implements Sortable
         return $this->attributes['uuid'];
     }
 
+    public function getCachedAttribute()
+    {
+        return Storage::disk('s3')->has($this->cache_name);
+    }
+
+    public function getCachePathAttribute()
+    {
+        return 's3://' . config('filesystems.disks.s3.bucket') . '/' . $this->cache_name;
+    }
+
+    public function cache()
+    {
+        if($this->cached) {
+            return;
+        }
+
+        CacheOverlay::dispatch($this);
+
+        return $this;
+    }
+
     public function generate()
     {
-        if(!Storage::disk('s3')->has($this->cache_name)) {
+        if(!$this->cached) {
             Browsershot::url(route('overlay-preview', ['uuid' => $this->uuid]))
                 ->setNodeBinary('/opt/bin/node')
                 ->setNodeModulePath('/opt/nodejs/node_modules')
@@ -85,11 +114,6 @@ class Overlay extends Model implements Sortable
         }
 
         return $this->cache_name;
-    }
-
-    public function getCacheNameAttribute()
-    {
-        return $this->id . "_" . md5(serialize($this->attributes)) . ".png";
     }
 
     public function moveBefore(Overlay $otherModel)
@@ -115,6 +139,13 @@ class Overlay extends Model implements Sortable
         }
 
         return $this->moveToEnd();
+    }
+
+    public function updateCacheName()
+    {
+        $this->cache_name = $this->id . "_" . md5(serialize($this->attributes)) . ".png";
+
+        return $this;
     }
 
     public function newCollection(array $models = [])

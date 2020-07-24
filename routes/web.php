@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::livewire('/stacks/{stack}/edit', 'stacks.edit')->name('edit-stack');
     Route::livewire('/stacks/{stack}/preview', 'stacks.preview')->name('preview-stack');
     Route::livewire('/stacks/{stack}/present', 'stacks.present')->name('present-stack');
+    Route::livewire('/stacks/{stack}/build', 'stacks.build')->name('build-stack');
     Route::livewire('/stacks/{stack}/download', 'stacks.download')->name('download-stack');
     Route::livewire('/stacks/{stack}/settings', 'stacks.configure')->name('configure-stack');
 
@@ -37,7 +38,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/stacks/{stack}/preview/{overlay}', [\App\Http\Controllers\StackController::class, 'preview'])->name('preview-overlay');
 
     Route::livewire('/sessions', 'sessions.index')->name('list-sessions');
-
 
     Route::livewire('/teams', 'teams.index')->name('list-teams');
     Route::livewire('/teams/create', 'teams.create')->name('create-team');

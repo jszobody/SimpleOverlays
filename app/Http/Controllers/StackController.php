@@ -24,10 +24,15 @@ class StackController
 
     public function zip(Stack $stack)
     {
+        if(!$stack->overlays->every->cached) {
+            return redirect()->route('build-stack', ['stack' => $stack]);
+        }
+
         return Zip::create(
             $stack->title . ".zip",
             $stack->overlays->mapWithKeys(function(Overlay $overlay, $index) {
-                return [$overlay->file_path => "overlay_" . ($index + 1) . ".png"];
+                info('zipping up ' . $overlay->cache_path);
+                return [$overlay->cache_path => "overlay_" . ($index + 1) . ".png"];
             })->toArray()
         );
     }
