@@ -23,7 +23,7 @@
         "spatie/browsershot": "^3.37",
         "spatie/eloquent-sortable": "^3.8",
         "spatie/laravel-sluggable": "^2.2",
-        "stechstudio/laravel-zipstream": "^2.4",
+        "stechstudio/laravel-zipstream": "dev-better-s3-clients",
         "wildbit/swiftmailer-postmark": "^3.1"
     },
     "require-dev": {

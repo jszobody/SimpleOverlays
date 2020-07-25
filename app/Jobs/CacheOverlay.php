@@ -28,7 +28,6 @@ class CacheOverlay implements ShouldQueue
      */
     public function handle()
     {
-        info('generating cache for ' . $this->overlay->uuid . ' [' . $this->overlay->id . ']');
         $this->overlay->generate();
     }
 }

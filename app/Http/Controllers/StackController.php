@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Overlay;
 use Cache;
+use STS\ZipStream\Models\S3File;
 use Zip;
 use App\Stack;
 
@@ -31,7 +32,6 @@ class StackController
         return Zip::create(
             $stack->title . ".zip",
             $stack->overlays->mapWithKeys(function(Overlay $overlay, $index) {
-                info('zipping up ' . $overlay->cache_path);
                 return [$overlay->cache_path => "overlay_" . ($index + 1) . ".png"];
             })->toArray()
         );

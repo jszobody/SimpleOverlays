@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "215dd43ab4cc39e945024177d39bfa4a",
+    "content-hash": "5ece31df1e379e4e7e22bae60fb89d62",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3578,20 +3578,20 @@
         },
         {
             "name": "stechstudio/laravel-zipstream",
-            "version": "2.5",
+            "version": "dev-better-s3-clients",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stechstudio/laravel-zipstream.git",
-                "reference": "659e04ec40cfa2e0ca07383d84f172b3b144989a"
+                "reference": "564c9d38aee2e4b3b64b9ed89654f29824d0683e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stechstudio/laravel-zipstream/zipball/659e04ec40cfa2e0ca07383d84f172b3b144989a",
-                "reference": "659e04ec40cfa2e0ca07383d84f172b3b144989a",
+                "url": "https://api.github.com/repos/stechstudio/laravel-zipstream/zipball/564c9d38aee2e4b3b64b9ed89654f29824d0683e",
+                "reference": "564c9d38aee2e4b3b64b9ed89654f29824d0683e",
                 "shasum": ""
             },
             "require": {
-                "guzzlehttp/guzzle": "^6.0|^7.0",
+                "guzzlehttp/guzzle": "^6.0",
                 "illuminate/support": "^5.6|^6.0|^7.0",
                 "maennchen/zipstream-php": "^v2.0",
                 "php": "^7.1"
@@ -3632,7 +3632,7 @@
                 "laravel-zipstream",
                 "stechstudio"
             ],
-            "time": "2020-07-10T17:29:40+00:00"
+            "time": "2020-07-25T03:02:36+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -8329,7 +8329,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "stechstudio/laravel-zipstream": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
