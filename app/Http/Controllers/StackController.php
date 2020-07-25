@@ -30,7 +30,7 @@ class StackController
         }
 
         return Zip::create(
-            $stack->title . ".zip",
+            $stack->zip_name,
             $stack->overlays->mapWithKeys(function(Overlay $overlay, $index) {
                 return [$overlay->cache_path => "overlay_" . ($index + 1) . ".png"];
             })->toArray()

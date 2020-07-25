@@ -35,6 +35,13 @@ class Stack extends Model
         $query->whereNull('archived_at');
     }
 
+    public function getZipNameAttribute()
+    {
+        return $this->occurs_at
+            ? $this->title . ' - ' . $this->occurs_at->format('F j Y') . '.zip'
+            : $this->title . '.zip';
+    }
+
     public function insertFrom(Stack $stack, Overlay $selected)
     {
         // First bump up the sort order of all our own overlays after the selected overlay, to make room

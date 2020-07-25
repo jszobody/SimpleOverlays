@@ -13,7 +13,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind('zipstream.s3client', function($app) {
+            return \Storage::disk('s3')->getDriver()->getAdapter()->getClient();
+        });
     }
 
     /**
