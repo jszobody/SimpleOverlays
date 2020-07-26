@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Impose Live</title>
+    <title>Eclipse</title>
 
     <!-- Scripts -->
     <script src="https://kit.fontawesome.com/affcbf7764.js" crossorigin="anonymous"></script>
@@ -15,6 +15,7 @@
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap" rel="stylesheet">
 </head>
 <body class="bg-gray-900 h-screen antialiased leading-none">
     <div id="app">
@@ -23,7 +24,8 @@
                 <div class="flex items-center justify-center">
                     <div class="mr-6">
                         <a href="{{ url('/') }}" class="text-lg font-semibold text-gray-200 no-underline">
-                            <i class="fad fa-layer-group mr-1 opacity-50"></i> Impose
+                            <i class="fad fa-moon mr-1 opacity-50"></i>
+                            <span class="text-xl" style="font-family: 'Josefin Sans', sans-serif;">eclipse</span>
                         </a>
                     </div>
                     <div class="flex-1 text-right">

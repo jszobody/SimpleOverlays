@@ -44,8 +44,16 @@ class User extends Authenticatable
             return Team::find(session('current_team'));
         }
 
+        if(!$this->team_id && $this->memberTeams()->count()) {
+            $this->update(['team_id' => $this->memberTeams()->first()->id]);
+        }
+
         if (!$this->team_id) {
-            $this->update(['team_id' => Team::newFor($this)->id]);
+            $this->update([
+                'team_id' => $this->memberTeams()->count()
+                    ? $this->memberTeams()->first()->id
+                    : Team::newFor($this)->id
+            ]);
         }
 
         $this->selectTeam($this->primaryTeam);

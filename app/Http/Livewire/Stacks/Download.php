@@ -19,9 +19,4 @@ class Download extends Component
     {
         return view('livewire.stacks.download');
     }
-
-    public function zip()
-    {
-        return redirect()->to(route('zip-stack', ['stack' => $this->stack]));
-    }
 }

@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Impose Live</title>
+    <title>Eclipse</title>
 
     <!-- Scripts -->
     <script src="https://kit.fontawesome.com/affcbf7764.js" crossorigin="anonymous"></script>
@@ -16,9 +16,9 @@
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/light.css">
 
-    @livewireStyles
-
     @stack('head')
+
+    @livewireStyles
 </head>
 <body class="bg-gray-100 h-screen antialiased leading-relaxed {{ isset($page) ? "page-$page" : "" }}">
     <div id="app">
@@ -27,11 +27,12 @@
                 <div class="flex items-center justify-center">
                     <div class="mr-6 relative" x-data="{ open: false }" @click.away="open = false" @keydown.escape="open = false">
                         <div @click="open = !open" class="text-xl font-semibold text-gray-200 no-underline cursor-pointer">
-                            <i class="fad fa-layer-group mr-1 opacity-50"></i> {{ team()->name }}
+                            <i class="fad fa-moon mr-1 opacity-50"></i> {{ team()->name }}
                             <i class="fas fa-caret-down text-sm opacity-50"></i>
                         </div>
 
-                        <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="origin-top-right absolute right-0 mt-2 w-64 rounded-md shadow-lg">
+                        <div x-show="open" class="origin-top-right absolute right-0 mt-2 w-64 rounded-md shadow-lg" style="display: none"
+                             x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95">
                             <div class="rounded-md bg-white shadow-xs text-sm" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                 <div class="py-1">
                                     @foreach(user()->memberTeams AS $team)

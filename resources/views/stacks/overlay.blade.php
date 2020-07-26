@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="font-size: 36px">
+<html>
 <head>
     <meta charset="utf-8">
     <title>Preview</title>

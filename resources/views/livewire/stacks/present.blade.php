@@ -70,7 +70,7 @@
                 <div style="background-image: url({{ asset('images/transparent-pattern.png') }})" class="relative">
                     <div class="preview-container border border-gray-300 relative overflow-hidden text-gray-100 leading-normal" style="background-image: url({{ asset('images/transparent-pattern.png') }})">
                         <img id="current-shim" class="w-full" src="{{ asset('images/shim-1920x1080.png') }}"/>
-                        <div id="current" class="absolute inset-0" style="font-size: 36px;">
+                        <div id="current" class="absolute inset-0">
                             <div class="slide {{ $current->css_classes }} {{ $current->layout }} {{ $current->size }}">
                                 <div class="inner">{!! $current->final !!}</div>
                             </div>
@@ -91,7 +91,7 @@
                     <div class="my-4 relative" style="background-image: url({{ asset('images/transparent-pattern.png') }})">
                         <div class="border border-gray-300 relative overflow-hidden text-gray-100 leading-normal" style="background-image: url({{ asset('images/transparent-pattern.png') }})">
                             <img id="next-shim" class="w-full" src="{{ asset('images/shim-1920x1080.png') }}"/>
-                            <div id="next" class="absolute inset-0" style="font-size: 36px;">
+                            <div id="next" class="absolute inset-0">
                                 <div class="slide {{ $next->css_classes }} {{ $next->layout }} {{ $next->size }}">
                                     <div class="inner">{!! $next->final !!}</div>
                                 </div>

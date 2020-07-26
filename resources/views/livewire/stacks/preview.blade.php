@@ -34,7 +34,7 @@
             <div class="">
                 <div class="preview-container border border-gray-300 relative overflow-hidden text-gray-100 leading-normal" style="background-image: url({{ asset('images/transparent-pattern.png') }})">
                     <img class="preview-shim w-full" src="{{ asset('images/shim-1920x1080.png') }}"/>
-                    <div class="preview absolute inset-0" style="font-size: 36px;">
+                    <div class="preview absolute inset-0">
                         <div class="slide {{ $overlay->css_classes }} {{ $overlay->layout }} {{ $overlay->size }}">
                             <div class="inner">{!! $overlay->final !!}</div>
                         </div>

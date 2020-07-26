@@ -41,6 +41,6 @@ class Insert extends Component
 
     protected function stacks()
     {
-        return Stack::where('id', '!=', $this->stack->id)->withCount('overlays')->orderBy('id', 'DESC')->get();
+        return team()->stacks()->where('id', '!=', $this->stack->id)->get();
     }
 }

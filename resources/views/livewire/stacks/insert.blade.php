@@ -44,7 +44,7 @@
         <div class="mt-5 sm:mt-6">
             <span class="flex w-full rounded-md shadow-sm">
 
-                    <button type="button" {{ $selected ? '' : 'disabled' }} wire:click="insert()" @click="show = false"
+                    <button type="button" {{ $selected ? '' : 'disabled' }} wire:click="$emitUp('insertFrom', {{ optional($selected)->id }})" @click="show = false"
                           class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-blue-500 text-base leading-6 font-medium text-white shadow-sm hover:bg-blue-700 disabled:bg-gray-400 focus:outline-none focus:border-blue-700 focus:shadow-outline-indigo transition ease-in-out duration-150 sm:text-sm sm:leading-5">
                         @if($selected)
                             Copy {{ $selected->overlays_count }} {{ Str::plural('overlay', $selected->overlays_count) }} and insert

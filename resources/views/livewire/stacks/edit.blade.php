@@ -50,18 +50,12 @@
             }
         });
 
-        updateSidebarMaxHeight();
-        window.addEventListener('resize', updateSidebarMaxHeight);
         updatePreviewZoom();
         window.addEventListener('resize', updatePreviewZoom);
 
-        function updateSidebarMaxHeight() {
-            document.getElementById("sidebar").style.maxHeight = document.getElementById("editor").clientHeight + "px";
-        }
         function updatePreviewZoom() {
-            document.getElementById('preview').style.zoom = document.getElementById('preview').offsetWidth / 1920;
+            document.getElementById('preview').style.zoom = document.getElementById('preview-shim').offsetWidth / 1920;
         }
-
 
         document.addEventListener('DOMContentLoaded', function () {
             scroller.scrollIntoView(document.getElementById("selectedThumb"));
@@ -74,7 +68,6 @@
             });
 
             window.livewire.hook('afterDomUpdate', function () {
-                updateSidebarMaxHeight();
                 updatePreviewZoom();
 
                 document.getElementById("thumbs").classList.remove('scroll-smooth');
@@ -97,8 +90,8 @@
 <div class="container mx-auto bg-white rounded-lg shadow-lg p-10" x-data="{ showInsertDialog: false }">
     @include("stacks._header", ['selected' => "edit"])
 
-    <div class="flex items-start relative">
-        <aside id="sidebar" class="w-64 flex flex-col flex-shrink-0">
+    <div class="relative pl-8">
+        <aside id="sidebar" class="absolute top-0 left-0 bottom-0 w-64 flex flex-col">
             <div id="thumbs-toolbar" class="flex justify-between pb-2 text-gray-700">
                 <div class="flex">
                     <a wire:click="create()"
@@ -129,7 +122,7 @@
             </div>
         </aside>
 
-        <div id="editor" class="ml-8 flex-grow flex flex-col justify-center items-end">
+        <div id="editor" class="flex flex-col justify-center items-end ml-64">
             <div id="editor-toolbar" class="w-160 xl:w-224 flex justify-start pb-2 text-gray-700">
                 <a onclick="editor.wrapSelection('**')"
                    class="p-1 text-gray-600 hover:text-gray-900 border border-white hover:border-blue-500 rounded w-6 h-6 flex items-center justify-center cursor-pointer text-sm"><i
@@ -168,9 +161,9 @@
                     </select>
                 </div>
             </div>
-            <div class="border border-gray-300 relative overflow-hidden text-gray-100 leading-normal">
-                <img class="w-full" src="{{ asset('images/shim-1920x1080.png') }}"/>
-                <div id="preview" class="absolute inset-0" style="font-size: 36px;">
+            <div id="preview-wrapper" class="border border-gray-300 relative overflow-hidden text-gray-100 leading-normal">
+                <img id="preview-shim" class="w-full" src="{{ asset('images/shim-1920x1080.png') }}"/>
+                <div id="preview" class="absolute inset-0">
                     <div class="slide {{ $current->css_classes }} {{ $current->layout }} {{ $current->size }}">
                         <div class="inner">{!! $current->final !!}</div>
                     </div>
