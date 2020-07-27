@@ -24,8 +24,7 @@
                 <div class="flex items-center justify-center">
                     <div class="mr-6">
                         <a href="{{ url('/') }}" class="text-lg font-semibold text-gray-200 no-underline">
-                            <i class="fad fa-moon mr-1 opacity-50"></i>
-                            <span class="text-xl" style="font-family: 'Josefin Sans', sans-serif;">eclipse</span>
+                            <img src="{{ asset('images/logo-dark.png') }}" class="h-16"/>
                         </a>
                     </div>
                     <div class="flex-1 text-right">

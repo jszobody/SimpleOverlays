@@ -8,7 +8,7 @@
         <div class="p-12 flex">
             <div class="w-1/2 text-xl pr-8">
                 <p class="my-4">Sessions are how you present and direct your live tream overlays.</p>
-                <p class="my-8"><a href="{{ route('create-stack') }}" class="text-blue-500 font-bold">Create your first session...</a></p>
+                <p class="my-8"><a href="{{ route('create-stack') }}" class="text-teal-500 font-bold">Create your first session...</a></p>
             </div>
             <img src="{{ asset('images/undraw_taking_notes_tjaf.svg') }}" class="w-1/2"/>
         </div>

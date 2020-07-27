@@ -33,7 +33,7 @@ class Overlay extends Model implements Sortable
         static::creating(function ($overlay) {
             $overlay->uuid = (string) Str::uuid();
         });
-        
+
         static::updating(function ($overlay) {
             $overlay->updateCacheName();
         });

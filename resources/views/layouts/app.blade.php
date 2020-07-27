@@ -26,9 +26,10 @@
             <div class="container mx-auto bg-gray-900 px-6 md:px-0 border-b-2 border-gray-800 py-6">
                 <div class="flex items-center justify-center">
                     <div class="mr-6 relative" x-data="{ open: false }" @click.away="open = false" @keydown.escape="open = false">
-                        <div @click="open = !open" class="text-xl font-semibold text-gray-200 no-underline cursor-pointer">
-                            <i class="fad fa-moon mr-1 opacity-50"></i> {{ team()->name }}
-                            <i class="fas fa-caret-down text-sm opacity-50"></i>
+                        <div @click="open = !open" class="text-xl font-semibold text-gray-200 no-underline cursor-pointer flex items-center">
+                            <img class="h-12 inline-block -ml-2 -mr-5 mt-1 -mb-1" src="{{ asset('images/eclipse-dark.png') }}"/>
+                            {{ team()->name }}
+                            <i class="fas fa-caret-down text-sm opacity-50 ml-2"></i>
                         </div>
 
                         <div x-show="open" class="origin-top-right absolute right-0 mt-2 w-64 rounded-md shadow-lg" style="display: none"
