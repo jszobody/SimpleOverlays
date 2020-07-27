@@ -50,22 +50,18 @@
         }
     </script>
 @endpush
-<div class="container mx-auto bg-white rounded-lg shadow-lg p-10">
+<div class="container mx-auto bg-white rounded-lg shadow-lg p-6 md:p-10">
     @include("stacks._header", ['selected' => "present"])
 
     <div>
         <div class="text-xl font-bold mb-2">{{ $session->slug }}</div>
-{{--        <div class="flex items-center">--}}
-{{--            <i class="fad fa-images mr-2 text-gray-600"></i>--}}
-{{--            <a class="text-blue-500 hover:underline text-sm" href="{{ route('public-view', ['slug' => $session->slug, 'format' => 'png']) }}" target="_blank">{{ route('public-view', ['slug' => $session->slug, 'format' => 'png']) }}</a>--}}
-{{--        </div>--}}
         <div class="flex items-center">
             <i class="fad fa-presentation mr-2 text-gray-600"></i>
             <a class="text-blue-500 hover:underline text-sm" href="{{ route('public-view', ['slug' => $session->slug, 'format' => 'html']) }}" target="_blank">{{ route('public-view', ['slug' => $session->slug, 'format' => 'html']) }}</a>
         </div>
 
-        <div class="flex my-8">
-            <div class="w-3/5 pr-4">
+        <div class="lg:flex my-8 sticky top-0 md:relative">
+            <div class="lg:w-3/5 lg:pr-4 my-2">
                 <div class="font-bold text-gray-500 mb-4">{{ $stack->overlays->getIndex($current) + 1 }} of {{ $stack->overlays->count() }}</div>
                 <div style="background-image: url({{ asset('images/transparent-pattern.png') }})" class="relative">
                     <div class="preview-container border border-gray-300 relative overflow-hidden text-gray-100 leading-normal" style="background-image: url({{ asset('images/transparent-pattern.png') }})">
@@ -79,16 +75,14 @@
                     <img class="absolute inset-0 cursor-pointer" src="{{ asset('images/shim-1920x1080.png') }}" wire:click="next()" />
                 </div>
             </div>
-            <div class="w-2/5 pl-4 flex flex-col">
+            <div class="hidden sm:block lg:w-2/5 lg:pl-4 my-2 flex flex-wrap lg:flex-col">
+                <div class="w-full font-bold text-gray-500">{{ is_null($next) ? "End" : "Next up..." }}</div>
                 @if(is_null($next))
-                    <div class="font-bold text-gray-500">End</div>
-                    <div class="my-4 shadow border border-gray-100">
+                    <div class="w-3/5 lg:w-full my-4 shadow border border-gray-100">
                         <img class="w-full" src="{{ asset('images/shim-1920x1080.png') }}"/>
                     </div>
-
                 @else
-                    <div class="font-bold text-gray-500">Next up...</div>
-                    <div class="my-4 relative" style="background-image: url({{ asset('images/transparent-pattern.png') }})">
+                    <div class="w-3/4 lg:w-full my-4 relative" style="background-image: url({{ asset('images/transparent-pattern.png') }})">
                         <div class="border border-gray-300 relative overflow-hidden text-gray-100 leading-normal" style="background-image: url({{ asset('images/transparent-pattern.png') }})">
                             <img id="next-shim" class="w-full" src="{{ asset('images/shim-1920x1080.png') }}"/>
                             <div id="next" class="absolute inset-0">
@@ -100,13 +94,13 @@
                         <img class="absolute inset-0 cursor-pointer" src="{{ asset('images/shim-1920x1080.png') }}" wire:click="next()" />
                     </div>
                 @endif
-                <div wire:click="toggle()" class="mt-4 mb-px flex-grow flex items-center justify-center text-xl cursor-pointer {{ $session->visible ? "border-2 border-gray-500 text-gray-500" : "border-2 border-red-700 bg-red-700 text-white" }}">
+                <div wire:click="toggle()" class="my-4 lg:mb-px ml-4 lg:ml-0 flex-grow flex items-center justify-center text-xl cursor-pointer {{ $session->visible ? "border-2 border-gray-500 text-gray-500" : "border-2 border-red-700 bg-red-700 text-white" }}">
                     {{ $session->visible ? "Hide overlays" : "Overlays hidden" }}
                 </div>
             </div>
         </div>
 
-        <div id="thumbs" class="relative flex my-8 overflow-x-auto border border-gray-300 px-2 scroll-smooth">
+        <div id="thumbs" class="hidden sm:relative flex my-8 overflow-x-auto border border-gray-300 px-2 scroll-smooth">
             @foreach($stack->overlays AS $overlay)
                 <div id="{{ $current->id == $overlay->id ? "selectedThumb" : "" }}"
                      class="{{ $current->id == $overlay->id ? 'bg-gray-300' : 'bg-white' }}">

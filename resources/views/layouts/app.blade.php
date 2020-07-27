@@ -23,11 +23,11 @@
 <body class="bg-gray-100 h-screen antialiased leading-relaxed {{ isset($page) ? "page-$page" : "" }}">
     <div id="app">
         <header class="bg-gray-900 shadow pb-32">
-            <div class="container mx-auto bg-gray-900 px-6 md:px-0 border-b-2 border-gray-800 py-6">
-                <div class="flex items-center justify-center">
+            <div class="container mx-auto bg-gray-900 px-4 md:px-1 border-b-2 border-gray-800 py-6">
+                <div class="flex items-center">
                     <div class="mr-6 relative" x-data="{ open: false }" @click.away="open = false" @keydown.escape="open = false">
                         <div @click="open = !open" class="text-xl font-semibold text-gray-200 no-underline cursor-pointer flex items-center">
-                            <img class="h-12 inline-block -ml-2 -mr-5 mt-1 -mb-1" src="{{ asset('images/eclipse-dark.png') }}"/>
+                            <img class="h-12 inline-block -ml-1 -mr-5 mt-1 -mb-1" src="{{ asset('images/eclipse-dark.png') }}"/>
                             {{ team()->name }}
                             <i class="fas fa-caret-down text-sm opacity-50 ml-2"></i>
                         </div>
@@ -48,12 +48,12 @@
                                 </div>
                                 <div class="border-t border-gray-100"></div>
                                 <div class="py-1">
-                                    <a href="{{ route('create-team') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Create new team</a>
+                                    <a href="{{ route('create-team') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Manage teams</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="flex-1 text-right">
+                    <div class="flex-1 text-right hidden md:block">
                         <span class="text-gray-300 text-sm pr-4">{{ Auth::user()->name }}</span>
 
                         <a href="{{ route('logout') }}"
@@ -69,10 +69,10 @@
 
             <nav class="container mx-auto px-6 md:px-2 py-6">
                 <a href="{{ route('list-stacks') }}" class="mx-4 hover:text-gray-100 font-semibold {{ Route::currentRouteName() == "list-stacks" ? "text-gray-100" : "text-gray-400" }}">Stacks</a>
-{{--                <a href="{{ route('list-sessions') }}" class="mx-4 hover:text-gray-100 font-semibold {{ Route::currentRouteName() == "list-sessions" ? "text-gray-100" : "text-gray-400" }}">Sessions</a>--}}
-{{--                <a href="{{ route('list-teams') }}" class="mx-4 hover:text-gray-100 font-semibold {{ Route::currentRouteName() == "list-themes" ? "text-gray-100" : "text-gray-400" }}">Themes</a>--}}
-{{--                <a href="{{ route('list-teams') }}" class="mx-4 hover:text-gray-100 font-semibold {{ Route::currentRouteName() == "list-transformations" ? "text-gray-100" : "text-gray-400" }}">Transformations</a>--}}
-                <a href="{{ route('list-teams') }}" class="mx-4 hover:text-gray-100 font-semibold {{ Route::currentRouteName() == "list-teams" ? "text-gray-100" : "text-gray-400" }}">Teams</a>
+                <a href="{{ route('list-sessions') }}" class="mx-4 hover:text-gray-100 font-semibold {{ Route::currentRouteName() == "list-sessions" ? "text-gray-100" : "text-gray-400" }}">Sessions</a>
+                <a href="{{ route('list-teams') }}" class="mx-4 hover:text-gray-100 font-semibold {{ Route::currentRouteName() == "list-themes" ? "text-gray-100" : "text-gray-400" }} hidden md:inline">Themes</a>
+                <a href="{{ route('list-teams') }}" class="mx-4 hover:text-gray-100 font-semibold {{ Route::currentRouteName() == "list-transformations" ? "text-gray-100" : "text-gray-400" }} hidden md:inline">Transformations</a>
+{{--                <a href="{{ route('list-teams') }}" class="mx-4 hover:text-gray-100 font-semibold {{ Route::currentRouteName() == "list-teams" ? "text-gray-100" : "text-gray-400" }}">Teams</a>--}}
 
             </nav>
         </header>

@@ -1,4 +1,4 @@
-<div class="container mx-auto bg-white rounded-lg shadow-lg p-10" x-data="{ showInsertDialog: false }">
+<div class="container mx-auto bg-white rounded-lg shadow-lg p-6 md:p-10" x-data="{ showInsertDialog: false }">
     @include("teams._header", ['selected' => "members"])
 
     <div class="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 my-4">

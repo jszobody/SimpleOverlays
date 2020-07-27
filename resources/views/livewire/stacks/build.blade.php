@@ -1,4 +1,4 @@
-<div class="container mx-auto bg-white rounded-lg shadow-lg p-10">
+<div class="container mx-auto bg-white rounded-lg shadow-lg p-6 md:p-10">
     @include("stacks._header", ['selected' => "download"])
 
     <div class="p-12 mb-6 flex">

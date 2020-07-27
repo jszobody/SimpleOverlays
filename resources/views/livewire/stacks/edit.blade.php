@@ -87,7 +87,7 @@
     </script>
 @endpush
 
-<div class="container mx-auto bg-white rounded-lg shadow-lg p-10" x-data="{ showInsertDialog: false }">
+<div class="container mx-auto bg-white rounded-lg shadow-lg p-6 md:p-10" x-data="{ showInsertDialog: false }">
     @include("stacks._header", ['selected' => "edit"])
 
     <div class="relative pl-8">

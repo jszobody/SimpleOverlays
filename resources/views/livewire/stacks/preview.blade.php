@@ -13,7 +13,7 @@
         }
     </script>
 @endpush
-<div class="container mx-auto bg-white rounded-lg shadow-lg p-10">
+<div class="container mx-auto bg-white rounded-lg shadow-lg p-6 md:p-10">
     @include("stacks._header", ['selected' => "preview"])
 
 {{--    <div x-data="{ png: @json($format == 'png') }" class="flex justify-center items-center my-8">--}}

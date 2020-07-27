@@ -1,4 +1,4 @@
-<div class="container mx-auto bg-white rounded-lg shadow-lg p-10">
+<div class="container mx-auto bg-white rounded-lg shadow-lg p-6 md:p-10">
     <div class="flex items-center justify-between border-b border-gray-300 pb-4 mb-8">
         <h1 class="text-3xl font-semibold">Create a new team</h1>
     </div>

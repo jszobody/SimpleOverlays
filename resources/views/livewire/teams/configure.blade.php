@@ -1,4 +1,4 @@
-<div class="container mx-auto bg-white rounded-lg shadow-lg p-10">
+<div class="container mx-auto bg-white rounded-lg shadow-lg p-6 md:p-10">
     @include("teams._header", ['selected' => "configure"])
 
     @if($editDetails)
