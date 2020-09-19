@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="border-t border-gray-100"></div>
                                 <div class="py-1">
-                                    <a href="{{ route('create-team') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Manage teams</a>
+                                    <a href="{{ route('list-teams') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Manage teams</a>
                                 </div>
                             </div>
                         </div>
@@ -69,9 +69,9 @@
 
             <nav class="container mx-auto px-6 md:px-2 py-6">
                 <a href="{{ route('list-stacks') }}" class="mx-4 hover:text-gray-100 font-semibold {{ Route::currentRouteName() == "list-stacks" ? "text-gray-100" : "text-gray-400" }}">Stacks</a>
-                <a href="{{ route('list-sessions') }}" class="mx-4 hover:text-gray-100 font-semibold {{ Route::currentRouteName() == "list-sessions" ? "text-gray-100" : "text-gray-400" }}">Sessions</a>
-                <a href="{{ route('list-teams') }}" class="mx-4 hover:text-gray-100 font-semibold {{ Route::currentRouteName() == "list-themes" ? "text-gray-100" : "text-gray-400" }} hidden md:inline">Themes</a>
-                <a href="{{ route('list-teams') }}" class="mx-4 hover:text-gray-100 font-semibold {{ Route::currentRouteName() == "list-transformations" ? "text-gray-100" : "text-gray-400" }} hidden md:inline">Transformations</a>
+{{--                <a href="{{ route('list-sessions') }}" class="mx-4 hover:text-gray-100 font-semibold {{ Route::currentRouteName() == "list-sessions" ? "text-gray-100" : "text-gray-400" }}">Sessions</a>--}}
+{{--                <a href="{{ route('list-teams') }}" class="mx-4 hover:text-gray-100 font-semibold {{ Route::currentRouteName() == "list-themes" ? "text-gray-100" : "text-gray-400" }} hidden md:inline">Themes</a>--}}
+{{--                <a href="{{ route('list-teams') }}" class="mx-4 hover:text-gray-100 font-semibold {{ Route::currentRouteName() == "list-transformations" ? "text-gray-100" : "text-gray-400" }} hidden md:inline">Transformations</a>--}}
 {{--                <a href="{{ route('list-teams') }}" class="mx-4 hover:text-gray-100 font-semibold {{ Route::currentRouteName() == "list-teams" ? "text-gray-100" : "text-gray-400" }}">Teams</a>--}}
 
             </nav>

@@ -9,5 +9,12 @@
                 <a href="mailto:{{ $user->email }}" class="text-blue-500 hover:text-blue-700 text-sm">{{ $user->email }}</a>
             </div>
         @endforeach
+
+        <div wire:click="invite()" class="text-center rounded px-4 py-8 border-2 border-dashed border-gray-300 opacity-50 hover:opacity-100 cursor-pointer">
+            <i class="fad fa-door-open text-gray-400 text-5xl"></i>
+            <h2 class="font-semibold text-gray-700 text-lg mt-4">Invite member</h2>
+        </div>
+
+
     </div>
 </div>
