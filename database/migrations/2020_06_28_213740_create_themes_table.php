@@ -15,11 +15,11 @@ class CreateThemesTable extends Migration
     {
         Schema::create('themes', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
+            $table->string('name');
 
             $table->json('layouts');
             $table->json('sizes');
-            $table->text("css");
+            $table->text('css');
 
             $table->string('default_layout');
             $table->string('default_size');

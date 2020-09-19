@@ -26,7 +26,7 @@ class Configure extends Component
         ]);
 
         $this->team->update([
-            'name' => $this->name
+            'name' => $this->name,
         ]);
 
         $this->editDetails = false;

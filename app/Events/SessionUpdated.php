@@ -11,13 +11,14 @@ class SessionUpdated
 {
     use SerializesModels;
 
-    /** @var Session  */
+    /** @var Session */
     public $session;
 
     public function __construct(Session $session)
     {
         $this->session = $session;
     }
+
 //
 //    public function broadcastOn()
 //    {

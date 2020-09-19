@@ -33,9 +33,9 @@ class Edit extends Component
     /** @var int */
     public $selected = 0;
 
-    /** @var array  */
+    /** @var array */
     public $modals = [
-        'insertStack' => false
+        'insertStack' => false,
     ];
 
     /** @var string[] */
@@ -77,7 +77,7 @@ class Edit extends Component
 
         if ($this->getCurrentIndex() + 1 < $this->stack->overlays->count()) {
             $this->setCurrent($this->stack->overlays->get($this->getCurrentIndex() + 1));
-        } else if ($this->getCurrentIndex() > 0) {
+        } elseif ($this->getCurrentIndex() > 0) {
             $this->setCurrent($this->stack->overlays->get($this->getCurrentIndex() - 1));
         } else {
             $this->setCurrent(
@@ -141,11 +141,11 @@ class Edit extends Component
 
     protected function getCurrentIndex()
     {
-        foreach ($this->stack->overlays AS $index => $overlay) {
+        foreach ($this->stack->overlays as $index => $overlay) {
             if ($overlay->id == $this->current->id) {
                 return $index;
             }
-        };
+        }
     }
 
     protected function setCurrent(Overlay $overlay, $scroll = true)
@@ -173,17 +173,19 @@ class Edit extends Component
         $this->hideModal('insertStack');
     }
 
-    public function showModal($name) {
+    public function showModal($name)
+    {
         $this->modals[$name] = true;
     }
 
-    public function hideModal($name) {
+    public function hideModal($name)
+    {
         $this->modals[$name] = false;
     }
 
     public function hideAllModals()
     {
-        foreach($this->modals AS $name => $state) {
+        foreach ($this->modals as $name => $state) {
             $this->modals[$name] = false;
         }
     }

@@ -1,8 +1,11 @@
 <?php
-function user() {
+
+function user()
+{
     return Auth::user();
 }
 
-function team() {
+function team()
+{
     return user()->current_team;
 }

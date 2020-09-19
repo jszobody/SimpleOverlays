@@ -4,14 +4,14 @@ namespace App;
 
 use App\Collections\OverlayCollection;
 use App\Jobs\CacheOverlay;
-use Illuminate\Http\File;
-use Illuminate\Support\Str;
-use Storage;
 use App\Parsing\Parser;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\File;
+use Illuminate\Support\Str;
 use Spatie\Browsershot\Browsershot;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
+use Storage;
 
 class Overlay extends Model implements Sortable
 {
@@ -20,7 +20,7 @@ class Overlay extends Model implements Sortable
     protected $guarded = ['id'];
 
     protected $casts = [
-        'css' => 'json'
+        'css' => 'json',
     ];
 
     public $sortable = [
@@ -54,8 +54,8 @@ class Overlay extends Model implements Sortable
     public function getCssClassesAttribute()
     {
         return $this->css
-            ? implode(" ", $this->css)
-            : "";
+            ? implode(' ', $this->css)
+            : '';
     }
 
     public function getFilePathAttribute()
@@ -75,7 +75,7 @@ class Overlay extends Model implements Sortable
 
     public function getUuidAttribute()
     {
-        if(empty($this->attributes['uuid'])) {
+        if (empty($this->attributes['uuid'])) {
             $this->update(['uuid' => (string) Str::uuid()]);
         }
 
@@ -89,12 +89,12 @@ class Overlay extends Model implements Sortable
 
     public function getCachePathAttribute()
     {
-        return 's3://' . config('filesystems.disks.s3.bucket') . '/' . $this->cache_name;
+        return 's3://'.config('filesystems.disks.s3.bucket').'/'.$this->cache_name;
     }
 
     public function cache()
     {
-        if($this->cached) {
+        if ($this->cached) {
             return;
         }
 
@@ -105,40 +105,42 @@ class Overlay extends Model implements Sortable
 
     public function generate()
     {
-        if(!$this->cached) {
+        if (! $this->cached) {
             Browsershot::url(route('overlay-preview', ['uuid' => $this->uuid]))
                 ->setNodeBinary('/opt/bin/node')
                 ->setNodeModulePath('/opt/nodejs/node_modules')
                 ->setBinPath(base_path('resources/browser.js'))
                 ->windowSize(1920, 1080)
                 ->hideBackground()
-                ->save(sys_get_temp_dir() . "/tmp.png");
+                ->save(sys_get_temp_dir().'/tmp.png');
 
-            Storage::disk('s3')->putFileAs('', new File(sys_get_temp_dir() . "/tmp.png"), $this->cache_name, 'public');
+            Storage::disk('s3')->putFileAs('', new File(sys_get_temp_dir().'/tmp.png'), $this->cache_name, 'public');
         }
 
         return $this->cache_name;
     }
 
-    public function moveBefore(Overlay $otherModel)
+    public function moveBefore(self $otherModel)
     {
         $this->sort = $otherModel->sort;
         $this->stack->overlays()->where('sort', '>=', $otherModel->sort)->increment('sort');
         $this->save();
+
         return $this;
     }
 
-    public function moveAfter(Overlay $otherModel)
+    public function moveAfter(self $otherModel)
     {
-        $this->sort = $otherModel->sort +1;
+        $this->sort = $otherModel->sort + 1;
         $this->stack->overlays()->where('sort', '>=', $otherModel->sort + 1)->increment('sort');
         $this->save();
+
         return $this;
     }
 
     public function moveToPosition($position)
     {
-        if($otherModel = $this->stack->overlays->get($position)) {
+        if ($otherModel = $this->stack->overlays->get($position)) {
             return $this->moveBefore($otherModel);
         }
 
@@ -147,7 +149,7 @@ class Overlay extends Model implements Sortable
 
     public function updateCacheName()
     {
-        $this->cache_name = $this->id . "_" . md5(serialize($this->attributes)) . ".png";
+        $this->cache_name = $this->id.'_'.md5(serialize($this->attributes)).'.png';
 
         return $this;
     }

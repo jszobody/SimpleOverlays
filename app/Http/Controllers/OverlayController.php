@@ -12,7 +12,7 @@ class OverlayController
     public function preview($uuid)
     {
         return view('stacks.overlay', [
-            'overlay' => Overlay::whereUuid($uuid)->firstOrFail()
+            'overlay' => Overlay::whereUuid($uuid)->firstOrFail(),
         ]);
     }
 

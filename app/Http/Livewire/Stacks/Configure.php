@@ -25,7 +25,9 @@ class Configure extends Component
         $this->title = $this->stack->title;
         $this->occurs = $this->stack->occurs_at ? $this->stack->occurs_at->format('F j, Y') : null;
         $this->theme = $this->stack->theme_id;
-        $this->transformations = $this->stack->transformations->pluck('id')->map(function($id) { return (string) $id; })->toArray();
+        $this->transformations = $this->stack->transformations->pluck('id')->map(function ($id) {
+            return (string) $id;
+        })->toArray();
     }
 
     public function saveDetails()

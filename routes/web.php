@@ -22,7 +22,6 @@ Route::get('/', function () {
 });
 
 Route::middleware('auth')->group(function () {
-
     Route::livewire('/stacks', 'stacks.index')->name('list-stacks');
     Route::livewire('/stacks/create', 'stacks.create')->name('create-stack');
     Route::livewire('/stacks/{stack}/edit', 'stacks.edit')->name('edit-stack');
@@ -44,7 +43,6 @@ Route::middleware('auth')->group(function () {
     Route::livewire('/teams/{team}/edit', 'teams.edit')->name('edit-team');
     Route::livewire('/teams/{team}/settings', 'teams.configure')->name('configure-team');
     Route::get('/teams/{team}', [\App\Http\Controllers\TeamController::class, 'select'])->name('select-team');
-
 });
 
 Route::middleware('visitor')->group(function () {
@@ -54,5 +52,3 @@ Route::middleware('visitor')->group(function () {
     Route::get('/overlay/{uuid}.png', [\App\Http\Controllers\OverlayController::class, 'png'])->name('overlay-png');
     Route::get('/control/{slug}/control', [\App\Http\Controllers\PresentController::class, 'control'])->name('public-control');
 });
-
-

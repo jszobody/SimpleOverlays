@@ -10,7 +10,7 @@ class Index extends Component
     public function render()
     {
         return view('livewire.stacks.index', [
-            'stacks' => team()->stacks
+            'stacks' => team()->stacks,
         ]);
     }
 }

@@ -24,10 +24,10 @@ class Present extends Component
     /** @var Overlay */
     public $next;
 
-    /** @var array  */
+    /** @var array */
     protected $flash = [];
 
-    /** @var array  */
+    /** @var array */
     public $temp = [];
 
     /** @var string */
@@ -79,7 +79,7 @@ class Present extends Component
 
     public function next()
     {
-        if(!$this->stack->overlays->after($this->current)) {
+        if (! $this->stack->overlays->after($this->current)) {
             return;
         }
 
@@ -89,7 +89,7 @@ class Present extends Component
 
     public function previous()
     {
-        if(!$this->stack->overlays->before($this->current)) {
+        if (! $this->stack->overlays->before($this->current)) {
             return;
         }
 

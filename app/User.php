@@ -13,7 +13,7 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    protected $guarded = ["id"];
+    protected $guarded = ['id'];
 
     protected $hidden = [
         'password', 'remember_token',
@@ -44,15 +44,15 @@ class User extends Authenticatable
             return Team::find(session('current_team'));
         }
 
-        if(!$this->team_id && $this->memberTeams()->count()) {
+        if (! $this->team_id && $this->memberTeams()->count()) {
             $this->update(['team_id' => $this->memberTeams()->first()->id]);
         }
 
-        if (!$this->team_id) {
+        if (! $this->team_id) {
             $this->update([
                 'team_id' => $this->memberTeams()->count()
                     ? $this->memberTeams()->first()->id
-                    : Team::newFor($this)->id
+                    : Team::newFor($this)->id,
             ]);
         }
 

@@ -22,7 +22,7 @@ class View extends Present
     {
         $this->temp = $this->flash;
 
-        if(request('preview')) {
+        if (request('preview')) {
             $this->current = $this->next;
         }
 
