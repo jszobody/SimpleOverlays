@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Regex;
 use Illuminate\Database\Seeder;
 
