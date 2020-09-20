@@ -39,7 +39,7 @@ class Edit extends Component
     ];
 
     /** @var string[] */
-    protected $updatesQueryString = ['selected'];
+    protected $queryString = ['selected'];
 
     protected $listeners = ['insertFrom', 'hideModal'];
 

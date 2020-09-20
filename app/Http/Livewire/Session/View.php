@@ -26,6 +26,7 @@ class View extends Present
             $this->current = $this->next;
         }
 
-        return view('livewire.session.view');
+        return view('livewire.session.view')
+            ->extends('layouts.session');
     }
 }

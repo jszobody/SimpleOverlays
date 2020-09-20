@@ -63,11 +63,11 @@
 
         var thumbScrollPosition = 0;
         document.addEventListener("livewire:load", function (event) {
-            window.livewire.hook('beforeDomUpdate', function () {
+            window.livewire.hook('message.received', function () {
                 thumbScrollPosition = document.getElementById("thumbs").scrollTop;
             });
 
-            window.livewire.hook('afterDomUpdate', function () {
+            window.livewire.hook('message.processed', function () {
                 updatePreviewZoom();
 
                 document.getElementById("thumbs").classList.remove('scroll-smooth');

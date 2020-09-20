@@ -18,4 +18,9 @@ class Edit extends Component
     {
         return view('livewire.teams.edit');
     }
+
+    public function invite()
+    {
+
+    }
 }

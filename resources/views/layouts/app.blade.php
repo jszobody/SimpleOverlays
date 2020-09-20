@@ -78,12 +78,12 @@
         </header>
 
         <main class="-mt-32 mb-12">
-            @yield('content')
+            {{ $slot }}
         </main>
     </div>
-
 @livewireScripts
 <script src="{{ asset('js/app.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 @stack('app')
 </body>
 </html>

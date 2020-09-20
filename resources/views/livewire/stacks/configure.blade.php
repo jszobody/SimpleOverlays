@@ -8,15 +8,14 @@
             <div class="my-8 flex items-center">
                 <label for="title" class="text-lg leading-6 font-medium text-gray-900 w-56 flex-shrink-0">Name</label>
                 <div class="rounded-md shadow-sm flex-grow">
-                    <input id="title" wire:model.lazy="title"
-                           class="form-input w-full block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('title') border-red-500 @enderror"/>
+                    <x-text-input id="title" wire:model="stack.title" :error="$errors->has('stack.title')"></x-text-input>
                 </div>
             </div>
 
             <div class="my-8 flex items-center">
                 <label for="occurs" class="text-lg leading-6 font-medium text-gray-900 w-56 flex-shrink-0">Date</label>
                 <div class="rounded-md shadow-sm flex-grow relative">
-                    <input id="occurs" wire:model.lazy="occurs"
+                    <input id="occurs" wire:model="occurs"
                            class="form-input w-full block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5 pr-10"/>
                     <div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-gray-400" wire:click="$set('occurs', null)">
                         <i class="fas fa-times-circle"></i>
@@ -29,7 +28,7 @@
 
             <div class="my-8 flex items-center">
                 <label for="theme" class="text-lg leading-6 font-medium text-gray-900 w-56 flex-shrink-0">Theme</label>
-                <select id="theme" wire:model="theme"
+                <select id="theme" wire:model="stack.theme_id"
                         class="block form-select w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                     @foreach(team()->themes AS $theme)
                         <option value="{{ $theme->id }}">{{ $theme->name }}</option>
@@ -53,7 +52,7 @@
             <div class="mt-12 mb-8">
                 <a wire:click="saveDetails()"
                    class="mr-1 bg-blue-500 hover:bg-blue-700 text-gray-100 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer">Save</a>
-                <a wire:click="$set('editDetails', false)"
+                <a wire:click="cancel()"
                    class="mr-1 bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer">Cancel</a>
             </div>
         </div>
@@ -63,7 +62,7 @@
 
             <div class="my-6 flex items-center">
                 <label for="title" class="text-lg leading-6 text-gray-900 w-56 flex-shrink-0">Name</label>
-                <div class="flex-grow font-medium">{{ $title }}</div>
+                <div class="flex-grow font-medium">{{ $stack->title }}</div>
             </div>
 
             @if($stack->occurs_at)
