@@ -7,12 +7,13 @@ use Illuminate\View\Component;
 class TextInput extends Component
 {
     public $id;
-
     public $error;
+    public $type;
 
-    public function __construct($id, $error = false)
+    public function __construct($id, $type = "text", $error = false)
     {
         $this->id = $id;
+        $this->type = $type;
         $this->error = $error;
     }
 
@@ -24,7 +25,7 @@ class TextInput extends Component
     public function render()
     {
         return <<<'blade'
-            <input id="{$this->id}"
+            <input id="{$this->id}" type="{$this->type}"
             {{ $attributes->merge([
                 'class' => 'form-input w-full block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5 '
                 . ($error ? "border-red-500" : "")

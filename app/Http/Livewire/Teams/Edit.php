@@ -8,6 +8,7 @@ use Livewire\Component;
 class Edit extends Component
 {
     public $team;
+    public $email;
 
     public function mount(Team $team)
     {
