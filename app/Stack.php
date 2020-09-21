@@ -38,20 +38,20 @@ class Stack extends Model
     public function getZipNameAttribute()
     {
         return $this->occurs_at
-            ? $this->title . ' - ' . $this->occurs_at->format('F j Y') . '.zip'
-            : $this->title . '.zip';
+            ? $this->title.' - '.$this->occurs_at->format('F j Y').'.zip'
+            : $this->title.'.zip';
     }
 
-    public function insertFrom(Stack $stack, Overlay $selected)
+    public function insertFrom(self $stack, Overlay $selected)
     {
         // First bump up the sort order of all our own overlays after the selected overlay, to make room
         $this->overlays()->where('sort', '>', $selected->sort)->increment('sort', $stack->overlays->count());
         $sort = $selected->sort + 1;
 
         // Now replicate each overlay, set the new sort, and save on our own stack
-        foreach($stack->overlays AS $overlay) {
+        foreach ($stack->overlays as $overlay) {
             $this->overlays()->save(
-                tap($overlay->replicate(['uuid']), function(Overlay $new) use($sort) {
+                tap($overlay->replicate(['uuid']), function (Overlay $new) use ($sort) {
                     $new->sortable['sort_when_creating'] = false;
                     $new->sort = $sort;
                 })

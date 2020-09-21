@@ -30,7 +30,7 @@
         });
 
         document.addEventListener("livewire:load", function (event) {
-            window.livewire.hook('afterDomUpdate', function () {
+            window.livewire.hook('message.processed', function () {
                 updatePreviewZoom();
                 scroller.scrollIntoView(document.getElementById("selectedThumb"));
 

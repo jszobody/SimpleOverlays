@@ -22,10 +22,11 @@ class View extends Present
     {
         $this->temp = $this->flash;
 
-        if(request('preview')) {
+        if (request('preview')) {
             $this->current = $this->next;
         }
 
-        return view('livewire.session.view');
+        return view('livewire.session.view')
+            ->extends('layouts.session');
     }
 }

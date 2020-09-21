@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Overlay;
+use App\Stack;
 use Cache;
 use STS\ZipStream\Models\S3File;
 use Zip;
-use App\Stack;
 
 class StackController
 {
@@ -25,14 +25,14 @@ class StackController
 
     public function zip(Stack $stack)
     {
-        if(!$stack->overlays->every->cached) {
+        if (! $stack->overlays->every->cached) {
             return redirect()->route('build-stack', ['stack' => $stack]);
         }
 
         return Zip::create(
             $stack->zip_name,
-            $stack->overlays->mapWithKeys(function(Overlay $overlay, $index) {
-                return [$overlay->cache_path => "overlay_" . ($index + 1) . ".png"];
+            $stack->overlays->mapWithKeys(function (Overlay $overlay, $index) {
+                return [$overlay->cache_path => 'overlay_'.($index + 1).'.png'];
             })->toArray()
         );
     }

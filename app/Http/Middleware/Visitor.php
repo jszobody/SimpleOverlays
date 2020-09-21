@@ -11,8 +11,8 @@ class Visitor
 {
     public function handle(Request $request, Closure $next)
     {
-        if(!Auth::check()) {
-            $request->setUserResolver(function() {
+        if (! Auth::check()) {
+            $request->setUserResolver(function () {
                 return User::whereEmail('visitor')->whereName('Visitor')->first();
             });
         }

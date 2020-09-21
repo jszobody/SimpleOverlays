@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\Broadcast;
 */
 
 Broadcast::channel('session.{slug}', function ($user, $slug) {
-    if(!\App\Session::whereSlug($slug)->exists()) {
+    if (! \App\Session::whereSlug($slug)->exists()) {
         return false;
     }
 
     return [
-        'name' => 'Visitor'
+        'name' => 'Visitor',
     ];
 });

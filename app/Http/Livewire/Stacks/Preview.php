@@ -16,7 +16,7 @@ class Preview extends Component
     public function mount(Stack $stack)
     {
         $this->stack = $stack;
-        $this->format = "html";
+        $this->format = 'html';
     }
 
     public function format($format)

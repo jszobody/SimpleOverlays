@@ -8,31 +8,31 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.2.5",
+        "php": "^7.3",
         "erusev/parsedown-extra": "^0.8.1",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^6.3",
-        "laravel/framework": "^7.0",
+        "guzzlehttp/guzzle": "^7.0.1",
+        "laravel/framework": "^8.3",
         "laravel/tinker": "^2.0",
-        "laravel/ui": "^2.1",
+        "laravel/ui": "^3.0",
         "laravel/vapor-cli": "^1.7",
-        "laravel/vapor-core": "^2.8",
-        "livewire/livewire": "^1.2",
-        "pusher/pusher-php-server": "~4.0",
+        "laravel/vapor-core": "^2.9",
+        "livewire/livewire": "^2.0",
+        "pusher/pusher-php-server": "^4.1",
         "spatie/browsershot": "^3.37",
         "spatie/eloquent-sortable": "^3.8",
-        "spatie/laravel-sluggable": "^2.2",
+        "spatie/laravel-sluggable": "^2.5",
         "stechstudio/laravel-zipstream": "dev-better-s3-clients",
-        "wildbit/swiftmailer-postmark": "^3.1"
+        "wildbit/swiftmailer-postmark": "^3.3"
     },
     "require-dev": {
-        "facade/ignition": "^2.0",
+        "facade/ignition": "^2.3.6",
         "fzaninotto/faker": "^1.9.1",
-        "laravel-frontend-presets/tailwindcss": "^4.1",
+        "laravel-frontend-presets/tailwindcss": "^4.3",
         "mockery/mockery": "^1.3.1",
-        "nunomaduro/collision": "^4.1",
-        "phpunit/phpunit": "^8.5"
+        "nunomaduro/collision": "^5.0",
+        "phpunit/phpunit": "^9.3"
     },
     "config": {
         "optimize-autoloader": true,
@@ -46,12 +46,10 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
         },
-        "classmap": [
-            "database/seeds",
-            "database/factories"
-        ],
         "files": [
             "app/helpers.php"
         ]

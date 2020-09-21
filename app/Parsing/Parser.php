@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class Parser extends \ParsedownExtra
 {
-    /** @var Collection  */
+    /** @var Collection */
     protected $transformations;
 
     public function __construct(Collection $transformations)
@@ -21,8 +21,8 @@ class Parser extends \ParsedownExtra
 
     protected function lines($lines)
     {
-        foreach($lines AS &$line) {
-            $this->transformations->each(function($transformation) use(&$line) {
+        foreach ($lines as &$line) {
+            $this->transformations->each(function ($transformation) use (&$line) {
                 $line = $transformation->transform($line);
             });
         }

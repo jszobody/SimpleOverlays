@@ -8,6 +8,7 @@ use Livewire\Component;
 class Edit extends Component
 {
     public $team;
+    public $email;
 
     public function mount(Team $team)
     {
@@ -17,5 +18,10 @@ class Edit extends Component
     public function render()
     {
         return view('livewire.teams.edit');
+    }
+
+    public function invite()
+    {
+
     }
 }

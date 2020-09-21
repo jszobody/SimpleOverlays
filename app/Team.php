@@ -12,7 +12,7 @@ class Team extends Model
 {
     use HasSlug;
 
-    protected $guarded = ["id"];
+    protected $guarded = ['id'];
 
     /**
      * Get the options for generating the slug.
@@ -61,8 +61,8 @@ class Team extends Model
     public static function newFor(User $user, $name = null)
     {
         $team = static::create([
-            'name' => $name ?? $user->name . "'s team",
-            'owner_id' => $user->id
+            'name' => $name ?? $user->name."'s team",
+            'owner_id' => $user->id,
         ]);
 
         $user->join($team);

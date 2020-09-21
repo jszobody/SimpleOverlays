@@ -9,7 +9,6 @@ class PresentController
 {
     public function overlay($uuid)
     {
-
         return Overlay::whereUuid($uuid)->firstOrFail()->png;
     }
 

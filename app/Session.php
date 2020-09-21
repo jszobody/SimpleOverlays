@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Session extends Model
 {
-    protected $guarded = ["id"];
+    protected $guarded = ['id'];
 
     protected $casts = [
-        "visible" => "boolean"
+        'visible' => 'boolean',
     ];
 
     protected $dispatchesEvents = [
@@ -38,6 +38,6 @@ class Session extends Model
 
     public function toggle()
     {
-        return $this->update(['visible' => !$this->getAttribute('visible')]);
+        return $this->update(['visible' => ! $this->getAttribute('visible')]);
     }
 }

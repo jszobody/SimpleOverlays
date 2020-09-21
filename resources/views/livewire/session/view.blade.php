@@ -24,7 +24,7 @@
         })
 
         document.addEventListener('livewire:load', function (event) {
-            window.livewire.hook('afterDomUpdate', function () {
+            window.livewire.hook('message.processed', function () {
                 if (typeof @this.data.temp.sync == 'undefined') {
                     pusher.whisper('update', {})
                 }
