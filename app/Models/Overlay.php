@@ -1,10 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use App\Collections\OverlayCollection;
 use App\Jobs\CacheOverlay;
 use App\Parsing\Parser;
+use App\Models\Stack;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\File;
 use Illuminate\Support\Str;

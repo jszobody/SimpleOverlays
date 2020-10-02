@@ -1,7 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use App\Models\Regex;
+use App\Models\Stack;
 use Illuminate\Database\Eloquent\Model;
 
 class Transformation extends Model

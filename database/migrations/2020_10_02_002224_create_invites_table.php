@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class BackfillOverlaysCachename extends Migration
+class CreateInvitesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,10 @@ class BackfillOverlaysCachename extends Migration
      */
     public function up()
     {
-        \App\Models\Overlay::all()->each->touch();
+        Schema::create('invites', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +26,6 @@ class BackfillOverlaysCachename extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('invites');
     }
 }

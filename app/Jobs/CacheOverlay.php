@@ -2,8 +2,8 @@
 
 namespace App\Jobs;
 
-use App\Overlay;
-use App\Stack;
+use App\Models\Overlay;
+use App\Models\Stack;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;

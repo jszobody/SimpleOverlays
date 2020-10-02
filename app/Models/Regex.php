@@ -1,7 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use App\Models\Transformation;
 use Illuminate\Database\Eloquent\Model;
 
 class Regex extends Model

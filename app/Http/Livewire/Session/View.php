@@ -3,8 +3,8 @@
 namespace App\Http\Livewire\Session;
 
 use App\Http\Livewire\Stacks\Present;
-use App\Overlay;
-use App\Session;
+use App\Models\Overlay;
+use App\Models\Session;
 use Livewire\Component;
 
 class View extends Present

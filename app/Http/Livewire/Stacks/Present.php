@@ -2,9 +2,9 @@
 
 namespace App\Http\Livewire\Stacks;
 
-use App\Overlay;
-use App\Session;
-use App\Stack;
+use App\Models\Overlay;
+use App\Models\Session;
+use App\Models\Stack;
 use Livewire\Component;
 
 class Present extends Component

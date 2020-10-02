@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Broadcast;
 */
 
 Broadcast::channel('session.{slug}', function ($user, $slug) {
-    if (! \App\Session::whereSlug($slug)->exists()) {
+    if (! \App\Models\Session::whereSlug($slug)->exists()) {
         return false;
     }
 

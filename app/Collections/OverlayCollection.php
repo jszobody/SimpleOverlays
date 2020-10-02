@@ -2,7 +2,7 @@
 
 namespace App\Collections;
 
-use App\Overlay;
+use App\Models\Overlay;
 use Illuminate\Database\Eloquent\Collection;
 
 class OverlayCollection extends Collection

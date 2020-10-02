@@ -1,7 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use App\Models\Stack;
+use App\Models\Theme;
+use App\Models\Transformation;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;

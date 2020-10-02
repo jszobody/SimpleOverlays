@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Stacks;
 
-use App\Stack;
+use App\Models\Stack;
 use Livewire\Component;
 
 class Preview extends Component

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Overlay;
-use App\Stack;
+use App\Models\Overlay;
+use App\Models\Stack;
 
 class PresentController
 {

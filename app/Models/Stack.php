@@ -1,7 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use App\Models\Overlay;
+use App\Models\Session;
+use App\Models\Theme;
+use App\Models\Transformation;
 use Illuminate\Database\Eloquent\Model;
 
 class Stack extends Model

@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire\Stacks;
 
-use App\Overlay;
-use App\Stack;
+use App\Models\Overlay;
+use App\Models\Stack;
 use Livewire\Component;
 
 class Insert extends Component

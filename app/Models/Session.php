@@ -1,8 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use App\Events\SessionUpdated;
+use App\Models\Overlay;
+use App\Models\Stack;
 use App\Support\RandomName;
 use Illuminate\Database\Eloquent\Model;
 

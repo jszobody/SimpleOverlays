@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Regex;
+use App\Models\Regex;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,18 +14,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $team = \App\Team::create([
+        $team = \App\Models\Team::create([
             'name' => 'Visiting',
         ]);
 
-        $visitor = \App\User::create([
+        $visitor = \App\Models\User::create([
             'name' => 'Visitor',
             'email' => 'visitor',
             'password' => '',
             'team_id' => $team->id,
         ]);
 
-        \App\Theme::create([
+        \App\Models\Theme::create([
             'name' => 'Partial Eclipse',
             'layouts' => ['blank' => 'Blank', 'lower' => 'Lower third', 'half-right' => 'Half right', 'full' => 'Full screen'],
             'sizes' => ['small' => 'Small', 'medium' => 'Medium', 'large'=>'Large'],
@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
             'css' => file_get_contents(base_path('stubs/default.css')),
         ]);
 
-        $transformation = \App\Transformation::create([
+        $transformation = \App\Models\Transformation::create([
             'name' => 'LSB Special Characters',
         ]);
 

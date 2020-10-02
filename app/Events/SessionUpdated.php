@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Session;
+use App\Models\Session;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;

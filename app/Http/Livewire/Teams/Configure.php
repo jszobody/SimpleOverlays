@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Teams;
 
-use App\Team;
+use App\Models\Team;
 use Livewire\Component;
 
 class Configure extends Component

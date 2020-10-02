@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Stacks;
 
-use App\Stack;
+use App\Models\Stack;
 use Carbon\Carbon;
 use Livewire\Component;
 

@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Stacks;
 
 use App\Jobs\CacheOverlay;
-use App\Stack;
+use App\Models\Stack;
 use Livewire\Component;
 
 class Build extends Component
