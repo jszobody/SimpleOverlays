@@ -29,6 +29,7 @@
         "flatpickr": "^4.6.3",
         "laravel-echo": "^1.8.0",
         "mousetrap": "^1.6.5",
+        "notiflix": "^2.5.0",
         "puppeteer-core": "^5.0.0",
         "pusher-js": "^6.0.3",
         "sortablejs": "^1.10.2"

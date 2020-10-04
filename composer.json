@@ -8,7 +8,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.3",
+        "php": "^7.4",
         "erusev/parsedown-extra": "^0.8.1",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
@@ -19,6 +19,7 @@
         "laravel/vapor-cli": "^1.7",
         "laravel/vapor-core": "^2.9",
         "livewire/livewire": "^2.0",
+        "lorisleiva/laravel-actions": "^1.1",
         "pusher/pusher-php-server": "^4.1",
         "spatie/browsershot": "^3.37",
         "spatie/eloquent-sortable": "^3.8",

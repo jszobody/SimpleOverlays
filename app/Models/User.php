@@ -75,4 +75,9 @@ class User extends Authenticatable
     {
         $this->memberTeams()->attach($team);
     }
+
+    public function isMemberOf(Team $team)
+    {
+        return $this->memberTeams()->whereId($team->id)->exists();
+    }
 }
