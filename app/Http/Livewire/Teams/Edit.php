@@ -6,7 +6,6 @@ use App\Actions\InviteTeamMember;
 use App\Http\Livewire\WithNotifications;
 use App\Models\Invite;
 use App\Models\Team;
-use App\Models\User;
 use Livewire\Component;
 
 class Edit extends Component
@@ -48,6 +47,6 @@ class Edit extends Component
 
         return $invite
             ? $this->notify('Invitation email sent to ' . $invite->email)
-            : $this->notify('That email is already part of this team', 'warning');
+            : $this->notify('That email is already part of this team');
     }
 }
