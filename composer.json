@@ -25,6 +25,7 @@
         "spatie/eloquent-sortable": "^3.8",
         "spatie/laravel-sluggable": "^2.5",
         "stechstudio/laravel-zipstream": "dev-better-s3-clients",
+        "stechstudio/snapthis": "dev-master",
         "wildbit/swiftmailer-postmark": "^3.3"
     },
     "require-dev": {

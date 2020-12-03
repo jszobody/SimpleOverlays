@@ -13,6 +13,7 @@ use Spatie\Browsershot\Browsershot;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 use Storage;
+use STS\SnapThis\Facades\SnapThis;
 
 class Overlay extends Model implements Sortable
 {
@@ -22,6 +23,7 @@ class Overlay extends Model implements Sortable
 
     protected $casts = [
         'css' => 'json',
+        'cache_expires_at' => 'datetime'
     ];
 
     public $sortable = [
@@ -36,7 +38,7 @@ class Overlay extends Model implements Sortable
         });
 
         static::updating(function ($overlay) {
-            $overlay->updateCacheName();
+            $overlay->clearCache();
         });
     }
 
@@ -85,12 +87,7 @@ class Overlay extends Model implements Sortable
 
     public function getCachedAttribute()
     {
-        return Storage::disk('s3')->has($this->cache_name);
-    }
-
-    public function getCachePathAttribute()
-    {
-        return 's3://'.config('filesystems.disks.s3.bucket').'/'.$this->cache_name;
+        return isset($this->cache_name) && isset($this->cache_expires_at) && $this->cache_expires_at->isFuture();
     }
 
     public function cache()
@@ -106,19 +103,17 @@ class Overlay extends Model implements Sortable
 
     public function generate()
     {
-        if (! $this->cached) {
-            Browsershot::url(route('overlay-preview', ['uuid' => $this->uuid]))
-                ->setNodeBinary('/opt/bin/node')
-                ->setNodeModulePath('/opt/nodejs/node_modules')
-                ->setBinPath(base_path('resources/browser.js'))
-                ->windowSize(1920, 1080)
-                ->hideBackground()
-                ->save(sys_get_temp_dir().'/tmp.png');
-
-            Storage::disk('s3')->putFileAs('', new File(sys_get_temp_dir().'/tmp.png'), $this->cache_name, 'public');
+        if($this->cached) {
+            return;
         }
 
-        return $this->cache_name;
+        $snapshot = SnapThis::view('stacks.overlay', ['overlay' => $this])->snapshot();
+
+        $this->update([
+            'cache_name' => $snapshot->name,
+            'cache_url' => $snapshot->url,
+            'cache_expires_at' => $snapshot->expires
+        ]);
     }
 
     public function moveBefore(self $otherModel)
@@ -148,11 +143,11 @@ class Overlay extends Model implements Sortable
         return $this->moveToEnd();
     }
 
-    public function updateCacheName()
+    public function clearCache()
     {
-        $this->cache_name = $this->id.'_'.md5(serialize($this->attributes)).'.png';
-
-        return $this;
+        $this->cache_name = null;
+        $this->cache_url = null;
+        $this->cache_expires_at = null;
     }
 
     public function newCollection(array $models = [])

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use STS\SnapThis\Client;
+use STS\SnapThis\Facades\SnapThis;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,6 +27,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        SnapThis::setDefaults(function(Client $snap)
+        {
+            $snap->hideBackground()->windowSize(1900, 1080);
+        });
     }
 }

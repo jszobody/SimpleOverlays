@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0a215e5825dfa4dfbd4e0e8bcd34edd6",
+    "content-hash": "34b1d080b5fdb102b35a342eebfa119e",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3835,6 +3835,48 @@
             "time": "2020-09-07T20:41:15+00:00"
         },
         {
+            "name": "stechstudio/laravel-record",
+            "version": "1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stechstudio/laravel-record.git",
+                "reference": "65d0ab4678e0285853b64b06da95e720a28bfedd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stechstudio/laravel-record/zipball/65d0ab4678e0285853b64b06da95e720a28bfedd",
+                "reference": "65d0ab4678e0285853b64b06da95e720a28bfedd",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.0|^6.0|^7.0|^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "STS\\Record\\": "src"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Joseph Szobody",
+                    "email": "joseph@stechstudio.com"
+                }
+            ],
+            "description": "What if Laravel's Collection and Model classes had a baby?",
+            "time": "2020-12-02T17:48:36+00:00"
+        },
+        {
             "name": "stechstudio/laravel-zipstream",
             "version": "dev-better-s3-clients",
             "source": {
@@ -3891,6 +3933,63 @@
                 "stechstudio"
             ],
             "time": "2020-09-19T13:57:40+00:00"
+        },
+        {
+            "name": "stechstudio/snapthis",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stechstudio/snapthis.git",
+                "reference": "cae84ff4fd7f234eab55b26a46ee4da5293c6425"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stechstudio/snapthis/zipball/cae84ff4fd7f234eab55b26a46ee4da5293c6425",
+                "reference": "cae84ff4fd7f234eab55b26a46ee4da5293c6425",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4|^8.0",
+                "stechstudio/laravel-record": "^1.5"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.0",
+                "phpunit/phpunit": "^9.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "STS\\SnapThis\\SnapThisServiceProvider"
+                    ],
+                    "aliases": {
+                        "SnapThis": "STS\\SnapThis\\Facades\\SnapThis"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "STS\\SnapThis\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Joseph Szobody",
+                    "email": "joseph@stechstudio.com",
+                    "homepage": "https://stechstudio.com"
+                }
+            ],
+            "description": "PHP SDK for SnapThis screenshot service",
+            "homepage": "https://github.com/stechstudio/snapthis",
+            "keywords": [
+                "screenshot",
+                "snapthis"
+            ],
+            "time": "2020-12-02T18:04:44+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -6846,6 +6945,7 @@
                 "faker",
                 "fixtures"
             ],
+            "abandoned": true,
             "time": "2019-12-12T13:22:17+00:00"
         },
         {
@@ -8927,12 +9027,13 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "stechstudio/laravel-zipstream": 20
+        "stechstudio/laravel-zipstream": 20,
+        "stechstudio/snapthis": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.3"
+        "php": "^7.4"
     },
     "platform-dev": [],
     "plugin-api-version": "1.1.0"
