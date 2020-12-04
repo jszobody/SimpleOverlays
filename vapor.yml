@@ -1,5 +1,5 @@
 id: 11589
-name: eclipse
+name: impose
 environments:
     production:
         domain: my.eclipse.app
@@ -7,14 +7,7 @@ environments:
         memory: 1024
         cli-memory: 512
         layers:
-            # LambCI custom node layer (https://github.com/lambci/node-custom-lambda)
-            - arn:aws:lambda:us-east-1:553035198032:layer:nodejs12:36
-
-            # Vapor PHP Layer (node layer overwrites the runtime, so this has to come afterwards)
-            - vapor:php-7.4
-
-            # Compressed Chromium layer (https://github.com/shelfio/chrome-aws-lambda-layer)
-            - arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda:22
+          - vapor:php-7.4
         build:
             - 'composer install --no-dev --classmap-authoritative'
             - 'php artisan event:cache'

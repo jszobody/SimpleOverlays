@@ -14,6 +14,7 @@ use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 use Storage;
 use STS\SnapThis\Facades\SnapThis;
+use STS\SnapThis\Snapshot;
 
 class Overlay extends Model implements Sortable
 {
@@ -37,8 +38,10 @@ class Overlay extends Model implements Sortable
             $overlay->uuid = (string) Str::uuid();
         });
 
-        static::updating(function ($overlay) {
-            $overlay->clearCache();
+        static::updating(function (Overlay $overlay) {
+            if($overlay->isDirty(['content', 'layout', 'size'])) {
+                $overlay->clearCache();
+            }
         });
     }
 
@@ -107,7 +110,10 @@ class Overlay extends Model implements Sortable
             return;
         }
 
+        /** @var Snapshot $snapshot */
         $snapshot = SnapThis::view('stacks.overlay', ['overlay' => $this])->snapshot();
+
+        info(json_encode($snapshot->toArray()));
 
         $this->update([
             'cache_name' => $snapshot->name,
