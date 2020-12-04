@@ -71,12 +71,11 @@ class Overlay extends Model implements Sortable
 
     public function getPngAttribute()
     {
-        return Storage::disk('s3')->url($this->generate());
-//        return Storage::disk('s3')->download(
-//            $this->generate(),
-//            $this->uuid . ".png",
-//            ['X-Vapor-Base64-Encode' => 'True']
-//        );
+        if(!$this->cached) {
+            $this->generate();
+        }
+
+        return redirect($this->cache_url);
     }
 
     public function getUuidAttribute()

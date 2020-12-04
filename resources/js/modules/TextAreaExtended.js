@@ -53,6 +53,7 @@ export default class TextAreaExtended {
                 let newCaretPosition = this.getCaretPosition() + "\t".length;
                 this.element.value = this.element.value.substring(0, this.getCaretPosition()) + "\t" + this.element.value.substring(this.getCaretPosition(), this.element.value.length);
                 this.setCaretPosition(newCaretPosition);
+                this.onChange.call();
                 return false;
             }
         }

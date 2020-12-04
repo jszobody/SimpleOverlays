@@ -131,12 +131,12 @@
                    class="p-1 text-gray-600 hover:text-gray-900 border border-white hover:border-blue-500 rounded w-6 h-6 flex items-center justify-center cursor-pointer text-sm"><i
                         class="fas fa-italic"></i></a>
                 <div class="border-l border-gray-300 mx-2 my-1"></div>
-                <a onclick="editor.formatVerseNumbers()"
-                   class="p-1 text-gray-600 hover:text-gray-900 border border-white hover:border-blue-500 rounded w-6 h-6 flex items-center justify-center cursor-pointer text-sm"><i
-                        class="fas fa-bible"></i></a>
                 <a onclick="editor.removeWhitespace()"
                    class="p-1 text-gray-600 hover:text-gray-900 border border-white hover:border-blue-500 rounded w-6 h-6 flex items-center justify-center cursor-pointer text-sm"><i
                         class="fas fa-align-slash"></i></a>
+                <a onclick="editor.formatVerseNumbers()"
+                   class="p-1 text-gray-600 hover:text-gray-900 border border-white hover:border-blue-500 rounded w-6 h-6 flex items-center justify-center cursor-pointer text-sm"><i
+                        class="fas fa-bible"></i></a>
             </div>
 
             <textarea id="input" wire:model.debounce.300ms="content"
