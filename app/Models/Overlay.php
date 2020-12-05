@@ -110,7 +110,7 @@ class Overlay extends Model implements Sortable
         }
 
         /** @var Snapshot $snapshot */
-        $snapshot = SnapThis::view('stacks.overlay', ['overlay' => $this])->snapshot();
+        $snapshot = SnapThis::view('stacks.overlay', ['overlay' => $this])->expiration(now()->addDays(30))->snapshot();
 
         info(json_encode($snapshot->toArray()));
 
