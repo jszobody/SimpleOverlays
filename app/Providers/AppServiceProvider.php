@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
     {
         SnapThis::setDefaults(function(Client $snap)
         {
-            $snap->hideBackground()->windowSize(1900, 1080)->lifetime(30 * 24 * 60 * 60);
+            $snap->hideBackground()->windowSize(1920, 1080)->lifetime(30 * 24 * 60 * 60);
         });
     }
 }
