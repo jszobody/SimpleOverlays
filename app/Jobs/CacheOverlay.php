@@ -16,6 +16,8 @@ class CacheOverlay implements ShouldQueue
 
     protected $overlay;
 
+    public $tries = 5;
+
     public function __construct(Overlay $overlay)
     {
         $this->overlay = $overlay;

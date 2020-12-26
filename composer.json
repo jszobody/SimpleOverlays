@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.4",
+        "bugsnag/bugsnag-laravel": "^2.0",
         "erusev/parsedown-extra": "^0.8.1",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
@@ -18,6 +19,7 @@
         "laravel/ui": "^3.0",
         "laravel/vapor-cli": "^1.7",
         "laravel/vapor-core": "^2.9",
+        "laravel/vapor-ui": "^1.0",
         "livewire/livewire": "^2.0",
         "lorisleiva/laravel-actions": "^1.1",
         "pusher/pusher-php-server": "^4.1",

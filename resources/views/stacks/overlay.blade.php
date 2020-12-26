@@ -6,6 +6,7 @@
 
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 
+    {!! $overlay->stack->theme->head !!}
     <style>
         {!! $overlay->stack->theme->css !!}
     </style>

@@ -1,7 +1,6 @@
 @push('head')
-    <style>
-        {!! $stack->theme->css !!}
-    </style>
+{!! $stack->theme->head !!}
+<style>{!! $stack->theme->css !!}</style>
 @endpush
 @push('app')
     <script>

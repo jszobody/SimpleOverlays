@@ -13,6 +13,7 @@ use Spatie\Browsershot\Browsershot;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 use Storage;
+use STS\SnapThis\Client;
 use STS\SnapThis\Facades\SnapThis;
 use STS\SnapThis\Snapshot;
 
@@ -69,12 +70,17 @@ class Overlay extends Model implements Sortable
         return Storage::disk('s3')->path($this->generate());
     }
 
-    public function getPngAttribute()
+    public function getPngUrlAttribute()
     {
         if(!$this->cached) {
             $this->generate();
         }
 
+        return $this->cache_url;
+    }
+
+    public function getPngAttribute()
+    {
         return redirect($this->cache_url);
     }
 
@@ -103,15 +109,21 @@ class Overlay extends Model implements Sortable
         return $this;
     }
 
-    public function generate()
+    public function generate($name = "snapshot.png"): Snapshot
     {
-        if($this->cached) {
-            return;
-        }
+        /** @var Client $client */
+        $client = app()->environment('local')
+            ? SnapThis::view('stacks.overlay', ['overlay' => $this])
+            : SnapThis::url(route('overlay-preview', ['uuid' => $this->uuid]));
 
         /** @var Snapshot $snapshot */
-        $snapshot = SnapThis::url(route('overlay-preview', ['uuid' => $this->uuid]))
-            ->expiration(now()->addDays(30))->snapshot();
+        $client = $client
+            ->name($name)
+            ->expiration(now()->addDays(30));
+
+        $snapshot = retry(3, function() use($client) {
+            return $client->snapshot();
+        }, 3);
 
         //info(json_encode($snapshot->toArray()));
 
@@ -120,6 +132,8 @@ class Overlay extends Model implements Sortable
             'cache_url' => $snapshot->url,
             'cache_expires_at' => $snapshot->expires
         ]);
+
+        return $snapshot;
     }
 
     public function moveBefore(self $otherModel)

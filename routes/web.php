@@ -26,6 +26,10 @@ Route::get('/', function () {
     return redirect()->route('list-stacks');
 });
 
+Route::get('/config', function() {
+    dd(config());
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('/stacks', Stacks\Index::class)->name('list-stacks');
     Route::get('/stacks/create', Stacks\Create::class)->name('create-stack');
@@ -55,5 +59,6 @@ Route::middleware('visitor')->group(function () {
 
     Route::get('/overlay/{uuid}.html', [Controllers\OverlayController::class, 'preview'])->name('overlay-preview');
     Route::get('/overlay/{uuid}.png', [Controllers\OverlayController::class, 'png'])->name('overlay-png');
+    Route::get('/overlay/{uuid}/overlay_{index}.png', [Controllers\OverlayController::class, 'download'])->name('download-png');
     Route::get('/control/{slug}/control', [Controllers\PresentController::class, 'control'])->name('public-control');
 });

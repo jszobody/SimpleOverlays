@@ -41,7 +41,12 @@
                     </div>
                 </div>
 
-                <div class="text-center text-gray-700">{{ $loop->index + 1 }}</div>
+                <div class="flex justify-center text-gray-700">
+                    <div class="mr-2">{{ $loop->index + 1 }}</div>
+                    <a href="{{ route('download-png', ['uuid' => $overlay->uuid, 'index' => $loop->index + 1]) }}" class="text-gray-700 hover:text-blue-500">
+                        <i class="fad fa-download"></i>
+                    </a>
+                </div>
             </div>
         @endforeach
     </div>
