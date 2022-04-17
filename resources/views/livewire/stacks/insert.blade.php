@@ -30,9 +30,24 @@
             </div>
         </div>
 
-        <div class="mt-5 overflow-y-auto h-64 px-4">
+        <div class="mt-2 flex border-b border-gray-200">
+            <div class="-mb-px flex space-x-4">
+                @foreach(team()->categories AS $cat)
+                    <a wire:click="category({{ $cat->id }})" class="cursor-pointer whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm {{ $category->is($cat) ? 'border-blue-500 text-black' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">
+                        {{ Str::plural($cat->name) }}
+                    </a>
+                @endforeach
+            </div>
+        </div>
+
+        <div class="mt-5 px-4">
+            <input type="search" wire:model.debounce.300ms="filter" placeholder="Type to filter"
+                   class="focus:outline-none py-3 border-b border-gray-200 block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5 text-sm"/>
+        </div>
+
+        <div class="mt-2 overflow-y-auto h-64 px-4">
             @foreach($stacks AS $stack)
-                <div wire:click="select({{ $stack->id }})" class="rounded shadow-sm hover:shadow px-4 py-2 my-2 border flex items-center justify-between cursor-pointer {{ $selected && $selected->id == $stack->id ? 'border-blue-400' : 'border-gray-200 hover:border-blue-400' }}">
+                <div wire:click="select({{ $stack->id }})" class="rounded shadow-sm hover:shadow px-4 py-2 my-2 border flex items-center justify-between cursor-pointer {{ $selected && $selected->id == $stack->id ? 'text-black border-blue-400' : 'text-gray-500 border-gray-200 hover:border-blue-400' }}">
                     <div class="text-gray-700 {{ $selected && $selected->id == $stack->id ? 'font-semibold' : '' }}">{{ $stack->title }}
                         <span class="text-sm text-gray-400 inline-block ml-1">{{ optional($stack->occurs_at)->format('F j') }}</span>
                     </div>

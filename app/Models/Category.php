@@ -14,4 +14,9 @@ class Category extends Model
     {
         return $this->hasMany(Stack::class);
     }
+
+    public function resolveRouteBinding($value, $field = null)
+    {
+        return team()->categories()->where($field ?? 'id', $value)->firstOrFail();
+    }
 }

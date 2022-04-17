@@ -1,6 +1,6 @@
 <div class="container mx-auto bg-white rounded-lg shadow-lg p-6 md:p-10">
     <div class="flex items-center justify-between border-b border-gray-300 pb-4 mb-8">
-        <h1 class="text-3xl font-semibold">Stacks</h1>
+        <h1 class="text-3xl font-semibold">{{ Str::plural($category->name) }}</h1>
         <a href="{{ route('create-stack') }}" class="bg-blue-500 hover:bg-blue-700 text-gray-100 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Create Stack</a>
     </div>
 
@@ -14,21 +14,9 @@
             </div>
             <img src="{{ asset('images/undraw_taking_notes_tjaf.svg') }}" class="w-1/2"/>
         </div>
-    @endif
-
-    @if($stacks->whereNotNull('occurs_at')->count())
-        <div class="font-semibold">Events</div>
+    @else
         <div class="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 my-4">
-            @foreach($stacks->whereNotNull('occurs_at') AS $stack)
-                @include('stacks._tile')
-            @endforeach
-        </div>
-    @endif
-
-    @if($stacks->whereNull('occurs_at')->count())
-        <div class="font-semibold">Collections</div>
-        <div class="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 my-4">
-            @foreach($stacks->whereNull('occurs_at') AS $stack)
+            @foreach($stacks AS $stack)
                 @include('stacks._tile')
             @endforeach
         </div>

@@ -26,13 +26,9 @@ Route::get('/', function () {
     return redirect()->route('list-stacks');
 });
 
-Route::get('/config', function() {
-    dd(config());
-});
-
 Route::middleware('auth')->group(function () {
-    Route::get('/stacks', Stacks\Index::class)->name('list-stacks');
     Route::get('/stacks/create', Stacks\Create::class)->name('create-stack');
+    Route::get('/stacks/{category}', Stacks\Index::class)->name('list-stacks');
     Route::get('/stacks/{stack}/edit', Stacks\Edit::class)->name('edit-stack');
     Route::get('/stacks/{stack}/preview', Stacks\Preview::class)->name('preview-stack');
     Route::get('/stacks/{stack}/present', Stacks\Present::class)->name('present-stack');
