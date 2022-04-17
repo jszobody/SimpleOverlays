@@ -7,12 +7,18 @@ use App\Models\Session;
 use App\Models\Theme;
 use App\Models\Transformation;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Stack extends Model
 {
     protected $guarded = ['id'];
 
     protected $casts = ['occurs_at' => 'datetime'];
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
 
     public function theme()
     {

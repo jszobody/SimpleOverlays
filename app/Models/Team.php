@@ -47,6 +47,18 @@ class Team extends Model
             ->orderBy('occurs_at', 'DESC');
     }
 
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
+
+    public function templates()
+    {
+        return $this->hasMany(Stack::class)->whereHas('category', function($query) {
+            $query->where('name', 'Template');
+        });
+    }
+
     public function transformations()
     {
         return $this->hasMany(Transformation::class);

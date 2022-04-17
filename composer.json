@@ -8,7 +8,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.4",
+        "php": "^7.4|^8.0",
         "bugsnag/bugsnag-laravel": "^2.0",
         "erusev/parsedown-extra": "^0.8.1",
         "fideloper/proxy": "^4.2",
@@ -26,7 +26,7 @@
         "spatie/browsershot": "^3.37",
         "spatie/eloquent-sortable": "^3.8",
         "spatie/laravel-sluggable": "^2.5",
-        "stechstudio/laravel-zipstream": "dev-better-s3-clients",
+        "stechstudio/laravel-zipstream": "^4.6",
         "stechstudio/snapthis": "dev-master",
         "wildbit/swiftmailer-postmark": "^3.3"
     },
