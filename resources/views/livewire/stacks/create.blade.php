@@ -49,8 +49,8 @@
                 <label for="template" class="text-lg leading-6 font-medium text-gray-900">Template</label>
                 <select id="template" wire:model="template"
                         class="mt-2 block form-select w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                    <option value="">None</option>
                     @foreach($templates AS $template)
-                        <option value="">None</option>
                         <option value="{{ $template->id }}">{{ $template->title }}</option>
                     @endforeach
                 </select>

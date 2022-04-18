@@ -54,9 +54,10 @@ class Team extends Model
 
     public function templates()
     {
-        return $this->hasMany(Stack::class)->whereHas('category', function($query) {
-            $query->where('name', 'Template');
-        });
+        return $this->hasMany(Stack::class)->active()
+            ->whereHas('category', function($query) {
+                $query->where('name', 'Template');
+            });
     }
 
     public function transformations()
