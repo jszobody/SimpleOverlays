@@ -28,7 +28,7 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/stacks/create', Stacks\Create::class)->name('create-stack');
-    Route::get('/stacks/{category}', Stacks\Index::class)->name('list-stacks');
+    Route::get('/stacks/{category}', Stacks\Index::class)->name('list-stacks')->where('category', '[0-9]+');
     Route::get('/stacks/{stack}/edit', Stacks\Edit::class)->name('edit-stack');
     Route::get('/stacks/{stack}/preview', Stacks\Preview::class)->name('preview-stack');
     Route::get('/stacks/{stack}/present', Stacks\Present::class)->name('present-stack');
