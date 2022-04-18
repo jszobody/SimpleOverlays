@@ -23,7 +23,7 @@ use App\Http\Controllers AS Controllers;
 Auth::routes();
 
 Route::get('/', function () {
-    return redirect()->route('list-stacks');
+    return redirect()->route('list-stacks', team()->categories()->first()->id);
 });
 
 Route::middleware('auth')->group(function () {
