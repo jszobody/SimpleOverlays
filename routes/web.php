@@ -22,11 +22,11 @@ use App\Http\Controllers AS Controllers;
 
 Auth::routes();
 
-Route::get('/', function () {
-    return redirect()->route('list-stacks', team()->categories()->first()->id);
-});
-
 Route::middleware('auth')->group(function () {
+    Route::get('/', function () {
+        return redirect()->route('list-stacks', team()->categories()->first()->id);
+    });
+
     Route::get('/stacks/create', Stacks\Create::class)->name('create-stack');
     Route::get('/stacks/{category}', Stacks\Index::class)->name('list-stacks')->where('category', '[0-9]+');
     Route::get('/stacks/{stack}/edit', Stacks\Edit::class)->name('edit-stack');
