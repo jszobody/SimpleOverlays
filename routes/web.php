@@ -22,6 +22,8 @@ use App\Http\Controllers AS Controllers;
 
 Auth::routes();
 
+Route::get('/reset', function() { auth()->logout(); });
+
 Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         return redirect()->route('list-stacks', team()->categories()->first()->id);
