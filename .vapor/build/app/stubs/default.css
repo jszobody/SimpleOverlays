@@ -1,0 +1,79 @@
+@font-face {
+    font-family: LSBSymbol;
+    src: url('https://impose-assets.s3.amazonaws.com/LSBSymbol.ttf') format('truetype');
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
+
+.slide {
+    background-color: rgba(0,0,0,0.9);
+    position: absolute;
+    display: flex;
+    align-items: center;
+    font-family: Roboto, sans-serif;
+    font-weight: 300;
+}
+
+.slide.center {
+    justify-content: center;
+}
+
+.slide.lower {
+    width: 100%;
+    bottom: 0;
+    align-items: center;
+    padding: 2em 3em;
+    min-height: 200px;
+}
+
+.slide.full {
+    padding: 2.5em 2.5em;
+    width: 100%;
+    top: 15%;
+    bottom: 15%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.slide.full strong {
+    display: inline-block;
+    margin: 0.5em 0;
+}
+
+.slide.large {
+    font-size: 130%;
+}
+
+.slide.half-right {
+    min-height: 100%;
+    padding: 0 2.5em;
+    left: 50%;
+    right: 0;
+}
+
+.slide.half-left {
+    min-height: 100%;
+    padding: 0 2.5em;
+    right: 50%;
+    left: 0;
+}
+
+.slide.blank {
+    background-color: transparent;
+    color: #000;
+    position: relative;
+    display: block;
+}
+
+.slide strong {
+    font-weight: 700;
+}
+
+.slide sup {
+    opacity: 0.5;
+}
+
+.slide img {
+    width: 100%;
+}
