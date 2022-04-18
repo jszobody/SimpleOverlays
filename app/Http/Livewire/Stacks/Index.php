@@ -18,7 +18,7 @@ class Index extends Component
     public function render()
     {
         return view('livewire.stacks.index', [
-            'stacks' => $this->category->stacks,
+            'stacks' => $this->category->stacks()->withCount('overlays')->get(),
         ]);
     }
 }
