@@ -67,7 +67,7 @@ class Overlay extends Model implements Sortable
 
     public function getFilePathAttribute()
     {
-        return Storage::disk('s3')->path($this->generate());
+        return $this->generate();
     }
 
     public function getPngUrlAttribute()
