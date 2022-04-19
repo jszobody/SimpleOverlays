@@ -61,7 +61,7 @@ class Configure extends Component
     {
         $this->stack->archive();
 
-        return $this->redirectRoute('list-stacks');
+        return $this->redirectRoute('list-stacks', ['category' => $this->stack->category_id]);
     }
 
     public function render()
