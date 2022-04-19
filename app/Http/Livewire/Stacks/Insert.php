@@ -43,6 +43,7 @@ class Insert extends Component
     protected function stacks()
     {
         return $this->category->stacks()
+            ->active()
             ->where('id', '!=', $this->stack->id)
             ->when(!!$this->filter, function($query) {
                 $query->where('title','like', '%' . strtolower($this->filter) . '%');
