@@ -20,15 +20,13 @@ class OverlayController
 
     public function png($uuid)
     {
-        return redirect(
-            Overlay::whereUuid($uuid)->firstOrFail()->png
-        );
+        return response()->file(Overlay::whereUuid($uuid)->firstOrFail()->generate());
     }
 
     public function download($uuid, $index)
     {
         return response(
-            file_get_contents(Overlay::whereUuid($uuid)->firstOrFail()->png_url),
+            file_get_contents(Overlay::whereUuid($uuid)->firstOrFail()->generate()),
             200,
             [
                 'Content-type'        => 'image/png',

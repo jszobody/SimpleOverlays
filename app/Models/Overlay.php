@@ -95,7 +95,14 @@ class Overlay extends Model implements Sortable
 
     public function getCachedAttribute()
     {
-        return isset($this->cache_name) && isset($this->cache_expires_at) && $this->cache_expires_at->isFuture();
+        return isset($this->cache_name) && file_exists($this->cache_name);
+    }
+
+    public function getThumbprintAttribute()
+    {
+        return md5(
+            $this->content . $this->layout . $this->size . $this->css
+        );
     }
 
     public function cache()
@@ -109,31 +116,28 @@ class Overlay extends Model implements Sortable
         return $this;
     }
 
-    public function generate($name = "snapshot.png"): Snapshot
+    public function generate()
     {
-        /** @var Client $client */
-        $client = app()->environment('local')
-            ? SnapThis::view('stacks.overlay', ['overlay' => $this])
-            : SnapThis::url(route('overlay-preview', ['uuid' => $this->uuid]));
+        $saveTo = storage_path("overlays/" . $this->uuid . "_" . $this->thumbprint . ".png");
 
-        /** @var Snapshot $snapshot */
-        $client = $client
-            ->name($name)
-            ->expiration(now()->addDays(30));
+        if(file_exists($saveTo)) {
+            return $saveTo;
+        }
 
-        $snapshot = retry(3, function() use($client) {
-            return $client->snapshot();
-        }, 3);
+        if(!is_dir(dirname($saveTo))) {
+            mkdir(dirname($saveTo), 0777, true);
+        }
 
-        //info(json_encode($snapshot->toArray()));
+        Browsershot::url(route('overlay-preview', ['uuid' => $this->uuid]))
+            ->setScreenshotType('png')
+            ->windowSize(1920, 1080)
+            ->save($saveTo);
 
         $this->update([
-            'cache_name' => $snapshot->name,
-            'cache_url' => $snapshot->url,
-            'cache_expires_at' => $snapshot->expires
+            'cache_name' => $saveTo
         ]);
 
-        return $snapshot;
+        return $saveTo;
     }
 
     public function moveBefore(self $otherModel)
