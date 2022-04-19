@@ -121,6 +121,10 @@ class Overlay extends Model implements Sortable
         $saveTo = storage_path("overlays/" . $this->uuid . "_" . $this->thumbprint . ".png");
 
         if(file_exists($saveTo)) {
+            if($this->cache_name != $saveTo) {
+                $this->update(['cache_name' => $saveTo]);
+            }
+
             return $saveTo;
         }
 
