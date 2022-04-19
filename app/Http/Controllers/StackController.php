@@ -29,11 +29,15 @@ class StackController
             return redirect()->route('build-stack', ['stack' => $stack]);
         }
 
+        $prefix = $stack->occurs_at
+            ? $stack->occurs_at->format('Fj') . '_'
+            : '';
+
         return Zip::create(
             $stack->zip_name,
-            $stack->overlays->mapWithKeys(function (Overlay $overlay, $index) {
-                return [$overlay->cache_name => 'overlay_'.($index + 1).'.png'];
-            })->toArray()
+            $stack->overlays
+                ->mapWithKeys(fn (Overlay $overlay, $index) => [$overlay->cache_name => $prefix . 'overlay_'.($index + 1).'.png'])
+                ->toArray()
         );
     }
 }
