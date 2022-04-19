@@ -1,6 +1,9 @@
 <div class="container mx-auto bg-white rounded-lg shadow-lg p-6 md:p-10">
     <div class="flex items-center justify-between border-b border-gray-300 pb-4 mb-8">
-        <h1 class="text-3xl font-semibold">{{ Str::plural($category->name) }}</h1>
+        <h1 class="text-3xl font-semibold">
+            <i class="fad fa-{{ $category->icon }} opacity-25 mr-2"></i>
+            {{ Str::plural($category->name) }}
+        </h1>
         <a href="{{ route('create-stack') }}" class="bg-blue-500 hover:bg-blue-700 text-gray-100 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Create Stack</a>
     </div>
 
