@@ -47,6 +47,8 @@ class Insert extends Component
             ->when(!!$this->filter, function($query) {
                 $query->where('title','like', '%' . strtolower($this->filter) . '%');
             })
+            ->orderBy('occurs_at', 'DESC')
+            ->orderBy('title')
             ->get();
     }
 
