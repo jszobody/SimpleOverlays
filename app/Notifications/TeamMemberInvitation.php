@@ -45,7 +45,7 @@ class TeamMemberInvitation extends Notification
         return (new MailMessage)
             ->subject("Invitation to join {$this->invite->team->name} on Eclipse")
             ->line("{$this->invite->user->name} has invited you to join the '{$this->invite->team->name}' team on Eclipse.")
-            ->action('Accept invitation', url('/'))
+            ->action('Accept invitation', route())
             ->line('Eclipse helps you rapidly develop content overlays for your video productions.');
     }
 

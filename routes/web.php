@@ -59,4 +59,7 @@ Route::middleware('visitor')->group(function () {
     Route::get('/overlay/{uuid}.png', [Controllers\OverlayController::class, 'png'])->name('overlay-png');
     Route::get('/overlay/{uuid}/overlay_{index}.png', [Controllers\OverlayController::class, 'download'])->name('download-png');
     Route::get('/control/{slug}/control', [Controllers\PresentController::class, 'control'])->name('public-control');
+
+    Route::get('/invitation/{invite:token}', [Controllers\InviteController::class, 'accept'])->name('invitation.accept');
+    Route::post('/invitation/{invite:token}', [Controllers\InviteController::class, 'complete'])->name('invitation.complete');
 });
