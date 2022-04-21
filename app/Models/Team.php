@@ -82,6 +82,12 @@ class Team extends Model
             'owner_id' => $user->id,
         ]);
 
+        $team->categories()->saveMany([
+            new Category(['name' => 'Event','description' => 'Church service or other date specific event', 'icon' => 'calendar-days']),
+            new Category(['name' => 'Template','description' => 'Divine setting or similar templates ', 'icon' => 'clone']),
+            new Category(['name' => 'Snippet','description' => 'Hymns, creeds, prayers, and other re-usable snippets', 'icon' => 'puzzle-piece'])
+        ]);
+
         $user->join($team);
 
         return $team;
