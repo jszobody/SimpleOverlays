@@ -14,7 +14,7 @@ class TeamController
         );
 
         return redirect(
-            $request->get('redirect', route('list-stacks'))
+            $request->get('redirect', route('list-stacks', team()->categories()->first()->id))
         );
     }
 }
