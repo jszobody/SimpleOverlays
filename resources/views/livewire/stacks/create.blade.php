@@ -25,8 +25,8 @@
                 selected: @entangle('category'),
             }" class="mt-2 grid grid-cols-3 gap-2">
                 <template x-for="category in categories">
-                    <div class="rounded-lg shadow-sm p-4 cursor-pointer" @click="selected = category.id"
-                         :class="selected == category.id ? 'border-2 border-blue-500' : 'border border-gray-300'">
+                    <div class="rounded-lg shadow-sm p-4 cursor-pointer border" @click="selected = category.id"
+                         :class="selected == category.id ? 'border-blue-500 shadow-lg' : 'border-gray-300 shadow-sm'">
                         <div x-text="category.name" class="font-medium"></div>
                         <div x-text="category.description" class="text-sm text-gray-500"></div>
                     </div>

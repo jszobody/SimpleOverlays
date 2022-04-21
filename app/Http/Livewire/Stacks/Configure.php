@@ -10,7 +10,8 @@ class Configure extends Component
 {
     /** @var Stack */
     public $stack;
-
+    public $category;
+    public $categories;
     public $occurs;
 
     protected $rules = [
@@ -30,6 +31,8 @@ class Configure extends Component
         $this->transformations = $this->stack->transformations->pluck('id')->map(function ($id) {
             return (string) $id;
         })->toArray();
+        $this->categories = team()->categories->toArray();
+        $this->category = $this->stack->category_id;
     }
 
     public function updated($propertyName)
@@ -43,6 +46,7 @@ class Configure extends Component
 
         $this->stack->update([
             'occurs_at' => $this->occurs ? Carbon::parse($this->occurs) : null,
+            'category_id' => $this->category
         ]);
 
         $this->stack->transformations()->sync($this->transformations);

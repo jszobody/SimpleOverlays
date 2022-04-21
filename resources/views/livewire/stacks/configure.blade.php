@@ -13,6 +13,24 @@
             </div>
 
             <div class="my-8 flex items-center">
+                <label for="title" class="text-lg leading-6 font-medium text-gray-900 w-56 flex-shrink-0">Category</label>
+                <div class="flex-grow">
+                    <div x-data="{
+                        categories: @entangle('categories'),
+                        selected: @entangle('category'),
+                    }" class="mt-2 grid grid-cols-3 gap-2">
+                        <template x-for="category in categories">
+                            <div class="rounded-lg p-4 cursor-pointer border" @click="selected = category.id"
+                                 :class="selected == category.id ? 'border-blue-500 bg-white shadow' : 'border-gray-300 bg-gray-50 shadow-sm'">
+                                <div x-text="category.name" class="font-medium"></div>
+                                <div x-text="category.description" class="text-sm text-gray-500"></div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+
+            <div class="my-8 flex items-center">
                 <label for="occurs" class="text-lg leading-6 font-medium text-gray-900 w-56 flex-shrink-0">Date</label>
                 <div class="rounded-md shadow-sm flex-grow relative">
                     <input id="occurs" wire:model="occurs"
@@ -63,6 +81,11 @@
             <div class="my-6 flex items-center">
                 <label for="title" class="text-lg leading-6 text-gray-900 w-56 flex-shrink-0">Name</label>
                 <div class="flex-grow font-medium">{{ $stack->title }}</div>
+            </div>
+
+            <div class="my-6 flex items-center">
+                <label for="title" class="text-lg leading-6 text-gray-900 w-56 flex-shrink-0">Category</label>
+                <div class="flex-grow font-medium">{{ $stack->category->name }}</div>
             </div>
 
             @if($stack->occurs_at)
