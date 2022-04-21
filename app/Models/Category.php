@@ -10,6 +10,8 @@ class Category extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function stacks(): HasMany
     {
         return $this->hasMany(Stack::class);

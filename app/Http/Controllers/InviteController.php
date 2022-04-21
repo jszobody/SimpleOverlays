@@ -19,7 +19,10 @@ class InviteController extends Controller
 
         if($user = User::where('email', $invite->email)->first()) {
             // This user is already registered, just add them to the invited team
-            $user->memberTeams()->attach($invite->team_id);
+
+            if(!$user->isMemberOf($invite->team)) {
+                $user->memberTeams()->attach($invite->team_id);
+            }
 
             $invite->update(['accepted_at' => now()]);
 
