@@ -135,6 +135,7 @@ class Overlay extends Model implements Sortable
         Browsershot::url(route('overlay-preview', ['uuid' => $this->uuid]))
             ->setScreenshotType('png')
             ->windowSize(1920, 1080)
+            ->hideBackground()
             ->save($saveTo);
 
         $this->update([
