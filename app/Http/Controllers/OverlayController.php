@@ -25,12 +25,18 @@ class OverlayController
 
     public function download($uuid, $index)
     {
+        $overlay = Overlay::whereUuid($uuid)->firstOrFail();
+
+        $prefix = $overlay->stack->occurs_at
+            ? $overlay->stack->occurs_at->format('Fj') . '_'
+            : '';
+
         return response(
-            file_get_contents(Overlay::whereUuid($uuid)->firstOrFail()->generate()),
+            file_get_contents($overlay->generate()),
             200,
             [
                 'Content-type'        => 'image/png',
-                'Content-Disposition' => 'attachment; filename="overlay_' . $index . '.png"',
+                'Content-Disposition' => 'attachment; filename="' . $prefix . 'overlay_' . $index . '.png"',
             ]
         );
     }
