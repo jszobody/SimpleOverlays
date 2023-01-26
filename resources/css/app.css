@@ -7,10 +7,3 @@
 .scroll-smooth {
     scroll-behavior: smooth;
 }
-
-sub {
-    opacity: 0.5;
-    font-size: 50%;
-    display: block;
-    line-height: 1.3;
-}
