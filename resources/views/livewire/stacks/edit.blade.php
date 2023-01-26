@@ -130,6 +130,9 @@
                 <a onclick="editor.wrapSelection('_')"
                    class="p-1 text-gray-600 hover:text-gray-900 border border-white hover:border-blue-500 rounded w-6 h-6 flex items-center justify-center cursor-pointer text-sm"><i
                         class="fas fa-italic"></i></a>
+                <a onclick="editor.wrapSelection('^')"
+                   class="p-1 text-gray-600 hover:text-gray-900 border border-white hover:border-blue-500 rounded w-6 h-6 flex items-center justify-center cursor-pointer text-sm"><i
+                        class="fas fa-angle-up"></i></a>
                 <div class="border-l border-gray-300 mx-2 my-1"></div>
                 <a onclick="editor.removeWhitespace()"
                    class="p-1 text-gray-600 hover:text-gray-900 border border-white hover:border-blue-500 rounded w-6 h-6 flex items-center justify-center cursor-pointer text-sm"><i
