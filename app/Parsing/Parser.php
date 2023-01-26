@@ -30,6 +30,8 @@ class Parser extends \ParsedownExtra
             $this->transformations->each(function ($transformation) use (&$line) {
                 $line = $transformation->transform($line);
             });
+
+            $line = str_replace(["(((",")))"], ["<sub>","</sub>"], $line);
         }
 
         return parent::lines($lines);
