@@ -3,6 +3,7 @@
 namespace App\Parsing;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 class Parser extends \ParsedownExtra
 {
@@ -31,7 +32,13 @@ class Parser extends \ParsedownExtra
                 $line = $transformation->transform($line);
             });
 
-            $line = str_replace(["(((",")))"], ["<sub>","</sub>"], $line);
+            if(preg_match("/^:::\s(.+)/", $line, $matches)) {
+                $line = "<div class='custom-block {$matches[1]}'>";
+            }
+
+            if(preg_match("/^:::$/", $line, $matches)) {
+                $line = "</div>";
+            }
         }
 
         return parent::lines($lines);
